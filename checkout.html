@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Afrekenen — Outlet Loket</title>
+<!--
+  WooCommerce koppeling:
+  - Dit wordt woocommerce/templates/checkout/form-checkout.php
+  - Stripe: WooCommerce Stripe Gateway plugin
+  - Billing fields: woocommerce_checkout_billing()
+  - Order review: woocommerce_checkout_order_review()
+  - Payment: woocommerce_checkout_payment()
+-->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Barlow+Condensed:wght@700;800;900&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --ol-yellow:    #ffde59;
+  --ol-yellow-dk: #e8c94f;
+  --ol-black:     #111111;
+  --ol-white:     #ffffff;
+  --ol-grey-1:    #F4F4F4;
+  --ol-grey-2:    #E8E8E8;
+  --ol-grey-3:    #999999;
+  --ol-grey-4:    #555555;
+  --ol-green:     #1a9e5c;
+  --ol-red:       #e53935;
+  --ol-blue:      #2563eb;
+  --ol-radius:    6px;
+  --ol-font:      'Inter', sans-serif;
+  --ol-display:   'Barlow Condensed', sans-serif;
+  --ol-max:       1200px;
+  --ol-shadow:    0 2px 12px rgba(0,0,0,.07);
+}
+body { font-family: var(--ol-font); color: var(--ol-black); background: var(--ol-grey-1); -webkit-font-smoothing: antialiased; }
+a { text-decoration: none; color: inherit; }
+img { display: block; max-width: 100%; }
+button { font-family: var(--ol-font); cursor: pointer; border: none; }
+input, select, textarea { font-family: var(--ol-font); }
+.w { max-width: var(--ol-max); margin: 0 auto; padding: 0 20px; }
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes pulse-ring {
+  0%   { box-shadow: 0 0 0 0 rgba(255,222,89,.4); }
+  70%  { box-shadow: 0 0 0 9px rgba(255,222,89,0); }
+  100% { box-shadow: 0 0 0 0 rgba(255,222,89,0); }
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes checkPop {
+  0%   { transform: scale(0); opacity: 0; }
+  60%  { transform: scale(1.2); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* ── TOPBAR ── */
+.site-topbar { background: var(--ol-black); color: #999; font-size: 11.5px; letter-spacing: .04em; padding: 8px 0; }
+.site-topbar__inner { display: flex; justify-content: center; gap: 28px; flex-wrap: wrap; }
+.site-topbar__item { display: flex; align-items: center; gap: 5px; }
+.site-topbar__item::before { content: '✓'; color: var(--ol-yellow); font-weight: 700; }
+
+/* ── HEADER — minimal checkout version ── */
+.site-header { background: var(--ol-white); border-bottom: 1px solid var(--ol-grey-2); padding: 16px 0; }
+.site-header__inner { display: flex; justify-content: space-between; align-items: center; }
+.checkout-steps { display: flex; align-items: center; gap: 0; }
+.step {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 12.5px; font-weight: 500; color: var(--ol-grey-3);
+  padding: 6px 16px;
+}
+.step.active { color: var(--ol-black); font-weight: 600; }
+.step.done { color: var(--ol-green); }
+.step__num {
+  width: 22px; height: 22px; border-radius: 50%;
+  background: var(--ol-grey-2); color: var(--ol-grey-3);
+  font-size: 11px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.step.active .step__num { background: var(--ol-yellow); color: var(--ol-black); }
+.step.done .step__num { background: var(--ol-green); color: white; }
+.step-divider { width: 24px; height: 1px; background: var(--ol-grey-2); }
+.secure-badge { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--ol-grey-3); }
+.secure-badge svg { width: 14px; height: 14px; color: var(--ol-green); }
+
+/* ── CHECKOUT LAYOUT ── */
+.checkout-page { padding: 32px 0 60px; animation: fadeUp .5s ease; }
+.checkout-layout {
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: 24px;
+  align-items: start;
+}
+
+/* ── FORM SECTIONS ── */
+.checkout-section {
+  background: var(--ol-white);
+  border: 1.5px solid var(--ol-grey-2);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+.checkout-section__head {
+  padding: 18px 24px;
+  border-bottom: 1px solid var(--ol-grey-2);
+  display: flex; justify-content: space-between; align-items: center;
+}
+.checkout-section__title {
+  font-family: var(--ol-display);
+  font-size: 17px; font-weight: 800;
+  text-transform: uppercase; letter-spacing: .04em;
+  display: flex; align-items: center; gap: 10px;
+}
+.checkout-section__title svg { width: 18px; height: 18px; color: var(--ol-yellow); }
+.checkout-section__body { padding: 24px; }
+.checkout-section__edit { font-size: 12px; color: var(--ol-blue); cursor: pointer; }
+
+/* Form fields */
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+.form-row--full { grid-template-columns: 1fr; }
+.form-row--3 { grid-template-columns: 1fr 1fr 1fr; }
+.form-group { display: flex; flex-direction: column; gap: 5px; }
+.form-group label { font-size: 12px; font-weight: 600; color: var(--ol-grey-4); text-transform: uppercase; letter-spacing: .06em; }
+.form-group label .req { color: var(--ol-red); margin-left: 2px; }
+.form-input {
+  border: 1.5px solid var(--ol-grey-2);
+  border-radius: var(--ol-radius);
+  padding: 10px 14px;
+  font-size: 14px; color: var(--ol-black);
+  outline: none; transition: border-color .18s, box-shadow .18s;
+  background: var(--ol-white);
+  width: 100%;
+}
+.form-input:focus { border-color: var(--ol-yellow); box-shadow: 0 0 0 3px rgba(255,222,89,.18); }
+.form-input.error { border-color: var(--ol-red); }
+.form-input::placeholder { color: var(--ol-grey-3); }
+.form-select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23999' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 32px; }
+.form-hint { font-size: 11px; color: var(--ol-grey-3); margin-top: 3px; }
+.form-error { font-size: 11px; color: var(--ol-red); margin-top: 3px; display: none; }
+.form-input.error + .form-error { display: block; }
+
+/* Shipping methods */
+.shipping-options { display: flex; flex-direction: column; gap: 10px; }
+.shipping-option {
+  border: 1.5px solid var(--ol-grey-2);
+  border-radius: var(--ol-radius);
+  padding: 14px 16px;
+  display: flex; align-items: center; gap: 14px;
+  cursor: pointer; transition: all .15s;
+}
+.shipping-option:hover { border-color: var(--ol-yellow); }
+.shipping-option.selected { border-color: var(--ol-yellow); background: #fffbf0; }
+.shipping-option input[type="radio"] { accent-color: var(--ol-yellow); width: 16px; height: 16px; flex-shrink: 0; }
+.shipping-option__info { flex: 1; }
+.shipping-option__name { font-size: 14px; font-weight: 600; color: var(--ol-black); }
+.shipping-option__desc { font-size: 12px; color: var(--ol-grey-3); margin-top: 2px; }
+.shipping-option__price { font-family: var(--ol-display); font-size: 16px; font-weight: 800; color: var(--ol-black); }
+.shipping-option__free { color: var(--ol-green); }
+
+/* Payment methods */
+.payment-methods { display: flex; flex-direction: column; gap: 10px; }
+.payment-method {
+  border: 1.5px solid var(--ol-grey-2);
+  border-radius: var(--ol-radius);
+  overflow: hidden;
+  transition: border-color .15s;
+}
+.payment-method.selected { border-color: var(--ol-yellow); }
+.payment-method__head {
+  padding: 14px 16px;
+  display: flex; align-items: center; gap: 12px;
+  cursor: pointer; background: var(--ol-white);
+}
+.payment-method.selected .payment-method__head { background: #fffbf0; }
+.payment-method input[type="radio"] { accent-color: var(--ol-yellow); width: 16px; height: 16px; flex-shrink: 0; }
+.payment-method__name { font-size: 14px; font-weight: 600; flex: 1; }
+.payment-method__icons { display: flex; gap: 5px; }
+.payment-icon {
+  height: 22px; padding: 2px 7px;
+  background: var(--ol-grey-1); border: 1px solid var(--ol-grey-2);
+  border-radius: 3px; font-size: 10px; font-weight: 700;
+  color: var(--ol-grey-4); display: flex; align-items: center;
+}
+.payment-method__body {
+  padding: 0 16px;
+  max-height: 0; overflow: hidden;
+  transition: max-height .3s ease, padding .3s ease;
+}
+.payment-method.selected .payment-method__body { max-height: 300px; padding: 16px; border-top: 1px solid var(--ol-grey-2); }
+
+/* Stripe card fields */
+.stripe-field-group { display: flex; flex-direction: column; gap: 12px; }
+.stripe-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.stripe-field {
+  border: 1.5px solid var(--ol-grey-2);
+  border-radius: var(--ol-radius);
+  padding: 11px 14px;
+  font-size: 14px; color: var(--ol-black);
+  outline: none; transition: border-color .18s;
+  background: var(--ol-white);
+}
+.stripe-field:focus { border-color: var(--ol-yellow); }
+.stripe-field::placeholder { color: var(--ol-grey-3); }
+.stripe-lock { display: flex; align-items: center; gap: 6px; font-size: 11.5px; color: var(--ol-grey-3); margin-top: 10px; }
+.stripe-lock svg { width: 12px; height: 12px; color: var(--ol-green); }
+.ideal-banks { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.ideal-bank { border: 1.5px solid var(--ol-grey-2); border-radius: var(--ol-radius); padding: 10px 8px; text-align: center; cursor: pointer; font-size: 12px; font-weight: 500; color: var(--ol-grey-4); transition: all .15s; }
+.ideal-bank:hover, .ideal-bank.selected { border-color: var(--ol-yellow); color: var(--ol-black); background: #fffbf0; }
+
+/* ── ORDER SUMMARY ── */
+.order-summary {
+  background: var(--ol-white);
+  border: 1.5px solid var(--ol-grey-2);
+  border-radius: 8px;
+  overflow: hidden;
+  position: sticky;
+  top: 20px;
+}
+.order-summary__head {
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--ol-grey-2);
+  display: flex; justify-content: space-between; align-items: center;
+}
+.order-summary__title { font-family: var(--ol-display); font-size: 17px; font-weight: 800; text-transform: uppercase; }
+.order-toggle { font-size: 12px; color: var(--ol-blue); cursor: pointer; }
+.order-items { padding: 16px 20px; border-bottom: 1px solid var(--ol-grey-2); }
+.order-item { display: flex; gap: 12px; margin-bottom: 14px; }
+.order-item:last-child { margin-bottom: 0; }
+.order-item__img {
+  width: 56px; height: 56px;
+  background: var(--ol-grey-1); border-radius: 4px;
+  border: 1px solid var(--ol-grey-2);
+  overflow: hidden; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+}
+.order-item__img img { width: 100%; height: 100%; object-fit: contain; padding: 4px; }
+.order-item__info { flex: 1; min-width: 0; }
+.order-item__name { font-size: 13px; font-weight: 500; color: var(--ol-black); line-height: 1.3; }
+.order-item__brand { font-size: 11px; color: var(--ol-yellow); font-weight: 700; text-transform: uppercase; letter-spacing: .06em; }
+.order-item__qty { font-size: 11px; color: var(--ol-grey-3); margin-top: 2px; }
+.order-item__price { font-family: var(--ol-display); font-size: 17px; font-weight: 900; white-space: nowrap; }
+
+.order-totals { padding: 16px 20px; border-bottom: 1px solid var(--ol-grey-2); }
+.total-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; font-size: 13.5px; }
+.total-row:last-child { margin-bottom: 0; }
+.total-row__label { color: var(--ol-grey-4); }
+.total-row__value { font-weight: 600; color: var(--ol-black); }
+.total-row--shipping .total-row__value { color: var(--ol-green); }
+.total-row--discount .total-row__value { color: var(--ol-red); }
+.total-row--grand { border-top: 2px solid var(--ol-black); padding-top: 12px; margin-top: 4px; }
+.total-row--grand .total-row__label { font-weight: 700; font-size: 15px; color: var(--ol-black); }
+.total-row--grand .total-row__value { font-family: var(--ol-display); font-size: 24px; font-weight: 900; }
+.total-vat { font-size: 11px; color: var(--ol-grey-3); text-align: right; margin-top: 4px; }
+
+/* Coupon */
+.coupon-row { padding: 14px 20px; border-bottom: 1px solid var(--ol-grey-2); }
+.coupon-toggle { font-size: 12.5px; color: var(--ol-blue); cursor: pointer; display: flex; align-items: center; gap: 5px; }
+.coupon-input-row { display: flex; gap: 8px; margin-top: 10px; }
+.coupon-input { flex: 1; border: 1.5px solid var(--ol-grey-2); border-radius: var(--ol-radius); padding: 9px 12px; font-size: 13px; outline: none; transition: border-color .15s; }
+.coupon-input:focus { border-color: var(--ol-yellow); }
+.btn-coupon { background: var(--ol-black); color: white; font-family: var(--ol-display); font-size: 12px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; padding: 9px 16px; border-radius: var(--ol-radius); transition: background .15s; }
+.btn-coupon:hover { background: var(--ol-yellow); color: var(--ol-black); }
+
+/* Order CTA */
+.order-cta { padding: 20px; }
+.btn-place-order {
+  width: 100%;
+  background: var(--ol-yellow); color: var(--ol-black);
+  font-family: var(--ol-display);
+  font-weight: 900; font-size: 18px;
+  letter-spacing: .05em; text-transform: uppercase;
+  padding: 16px; border-radius: var(--ol-radius);
+  border: none; cursor: pointer;
+  transition: background .18s, transform .12s;
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  position: relative; overflow: hidden;
+}
+.btn-place-order:hover { background: var(--ol-yellow-dk); transform: translateY(-1px); }
+.btn-place-order:active { transform: scale(.99); }
+.btn-place-order.loading { pointer-events: none; }
+.btn-place-order.loading .btn-text { opacity: 0; }
+.btn-place-order.loading::after {
+  content: '';
+  position: absolute;
+  width: 20px; height: 20px;
+  border: 2px solid rgba(0,0,0,.2);
+  border-top-color: var(--ol-black);
+  border-radius: 50%;
+  animation: spin .7s linear infinite;
+}
+.order-terms { font-size: 11.5px; color: var(--ol-grey-3); text-align: center; margin-top: 12px; line-height: 1.5; }
+.order-terms a { color: var(--ol-blue); }
+.order-trust { display: flex; justify-content: center; gap: 16px; margin-top: 14px; flex-wrap: wrap; }
+.order-trust__item { display: flex; align-items: center; gap: 4px; font-size: 11px; color: var(--ol-grey-3); }
+.order-trust__item svg { width: 12px; height: 12px; color: var(--ol-green); }
+
+/* ── SUCCESS STATE ── */
+.checkout-success {
+  display: none;
+  text-align: center; padding: 60px 20px;
+  animation: fadeUp .5s ease;
+}
+.success-icon {
+  width: 72px; height: 72px;
+  background: var(--ol-green); border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 24px;
+  animation: checkPop .5s ease;
+}
+.success-icon svg { width: 36px; height: 36px; color: white; }
+.success-title { font-family: var(--ol-display); font-size: 36px; font-weight: 900; text-transform: uppercase; margin-bottom: 12px; }
+.success-sub { font-size: 15px; color: var(--ol-grey-4); line-height: 1.6; max-width: 400px; margin: 0 auto 28px; }
+.success-order { background: var(--ol-grey-1); border-radius: 8px; padding: 16px 24px; display: inline-flex; gap: 24px; margin-bottom: 28px; }
+.success-order__item { font-size: 12px; color: var(--ol-grey-3); }
+.success-order__item strong { display: block; font-size: 15px; color: var(--ol-black); font-weight: 700; }
+.btn-continue { display: inline-flex; align-items: center; gap: 8px; background: var(--ol-yellow); color: var(--ol-black); font-family: var(--ol-display); font-weight: 800; font-size: 15px; letter-spacing: .05em; text-transform: uppercase; padding: 13px 28px; border-radius: var(--ol-radius); transition: background .18s; }
+.btn-continue:hover { background: var(--ol-yellow-dk); }
+
+/* ── FOOTER minimal ── */
+.site-footer-mini { background: var(--ol-black); padding: 20px 0; border-top: 2px solid var(--ol-yellow); margin-top: 40px; }
+.footer-mini-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+.footer-mini-links { display: flex; gap: 20px; }
+.footer-mini-links a { font-size: 12px; color: #555; transition: color .15s; }
+.footer-mini-links a:hover { color: var(--ol-yellow); }
+.footer-payment { display: flex; gap: 6px; }
+.payment-badge { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 3px; padding: 3px 8px; font-size: 10px; color: #666; font-weight: 600; }
+
+/* Responsive */
+@media (max-width: 900px) {
+  .checkout-layout { grid-template-columns: 1fr; }
+  .order-summary { position: static; }
+  .checkout-steps { display: none; }
+}
+@media (max-width: 640px) {
+  .form-row { grid-template-columns: 1fr; }
+  .stripe-row { grid-template-columns: 1fr; }
+  .ideal-banks { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="site-topbar">
+  <div class="site-topbar__inner">
+    <span class="site-topbar__item">14 dagen bedenktijd</span>
+    <span class="site-topbar__item">Veilig betalen via Stripe</span>
+    <span class="site-topbar__item">Gratis verzending v.a. €500</span>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="w">
+    <div class="site-header__inner">
+      <a href="index.html">
+        <svg viewBox="0 0 220 70" width="110" fill="none">
+          <text x="0" y="28" font-family="'Barlow Condensed'" font-weight="900" font-size="26" letter-spacing="2" fill="#111">OUTLET</text>
+          <rect x="110" y="14" width="56" height="6" fill="#111"/>
+          <rect x="44" y="44" width="40" height="6" fill="#111"/>
+          <text x="92" y="62" font-family="'Barlow Condensed'" font-weight="900" font-size="26" letter-spacing="2" fill="#111">LOKET</text>
+        </svg>
+      </a>
+
+      <div class="checkout-steps">
+        <div class="step done">
+          <div class="step__num">✓</div>
+          Winkelwagen
+        </div>
+        <div class="step-divider"></div>
+        <div class="step active">
+          <div class="step__num">2</div>
+          Gegevens
+        </div>
+        <div class="step-divider"></div>
+        <div class="step">
+          <div class="step__num">3</div>
+          Betaling
+        </div>
+        <div class="step-divider"></div>
+        <div class="step">
+          <div class="step__num">4</div>
+          Bevestiging
+        </div>
+      </div>
+
+      <div class="secure-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        Beveiligde verbinding
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- CHECKOUT PAGE -->
+<div class="checkout-page" id="checkoutPage">
+  <div class="w">
+    <div class="checkout-layout">
+
+      <!-- LEFT: FORMS -->
+      <div id="checkoutForms">
+
+        <!-- Contactgegevens -->
+        <div class="checkout-section">
+          <div class="checkout-section__head">
+            <div class="checkout-section__title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              Contactgegevens
+            </div>
+          </div>
+          <div class="checkout-section__body">
+            <div class="form-row">
+              <div class="form-group">
+                <label>Voornaam <span class="req">*</span></label>
+                <input type="text" class="form-input" placeholder="Jan" id="firstName">
+                <span class="form-error">Voornaam is verplicht</span>
+              </div>
+              <div class="form-group">
+                <label>Achternaam <span class="req">*</span></label>
+                <input type="text" class="form-input" placeholder="de Vries" id="lastName">
+                <span class="form-error">Achternaam is verplicht</span>
+              </div>
+            </div>
+            <div class="form-row form-row--full">
+              <div class="form-group">
+                <label>E-mailadres <span class="req">*</span></label>
+                <input type="email" class="form-input" placeholder="jan@voorbeeld.nl" id="email">
+                <span class="form-hint">Je ontvangt de orderbevestiging op dit adres</span>
+                <span class="form-error">Vul een geldig e-mailadres in</span>
+              </div>
+            </div>
+            <div class="form-row form-row--full">
+              <div class="form-group">
+                <label>Telefoonnummer</label>
+                <input type="tel" class="form-input" placeholder="+31 6 12345678">
+                <span class="form-hint">Optioneel — voor vragen over je bestelling</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bezorgadres -->
+        <div class="checkout-section">
+          <div class="checkout-section__head">
+            <div class="checkout-section__title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+              Bezorgadres
+            </div>
+          </div>
+          <div class="checkout-section__body">
+            <div class="form-row form-row--full">
+              <div class="form-group">
+                <label>Land <span class="req">*</span></label>
+                <select class="form-input form-select">
+                  <option value="NL" selected>Nederland</option>
+                  <option value="BE">België</option>
+                  <option value="DE">Duitsland</option>
+                  <option value="FR">Frankrijk</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Postcode <span class="req">*</span></label>
+                <input type="text" class="form-input" placeholder="1234 AB" id="postcode" maxlength="7">
+              </div>
+              <div class="form-group">
+                <label>Huisnummer <span class="req">*</span></label>
+                <input type="text" class="form-input" placeholder="12A" id="houseNumber">
+              </div>
+            </div>
+            <div class="form-row form-row--full">
+              <div class="form-group">
+                <label>Straat <span class="req">*</span></label>
+                <input type="text" class="form-input" placeholder="Wordt automatisch ingevuld" id="street">
+              </div>
+            </div>
+            <div class="form-row form-row--full">
+              <div class="form-group">
+                <label>Plaats <span class="req">*</span></label>
+                <input type="text" class="form-input" placeholder="Amsterdam" id="city">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Verzending -->
+        <div class="checkout-section">
+          <div class="checkout-section__head">
+            <div class="checkout-section__title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+              Verzendmethode
+            </div>
+          </div>
+          <div class="checkout-section__body">
+            <div class="shipping-options">
+              <label class="shipping-option selected" onclick="selectShipping(this)">
+                <input type="radio" name="shipping" checked>
+                <div class="shipping-option__info">
+                  <div class="shipping-option__name">Standaard verzending — PostNL</div>
+                  <div class="shipping-option__desc">Bezorgd binnen 1-2 werkdagen</div>
+                </div>
+                <div class="shipping-option__price">€6,95</div>
+              </label>
+              <label class="shipping-option" onclick="selectShipping(this)">
+                <input type="radio" name="shipping">
+                <div class="shipping-option__info">
+                  <div class="shipping-option__name">Express verzending — DHL</div>
+                  <div class="shipping-option__desc">Morgen in huis bij bestelling voor 16:00</div>
+                </div>
+                <div class="shipping-option__price">€12,95</div>
+              </label>
+              <label class="shipping-option" onclick="selectShipping(this)">
+                <input type="radio" name="shipping">
+                <div class="shipping-option__info">
+                  <div class="shipping-option__name">Afhalen in Baak</div>
+                  <div class="shipping-option__desc">Zutphen-Emmerikseweg 75B, 7223DA Baak — <strong style="color:var(--ol-green)">€50 extra korting!</strong></div>
+                </div>
+                <div class="shipping-option__price shipping-option__free">Gratis</div>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Betaling -->
+        <div class="checkout-section">
+          <div class="checkout-section__head">
+            <div class="checkout-section__title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+              Betaalmethode
+            </div>
+          </div>
+          <div class="checkout-section__body">
+            <div class="payment-methods">
+
+              <!-- iDEAL -->
+              <div class="payment-method selected" id="pm-ideal">
+                <div class="payment-method__head" onclick="selectPayment('ideal')">
+                  <input type="radio" name="payment" checked>
+                  <span class="payment-method__name">iDEAL</span>
+                  <div class="payment-method__icons">
+                    <span class="payment-icon">iDEAL</span>
+                  </div>
+                </div>
+                <div class="payment-method__body">
+                  <div class="ideal-banks">
+                    <div class="ideal-bank selected" onclick="selectBank(this)">ABN AMRO</div>
+                    <div class="ideal-bank" onclick="selectBank(this)">ING</div>
+                    <div class="ideal-bank" onclick="selectBank(this)">Rabobank</div>
+                    <div class="ideal-bank" onclick="selectBank(this)">SNS Bank</div>
+                    <div class="ideal-bank" onclick="selectBank(this)">ASN Bank</div>
+                    <div class="ideal-bank" onclick="selectBank(this)">Bunq</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Creditcard / Stripe -->
+              <div class="payment-method" id="pm-card">
+                <div class="payment-method__head" onclick="selectPayment('card')">
+                  <input type="radio" name="payment">
+                  <span class="payment-method__name">Creditcard</span>
+                  <div class="payment-method__icons">
+                    <span class="payment-icon">Visa</span>
+                    <span class="payment-icon">MC</span>
+                    <span class="payment-icon">Amex</span>
+                  </div>
+                </div>
+                <div class="payment-method__body">
+                  <!-- WP: Stripe Gateway JS fields -->
+                  <div class="stripe-field-group">
+                    <div class="form-group">
+                      <label>Kaartnummer</label>
+                      <input type="text" class="stripe-field" placeholder="1234 5678 9012 3456" maxlength="19" id="cardNumber" oninput="formatCard(this)">
+                    </div>
+                    <div class="stripe-row">
+                      <div class="form-group">
+                        <label>Vervaldatum</label>
+                        <input type="text" class="stripe-field" placeholder="MM / JJ" maxlength="7" id="cardExpiry" oninput="formatExpiry(this)">
+                      </div>
+                      <div class="form-group">
+                        <label>CVC</label>
+                        <input type="text" class="stripe-field" placeholder="123" maxlength="4" id="cardCvc">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label>Naam op kaart</label>
+                      <input type="text" class="stripe-field" placeholder="J. de Vries">
+                    </div>
+                  </div>
+                  <div class="stripe-lock">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                    Beveiligd door Stripe — wij slaan je kaartgegevens nooit op
+                  </div>
+                </div>
+              </div>
+
+              <!-- PayPal -->
+              <div class="payment-method" id="pm-paypal">
+                <div class="payment-method__head" onclick="selectPayment('paypal')">
+                  <input type="radio" name="payment">
+                  <span class="payment-method__name">PayPal</span>
+                  <div class="payment-method__icons">
+                    <span class="payment-icon">PayPal</span>
+                  </div>
+                </div>
+                <div class="payment-method__body">
+                  <p style="font-size:13px;color:var(--ol-grey-4);">Je wordt doorgestuurd naar PayPal om de betaling te voltooien.</p>
+                </div>
+              </div>
+
+              <!-- Klarna -->
+              <div class="payment-method" id="pm-klarna">
+                <div class="payment-method__head" onclick="selectPayment('klarna')">
+                  <input type="radio" name="payment">
+                  <span class="payment-method__name">Klarna — Achteraf betalen</span>
+                  <div class="payment-method__icons">
+                    <span class="payment-icon">Klarna</span>
+                  </div>
+                </div>
+                <div class="payment-method__body">
+                  <p style="font-size:13px;color:var(--ol-grey-4);">Betaal binnen 14 of 30 dagen na ontvangst. Geen rente.</p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- Opmerking -->
+        <div class="checkout-section">
+          <div class="checkout-section__head">
+            <div class="checkout-section__title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              Opmerking bij bestelling
+            </div>
+          </div>
+          <div class="checkout-section__body">
+            <textarea class="form-input" rows="3" placeholder="Optioneel — bijv. bezorginstructies" style="resize:vertical;"></textarea>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- RIGHT: ORDER SUMMARY -->
+      <div>
+        <div class="order-summary">
+          <div class="order-summary__head">
+            <div class="order-summary__title">Jouw bestelling</div>
+            <span class="order-toggle" onclick="toggleItems()">Verberg ▲</span>
+          </div>
+
+          <div class="order-items" id="orderItems">
+            <div class="order-item">
+              <div class="order-item__img">
+                <img src="https://media.s-bol.com/qL3L9v6qvGvr/9AAZ8/550x658.jpg" alt="Festool">
+              </div>
+              <div class="order-item__info">
+                <div class="order-item__brand">Festool</div>
+                <div class="order-item__name">DOMINO XL Stenen Assortiment Beukenhout</div>
+                <div class="order-item__qty">Aantal: 1</div>
+              </div>
+              <div class="order-item__price">€229,95</div>
+            </div>
+            <div class="order-item">
+              <div class="order-item__img">
+                <img src="https://media.s-bol.com/Bpk8oXgrvD7Q/g3vKoZ/250x200.jpg" alt="Grill Guru">
+              </div>
+              <div class="order-item__info">
+                <div class="order-item__brand">Grill Guru</div>
+                <div class="order-item__name">Large Plancha Ring BBQ accessoire</div>
+                <div class="order-item__qty">Aantal: 1</div>
+              </div>
+              <div class="order-item__price">€54,95</div>
+            </div>
+          </div>
+
+          <div class="order-totals">
+            <div class="total-row">
+              <span class="total-row__label">Subtotaal</span>
+              <span class="total-row__value">€284,90</span>
+            </div>
+            <div class="total-row total-row--discount">
+              <span class="total-row__label">Korting (sale)</span>
+              <span class="total-row__value">-€85,00</span>
+            </div>
+            <div class="total-row total-row--shipping" id="shippingRow">
+              <span class="total-row__label">Verzending</span>
+              <span class="total-row__value">€6,95</span>
+            </div>
+            <div class="total-row total-row--grand">
+              <span class="total-row__label">Totaal</span>
+              <span class="total-row__value" id="grandTotal">€291,85</span>
+            </div>
+            <div class="total-vat">Inclusief €50,96 BTW (21%)</div>
+          </div>
+
+          <div class="coupon-row">
+            <div class="coupon-toggle" onclick="toggleCoupon()">
+              🏷️ Kortingscode toevoegen
+            </div>
+            <div id="couponInput" style="display:none;">
+              <div class="coupon-input-row">
+                <input type="text" class="coupon-input" placeholder="Vul je code in">
+                <button class="btn-coupon">Toepassen</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="order-cta">
+            <button class="btn-place-order" id="placeOrderBtn" onclick="placeOrder()">
+              <span class="btn-text">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                Bestelling plaatsen
+              </span>
+            </button>
+            <p class="order-terms">
+              Door te bestellen ga je akkoord met onze
+              <a href="#">algemene voorwaarden</a> en
+              <a href="#">privacybeleid</a>.
+            </p>
+            <div class="order-trust">
+              <div class="order-trust__item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                Veilig betalen
+              </div>
+              <div class="order-trust__item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                14 dagen retour
+              </div>
+              <div class="order-trust__item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                SSL beveiligd
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- SUCCESS STATE -->
+<div class="checkout-success" id="successPage">
+  <div class="success-icon">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+  </div>
+  <h1 class="success-title">Bestelling geplaatst!</h1>
+  <p class="success-sub">Bedankt voor je bestelling bij Outlet Loket. Je ontvangt een bevestiging per e-mail.</p>
+  <div class="success-order">
+    <div class="success-order__item">
+      <strong>#OL-2026-4821</strong>
+      Ordernummer
+    </div>
+    <div class="success-order__item">
+      <strong>€291,85</strong>
+      Totaalbedrag
+    </div>
+    <div class="success-order__item">
+      <strong>1-2 werkdagen</strong>
+      Levertijd
+    </div>
+  </div>
+  <a href="index.html" class="btn-continue">← Terug naar de winkel</a>
+</div>
+
+<!-- FOOTER -->
+<footer class="site-footer-mini">
+  <div class="w">
+    <div class="footer-mini-inner">
+      <svg viewBox="0 0 220 70" width="100" fill="none">
+        <text x="0" y="28" font-family="'Barlow Condensed'" font-weight="900" font-size="26" letter-spacing="2" fill="white">OUTLET</text>
+        <rect x="110" y="14" width="56" height="6" fill="white"/>
+        <rect x="44" y="44" width="40" height="6" fill="white"/>
+        <text x="92" y="62" font-family="'Barlow Condensed'" font-weight="900" font-size="26" letter-spacing="2" fill="white">LOKET</text>
+      </svg>
+      <div class="footer-mini-links">
+        <a href="#">Privacybeleid</a>
+        <a href="#">Algemene voorwaarden</a>
+        <a href="#">Contact</a>
+      </div>
+      <div class="footer-payment">
+        <span class="payment-badge">iDEAL</span>
+        <span class="payment-badge">Visa</span>
+        <span class="payment-badge">Mastercard</span>
+        <span class="payment-badge">PayPal</span>
+        <span class="payment-badge">Klarna</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Payment method selection
+function selectPayment(id) {
+  document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('selected'));
+  document.getElementById('pm-' + id).classList.add('selected');
+}
+
+// Shipping selection
+function selectShipping(el) {
+  document.querySelectorAll('.shipping-option').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+// Bank selection
+function selectBank(el) {
+  document.querySelectorAll('.ideal-bank').forEach(b => b.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+// Toggle order items
+let itemsVisible = true;
+function toggleItems() {
+  const items = document.getElementById('orderItems');
+  const btn = document.querySelector('.order-toggle');
+  itemsVisible = !itemsVisible;
+  items.style.display = itemsVisible ? 'block' : 'none';
+  btn.textContent = itemsVisible ? 'Verberg ▲' : 'Toon ▼';
+}
+
+// Toggle coupon
+function toggleCoupon() {
+  const el = document.getElementById('couponInput');
+  el.style.display = el.style.display === 'none' ? 'block' : 'none';
+}
+
+// Card number formatting
+function formatCard(input) {
+  let v = input.value.replace(/\D/g, '').substring(0, 16);
+  input.value = v.replace(/(.{4})/g, '$1 ').trim();
+}
+
+// Expiry formatting
+function formatExpiry(input) {
+  let v = input.value.replace(/\D/g, '').substring(0, 4);
+  if (v.length >= 2) v = v.substring(0,2) + ' / ' + v.substring(2);
+  input.value = v;
+}
+
+// Form validation
+function validateForm() {
+  let valid = true;
+  ['firstName','lastName','email','postcode','houseNumber','street','city'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el && !el.value.trim()) {
+      el.classList.add('error');
+      valid = false;
+    } else if (el) {
+      el.classList.remove('error');
+    }
+  });
+  return valid;
+}
+
+// Place order
+function placeOrder() {
+  if (!validateForm()) {
+    document.querySelector('.form-input.error').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return;
+  }
+  const btn = document.getElementById('placeOrderBtn');
+  btn.classList.add('loading');
+  setTimeout(() => {
+    document.getElementById('checkoutPage').style.display = 'none';
+    const success = document.getElementById('successPage');
+    success.style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, 2000);
+}
+
+// Remove error on input
+document.querySelectorAll('.form-input').forEach(input => {
+  input.addEventListener('input', function() { this.classList.remove('error'); });
+});
+</script>
+</body>
+</html>
