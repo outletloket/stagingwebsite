@@ -306,12 +306,12 @@ button { font-family: var(--ol-font); cursor: pointer; border: none; }
   animation: fadeIn .8s ease .2s both;
 }
 .hero__spot {
-  background: #1a1a1a; position: relative;
+  background: #ffffff; position: relative;
   overflow: hidden;
   display: flex; align-items: center; justify-content: center;
   cursor: pointer; transition: background .18s;
 }
-.hero__spot:hover { background: #1f1f1f; }
+.hero__spot:hover { background: #f5f5f5; }
 .hero__spot img {
   width: 100%; height: 100%;
   object-fit: contain; padding: 20px;
@@ -806,7 +806,7 @@ button { font-family: var(--ol-font); cursor: pointer; border: none; }
     <div class="site-header__inner">
 
       <!-- WP: <?php the_custom_logo(); ?> -->
-      <a href="index.html" class="site-logo">
+      <a href="/" class="site-logo">
         <svg viewBox="0 0 220 70" width="130" fill="none">
           <text x="0" y="28" font-family="'Barlow Condensed'" font-weight="900" font-size="26" letter-spacing="2" fill="#111">OUTLET</text>
           <rect x="110" y="14" width="56" height="6" fill="#111"/>
@@ -824,16 +824,16 @@ button { font-family: var(--ol-font); cursor: pointer; border: none; }
       </div>
 
       <div class="site-header__actions">
-        <a href="#" class="hdr-btn">
+        <a href="/wenslijst/" class="hdr-btn">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
           Verlanglijst
         </a>
-        <a href="#" class="hdr-btn">
+        <a href="/mijn-account/" class="hdr-btn">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
           Account
         </a>
         <!-- WP: woocommerce_header_add_to_cart_fragment -->
-        <a href="#" class="hdr-btn hdr-btn--cart">
+        <a href="/winkelmand/" class="hdr-btn hdr-btn--cart">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
           Winkelwagen
           <span class="cart-count">0</span>
@@ -847,15 +847,15 @@ button { font-family: var(--ol-font); cursor: pointer; border: none; }
 <nav class="site-nav">
   <div class="w">
     <div class="site-nav__inner">
-      <a href="index.html" class="site-nav__item site-nav__item--active">Alle producten</a>
-      <a href="category.html" class="site-nav__item">🧺 Witgoed</a>
-      <a href="category.html" class="site-nav__item">🏠 Huishoudelijk</a>
-      <a href="category.html" class="site-nav__item">🔨 Gereedschap</a>
-      <a href="category.html" class="site-nav__item">🌿 Tuin & BBQ</a>
-      <a href="category.html" class="site-nav__item">📺 Elektronica</a>
-      <a href="category.html" class="site-nav__item">🛁 Badkamer</a>
-      <a href="category.html" class="site-nav__item">❄️ Koelen & vriezen</a>
-      <a href="#" class="site-nav__item site-nav__item--deals">🔥 Deals</a>
+      <a href="/winkel/" class="site-nav__item site-nav__item--active">Alle producten</a>
+      <a href="/product-categorie/witgoed/" class="site-nav__item">Witgoed</a>
+      <a href="/product-categorie/huishoudelijk/" class="site-nav__item">Huishoudelijk</a>
+      <a href="/product-categorie/gereedschap/" class="site-nav__item">Gereedschap</a>
+      <a href="/product-categorie/tuin-bbq/" class="site-nav__item">Tuin &amp; BBQ</a>
+      <a href="/product-categorie/elektronica/" class="site-nav__item">Elektronica</a>
+      <a href="/product-categorie/badkamer/" class="site-nav__item">Badkamer</a>
+      <a href="/product-categorie/koelen-vriezen/" class="site-nav__item">Koelen &amp; vriezen</a>
+      <a href="/winkel/?orderby=date" class="site-nav__item site-nav__item--deals">Deals</a>
     </div>
   </div>
 </nav>
@@ -875,8 +875,8 @@ button { font-family: var(--ol-font); cursor: pointer; border: none; }
         </h1>
         <p class="hero__sub">Outlet webshop voor A-merken in witgoed, gereedschap en elektronica. Restpartijen en showroommodellen van DeWalt, Makita, Bosch, Festool en meer — direct uit voorraad, scherp geprijsd.</p>
         <div class="hero__actions">
-          <a href="#" class="btn-primary">Bekijk alle deals →</a>
-          <a href="#" class="btn-ghost">
+          <a href="/winkel/" class="btn-primary">Bekijk alle deals →</a>
+          <a href="/over-outlet-loket/" class="btn-ghost">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
             Winkel bezoeken
           </a>
@@ -961,61 +961,61 @@ button { font-family: var(--ol-font); cursor: pointer; border: none; }
         <div class="section-eyebrow">Assortiment</div>
         <h2 class="section-title">Shop per categorie</h2>
       </div>
-      <a href="#" class="link-all">Alles bekijken →</a>
+      <a href="/winkel/" class="link-all">Alles bekijken →</a>
     </div>
     <!-- WP: ul.products.columns-4 → .woo-category-list -->
     <div class="woo-category-list">
-      <a href="category.html" class="woo-category-list__item reveal">
-        <div class="woo-category-list__icon">🧺</div>
+      <a href="/product-categorie/witgoed/wasmachines/" class="woo-category-list__item reveal">
+        <div class="woo-category-list__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg></div>
         <div>
           <div class="woo-category-list__name">Wasmachines</div>
           <div class="woo-category-list__count">Witgoed outlet</div>
         </div>
       </a>
-      <a href="category.html" class="woo-category-list__item reveal reveal-delay-1">
-        <div class="woo-category-list__icon">❄️</div>
+      <a href="/product-categorie/witgoed/koelkasten/" class="woo-category-list__item reveal reveal-delay-1">
+        <div class="woo-category-list__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><line x1="12" y1="2" x2="12" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
         <div>
           <div class="woo-category-list__name">Koelkasten & vriezers</div>
           <div class="woo-category-list__count">Witgoed outlet</div>
         </div>
       </a>
-      <a href="category.html" class="woo-category-list__item reveal reveal-delay-2">
-        <div class="woo-category-list__icon">🍽️</div>
+      <a href="/product-categorie/witgoed/vaatwassers/" class="woo-category-list__item reveal reveal-delay-2">
+        <div class="woo-category-list__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><line x1="18" y1="6" x2="18" y2="20"/><path d="M6 2v8a4 4 0 0 0 8 0V2"/><line x1="6" y1="2" x2="6" y2="6"/><line x1="10" y1="2" x2="10" y2="6"/></svg></div>
         <div>
           <div class="woo-category-list__name">Vaatwassers</div>
           <div class="woo-category-list__count">Witgoed outlet</div>
         </div>
       </a>
-      <a href="category.html" class="woo-category-list__item reveal reveal-delay-3">
-        <div class="woo-category-list__icon">☕</div>
+      <a href="/product-categorie/huishoudelijk/koffiemachines/" class="woo-category-list__item reveal reveal-delay-3">
+        <div class="woo-category-list__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></div>
         <div>
           <div class="woo-category-list__name">Koffiemachines</div>
           <div class="woo-category-list__count">Huishoudelijk</div>
         </div>
       </a>
-      <a href="category.html" class="woo-category-list__item reveal">
-        <div class="woo-category-list__icon">🍳</div>
+      <a href="/product-categorie/witgoed/ovens-kookplaten/" class="woo-category-list__item reveal">
+        <div class="woo-category-list__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 3h-8l-1 4h10z"/></svg></div>
         <div>
           <div class="woo-category-list__name">Ovens & kookplaten</div>
           <div class="woo-category-list__count">Witgoed outlet</div>
         </div>
       </a>
-      <a href="category.html" class="woo-category-list__item reveal reveal-delay-1">
-        <div class="woo-category-list__icon">⚡</div>
+      <a href="/product-categorie/gereedschap/elektrisch-gereedschap/" class="woo-category-list__item reveal reveal-delay-1">
+        <div class="woo-category-list__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
         <div>
           <div class="woo-category-list__name">Elektrisch gereedschap</div>
           <div class="woo-category-list__count">Gereedschap outlet</div>
         </div>
       </a>
-      <a href="category.html" class="woo-category-list__item reveal reveal-delay-2">
-        <div class="woo-category-list__icon">🌿</div>
+      <a href="/product-categorie/tuin-bbq/" class="woo-category-list__item reveal reveal-delay-2">
+        <div class="woo-category-list__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><path d="M17 8C8 10 5.9 16.17 3.82 22h3.17c.8-2 1.56-3.83 2.01-5 4.16-1.17 8.79-.91 12-5 0 0 .5-4 1-7z"/><line x1="3.82" y1="22" x2="7.66" y2="16.83"/></svg></div>
         <div>
           <div class="woo-category-list__name">Tuin & BBQ</div>
           <div class="woo-category-list__count">Tuinartikelen</div>
         </div>
       </a>
-      <a href="category.html" class="woo-category-list__item reveal reveal-delay-3" style="border-color:var(--ol-yellow);background:#fffbf0;">
-        <div class="woo-category-list__icon" style="border-color:var(--ol-yellow);">🔥</div>
+      <a href="/winkel/" class="woo-category-list__item reveal reveal-delay-3" style="border-color:var(--ol-yellow);background:#fffbf0;">
+        <div class="woo-category-list__icon" style="border-color:var(--ol-yellow);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg></div>
         <div>
           <div class="woo-category-list__name" style="color:#c0392b;">Alle deals</div>
           <div class="woo-category-list__count">366 producten</div>
@@ -1052,15 +1052,15 @@ button { font-family: var(--ol-font); cursor: pointer; border: none; }
         <div class="section-eyebrow">Meest bekeken</div>
         <h2 class="section-title">Populaire producten</h2>
       </div>
-      <a href="#" class="link-all">Bekijk alle deals →</a>
+      <a href="/winkel/" class="link-all">Bekijk alle deals →</a>
     </div>
     <div class="woo-product-grid">
 
       <!-- WP: <?php while (have_posts()) : the_post(); wc_get_template_part('content', 'product'); endwhile; ?> -->
-      <a href="product.html" class="woo-product-card reveal">
+      <a href="/winkel/" class="woo-product-card reveal">
         <div class="woo-product-card__img-wrap">
           <span class="woo-product-card__badge">-23%</span>
-          <button class="woo-product-card__wishlist" onclick="event.preventDefault()">♡</button>
+          <button class="woo-product-card__wishlist" onclick="event.preventDefault()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
           <img src="https://media.s-bol.com/qL3L9v6qvGvr/9AAZ8/550x658.jpg" alt="Festool DOMINO XL" loading="lazy">
         </div>
         <div class="woo-product-card__body">
@@ -1077,10 +1077,10 @@ button { font-family: var(--ol-font); cursor: pointer; border: none; }
         </div>
       </a>
 
-      <a href="product.html" class="woo-product-card reveal reveal-delay-1">
+      <a href="/winkel/" class="woo-product-card reveal reveal-delay-1">
         <div class="woo-product-card__img-wrap">
           <span class="woo-product-card__badge">-21%</span>
-          <button class="woo-product-card__wishlist" onclick="event.preventDefault()">♡</button>
+          <button class="woo-product-card__wishlist" onclick="event.preventDefault()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
           <img src="https://media.s-bol.com/Bpk8oXgrvD7Q/g3vKoZ/250x200.jpg" alt="Grill Guru" loading="lazy">
         </div>
         <div class="woo-product-card__body">
@@ -1097,10 +1097,10 @@ button { font-family: var(--ol-font); cursor: pointer; border: none; }
         </div>
       </a>
 
-      <a href="product.html" class="woo-product-card reveal reveal-delay-2">
+      <a href="/winkel/" class="woo-product-card reveal reveal-delay-2">
         <div class="woo-product-card__img-wrap">
           <span class="woo-product-card__badge">-32%</span>
-          <button class="woo-product-card__wishlist" onclick="event.preventDefault()">♡</button>
+          <button class="woo-product-card__wishlist" onclick="event.preventDefault()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
           <img src="https://media.s-bol.com/49ov9RqRY8kJ/550x297.jpg" alt="Makita Pin tacker" loading="lazy">
         </div>
         <div class="woo-product-card__body">
@@ -1117,10 +1117,10 @@ button { font-family: var(--ol-font); cursor: pointer; border: none; }
         </div>
       </a>
 
-      <a href="product.html" class="woo-product-card reveal reveal-delay-3">
+      <a href="/winkel/" class="woo-product-card reveal reveal-delay-3">
         <div class="woo-product-card__img-wrap">
           <span class="woo-product-card__badge">-15%</span>
-          <button class="woo-product-card__wishlist" onclick="event.preventDefault()">♡</button>
+          <button class="woo-product-card__wishlist" onclick="event.preventDefault()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
           <img src="https://media.s-bol.com/j6AxJDK5Lm5Y/A682lp1/250x200.jpg" alt="Bosch werktafel" loading="lazy">
         </div>
         <div class="woo-product-card__body">
@@ -1137,10 +1137,10 @@ button { font-family: var(--ol-font); cursor: pointer; border: none; }
         </div>
       </a>
 
-      <a href="product.html" class="woo-product-card reveal">
+      <a href="/winkel/" class="woo-product-card reveal">
         <div class="woo-product-card__img-wrap">
           <span class="woo-product-card__badge">-30%</span>
-          <button class="woo-product-card__wishlist" onclick="event.preventDefault()">♡</button>
+          <button class="woo-product-card__wishlist" onclick="event.preventDefault()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
           <img src="https://media.s-bol.com/qL3L9v6qvGvr/9AAZ8/550x658.jpg" alt="Spax schroeven" loading="lazy">
         </div>
         <div class="woo-product-card__body">
@@ -1157,10 +1157,10 @@ button { font-family: var(--ol-font); cursor: pointer; border: none; }
         </div>
       </a>
 
-      <a href="product.html" class="woo-product-card reveal reveal-delay-1">
+      <a href="/winkel/" class="woo-product-card reveal reveal-delay-1">
         <div class="woo-product-card__img-wrap">
           <span class="woo-product-card__badge woo-product-card__badge--new">Nieuw</span>
-          <button class="woo-product-card__wishlist" onclick="event.preventDefault()">♡</button>
+          <button class="woo-product-card__wishlist" onclick="event.preventDefault()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
           <img src="https://media.s-bol.com/4Z3081QoJY0n/2RJjMP1/250x200.jpg" alt="Napoleon grillrooster" loading="lazy">
         </div>
         <div class="woo-product-card__body">
@@ -1177,10 +1177,10 @@ button { font-family: var(--ol-font); cursor: pointer; border: none; }
         </div>
       </a>
 
-      <a href="product.html" class="woo-product-card reveal reveal-delay-2">
+      <a href="/winkel/" class="woo-product-card reveal reveal-delay-2">
         <div class="woo-product-card__img-wrap">
           <span class="woo-product-card__badge">-20%</span>
-          <button class="woo-product-card__wishlist" onclick="event.preventDefault()">♡</button>
+          <button class="woo-product-card__wishlist" onclick="event.preventDefault()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
           <img src="https://media.s-bol.com/Bpk8oXgrvD7Q/g3vKoZ/250x200.jpg" alt="Fibaro sensor" loading="lazy">
         </div>
         <div class="woo-product-card__body">
@@ -1197,10 +1197,10 @@ button { font-family: var(--ol-font); cursor: pointer; border: none; }
         </div>
       </a>
 
-      <a href="product.html" class="woo-product-card reveal reveal-delay-3">
+      <a href="/winkel/" class="woo-product-card reveal reveal-delay-3">
         <div class="woo-product-card__img-wrap">
           <span class="woo-product-card__badge">-21%</span>
-          <button class="woo-product-card__wishlist" onclick="event.preventDefault()">♡</button>
+          <button class="woo-product-card__wishlist" onclick="event.preventDefault()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
           <img src="https://media.s-bol.com/49ov9RqRY8kJ/550x297.jpg" alt="Moodpaints verf" loading="lazy">
         </div>
         <div class="woo-product-card__body">
@@ -1229,12 +1229,12 @@ button { font-family: var(--ol-font); cursor: pointer; border: none; }
   <div class="w">
     <div class="promo-banner__inner">
       <div class="promo-banner__left">
-        <div class="promo-banner__tag">⚡ Tijdelijke aanbieding</div>
+        <div class="promo-banner__tag">Tijdelijke aanbieding</div>
         <h2 class="promo-banner__title">
           Deze week:<br>Festool deals
         </h2>
         <p class="promo-banner__sub">Tot 30% korting op het complete Festool assortiment. Professioneel gereedschap, direct uit voorraad.</p>
-        <a href="#" class="btn-dark">Bekijk Festool aanbod →</a>
+        <a href="/product-merk/festool/" class="btn-dark">Bekijk Festool aanbod →</a>
       </div>
       <div class="promo-banner__right">
         <img class="promo-banner__img" src="https://media.s-bol.com/qL3L9v6qvGvr/9AAZ8/550x658.jpg" alt="Festool deal">
@@ -1258,7 +1258,7 @@ button { font-family: var(--ol-font); cursor: pointer; border: none; }
         <div class="section-eyebrow">Ons aanbod</div>
         <h2 class="section-title">A-merken in ons assortiment</h2>
       </div>
-      <a href="#" class="link-all">Alle merken →</a>
+      <a href="/winkel/" class="link-all">Alle merken →</a>
     </div>
     <div class="brand-grid">
       <div class="brand-card reveal">
@@ -1336,7 +1336,7 @@ button { font-family: var(--ol-font); cursor: pointer; border: none; }
         <div class="section-eyebrow">Wat klanten zeggen</div>
         <h2 class="section-title">Klantbeoordelingen</h2>
       </div>
-      <a href="#" class="link-all">Alle beoordelingen →</a>
+      <a href="/over-outlet-loket/#beoordelingen" class="link-all">Alle beoordelingen →</a>
     </div>
 
     <div class="reviews-summary reveal">
@@ -1499,43 +1499,43 @@ button { font-family: var(--ol-font); cursor: pointer; border: none; }
       <div class="site-footer__col">
         <h5>Categorieën</h5>
         <ul>
-          <li><a href="#">Elektrisch gereedschap</a></li>
-          <li><a href="#">Handgereedschap</a></li>
-          <li><a href="#">Bouwmaterialen</a></li>
-          <li><a href="#">Schroeven</a></li>
-          <li><a href="#">Tuinartikelen</a></li>
-          <li><a href="#">Elektronica</a></li>
+          <li><a href="/product-categorie/gereedschap/elektrisch-gereedschap/">Elektrisch gereedschap</a></li>
+          <li><a href="/product-categorie/gereedschap/handgereedschap/">Handgereedschap</a></li>
+          <li><a href="/product-categorie/bouwmaterialen/">Bouwmaterialen</a></li>
+          <li><a href="/product-categorie/gereedschap/schroeven/">Schroeven</a></li>
+          <li><a href="/product-categorie/tuin-bbq/">Tuinartikelen</a></li>
+          <li><a href="/product-categorie/elektronica/">Elektronica</a></li>
         </ul>
       </div>
       <div class="site-footer__col">
         <h5>Klantenservice</h5>
         <ul>
-          <li><a href="#">Retourneren</a></li>
-          <li><a href="#">Verzending & levering</a></li>
-          <li><a href="#">Veelgestelde vragen</a></li>
-          <li><a href="#">Contact opnemen</a></li>
-          <li><a href="#">Winkel bezoeken</a></li>
-          <li><a href="#">Openingstijden</a></li>
+          <li><a href="/levering-en-retourneren/">Retourneren</a></li>
+          <li><a href="/levering-en-retourneren/">Verzending & levering</a></li>
+          <li><a href="/contact/">Veelgestelde vragen</a></li>
+          <li><a href="/contact/">Contact opnemen</a></li>
+          <li><a href="/over-outlet-loket/">Winkel bezoeken</a></li>
+          <li><a href="/over-outlet-loket/">Openingstijden</a></li>
         </ul>
       </div>
       <div class="site-footer__col">
         <h5>Over ons</h5>
         <ul>
-          <li><a href="#">Over Outlet Loket</a></li>
-          <li><a href="#">Restpartij verkopen</a></li>
-          <li><a href="#">Partner worden</a></li>
-          <li><a href="#">Blog</a></li>
-          <li><a href="#">Privacybeleid</a></li>
-          <li><a href="#">Algemene voorwaarden</a></li>
+          <li><a href="/over-outlet-loket/">Over Outlet Loket</a></li>
+          <li><a href="/zakelijk-bestellen/">Restpartij verkopen</a></li>
+          <li><a href="/zakelijk-bestellen/">Partner worden</a></li>
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/privacybeleid/">Privacybeleid</a></li>
+          <li><a href="/algemene-voorwaarden/">Algemene voorwaarden</a></li>
         </ul>
       </div>
     </div>
     <div class="site-footer__bottom">
       <span>© 2026 Outlet Loket — Outlet Webshop voor A-Merken — Luno Trading B.V. — KvK 42057628 — Zutphen-Emmerikseweg 75B, Baak</span>
       <div class="footer-legal">
-        <a href="#">Privacybeleid</a>
-        <a href="#">Algemene voorwaarden</a>
-        <a href="#">Cookies</a>
+        <a href="/privacybeleid/">Privacybeleid</a>
+        <a href="/algemene-voorwaarden/">Algemene voorwaarden</a>
+        <a href="/cookiebeleid-eu/">Cookies</a>
       </div>
     </div>
   </div>
@@ -1564,7 +1564,7 @@ document.querySelectorAll('.woo-add-to-cart').forEach(btn => {
     e.preventDefault();
     e.stopPropagation();
     const orig = this.textContent;
-    this.textContent = '✓ Toegevoegd';
+    this.textContent = 'Toegevoegd';
     this.style.background = 'var(--ol-green)';
     this.style.color = 'white';
     // Update cart count
@@ -1578,13 +1578,46 @@ document.querySelectorAll('.woo-add-to-cart').forEach(btn => {
   });
 });
 
+// ============================================================
+// Hero spot randomiser — WP: replace with dynamic product query
+// ============================================================
+(function() {
+  const pool = [
+    { img: 'https://media.s-bol.com/qL3L9v6qvGvr/9AAZ8/550x658.jpg', alt: 'Festool DOMINO XL',         brand: 'Festool',   disc: '-23%' },
+    { img: 'https://media.s-bol.com/4Z3081QoJY0n/2RJjMP1/250x200.jpg', alt: 'Festool stofzuiger',       brand: 'Festool',   disc: '-15%' },
+    { img: 'https://media.s-bol.com/Bpk8oXgrvD7Q/g3vKoZ/250x200.jpg',  alt: 'Grill Guru plancha ring',  brand: 'Grill Guru',disc: '-21%' },
+    { img: 'https://media.s-bol.com/49ov9RqRY8kJ/550x297.jpg',          alt: 'Makita Pin tacker 40V',    brand: 'Makita',    disc: '-32%' },
+    { img: 'https://media.s-bol.com/j6AxJDK5Lm5Y/A682lp1/250x200.jpg', alt: 'Bosch werktafel GTA 600',  brand: 'Bosch',     disc: '-15%' },
+    { img: 'https://media.s-bol.com/4Z3081QoJY0n/2RJjMP1/250x200.jpg',  alt: 'Napoleon grillrooster',    brand: 'Napoleon',  disc: '-18%' },
+    { img: 'https://media.s-bol.com/Bpk8oXgrvD7Q/g3vKoZ/250x200.jpg',  alt: 'Fibaro deur/raam sensor',  brand: 'Fibaro',    disc: '-20%' },
+    { img: 'https://media.s-bol.com/49ov9RqRY8kJ/550x297.jpg',          alt: 'Moodpaints betonlook verf',brand: 'Moodpaints',disc: '-21%' },
+  ];
+
+  // Fisher-Yates shuffle, pick first 4
+  for (let i = pool.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [pool[i], pool[j]] = [pool[j], pool[i]];
+  }
+
+  document.querySelectorAll('.hero__spot').forEach((spot, i) => {
+    const p = pool[i];
+    spot.querySelector('img').src = p.img;
+    spot.querySelector('img').alt = p.alt;
+    spot.querySelector('.hero__spot-brand').textContent = p.brand;
+    spot.querySelector('.hero__spot-disc').textContent = p.disc;
+  });
+})();
+
 // Wishlist toggle
 document.querySelectorAll('.woo-product-card__wishlist').forEach(btn => {
   btn.addEventListener('click', function(e) {
     e.preventDefault();
     e.stopPropagation();
-    this.textContent = this.textContent === '♡' ? '♥' : '♡';
-    this.style.color = this.textContent === '♥' ? '#e53935' : '';
+    const svg = this.querySelector('svg');
+    const active = this.dataset.active === '1';
+    this.dataset.active = active ? '0' : '1';
+    svg.style.fill = active ? 'none' : '#e53935';
+    svg.style.stroke = active ? 'currentColor' : '#e53935';
   });
 });
 </script>
