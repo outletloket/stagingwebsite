@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Outlet Loket — A-merken. Direct uit voorraad.</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Barlow+Condensed:wght@700;800;900&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --yellow:  #ffde59;
+  --black:   #111;
+  --white:   #fff;
+  --grey-1:  #F4F4F4;
+  --grey-2:  #E8E8E8;
+  --grey-3:  #999;
+  --grey-4:  #555;
+  --green:   #1a9e5c;
+  --radius:  6px;
+  --font:    'Inter', sans-serif;
+  --display: 'Barlow Condensed', sans-serif;
+  --max:     1200px;
+}
+
+body { font-family: var(--font); color: var(--black); background: var(--white); -webkit-font-smoothing: antialiased; }
+a { text-decoration: none; color: inherit; }
+img { display: block; max-width: 100%; }
+.w { max-width: var(--max); margin: 0 auto; padding: 0 20px; }
+
+/* ─── TOPBAR ─── */
+.topbar {
+  background: var(--black);
+  color: #aaa;
+  font-size: 11.5px;
+  letter-spacing: .04em;
+  padding: 9px 0;
+  text-align: center;
+}
+.topbar b { color: var(--yellow); font-weight: 600; }
+.topbar-inner {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+.topbar-inner span {
+  display: flex; align-items: center; gap: 5px;
+}
+.topbar-inner span::before { content: '✓'; color: var(--yellow); }
+
+/* ─── HEADER ─── */
+header {
+  background: var(--white);
+  border-bottom: 1px solid var(--grey-2);
+  position: sticky;
+  top: 0;
+  z-index: 200;
+}
+.header-row {
+  height: 62px;
+  display: grid;
+  grid-template-columns: 180px 1fr auto;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Logo — SVG inline recreation of the actual logo */
+.logo-svg {
+  display: block;
+  width: 140px;
+  height: auto;
+  flex-shrink: 0;
+}
+
+.searchbox {
+  display: flex;
+  border: 1.5px solid var(--grey-2);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: border-color .18s;
+  height: 40px;
+}
+.searchbox:focus-within { border-color: var(--yellow); }
+.searchbox input {
+  flex: 1; border: none; outline: none;
+  font-family: var(--font); font-size: 13.5px;
+  padding: 0 14px; color: var(--black);
+}
+.searchbox input::placeholder { color: var(--grey-3); }
+.searchbox button {
+  background: var(--yellow); border: none;
+  width: 44px; cursor: pointer;
+  font-size: 15px; color: var(--black);
+  transition: background .18s; flex-shrink: 0;
+}
+.searchbox button:hover { background: #e8c94f; }
+
+.hdr-actions {
+  display: flex; align-items: center; gap: 6px;
+}
+.hdr-btn {
+  display: flex; align-items: center; gap: 5px;
+  font-size: 13px; font-weight: 500;
+  color: var(--grey-4); padding: 7px 12px;
+  border-radius: var(--radius);
+  border: 1.5px solid transparent;
+  transition: all .15s; cursor: pointer;
+  white-space: nowrap;
+}
+.hdr-btn:hover { color: var(--black); border-color: var(--grey-2); }
+.hdr-btn svg { width: 16px; height: 16px; }
+.hdr-cart {
+  background: var(--yellow);
+  color: var(--black) !important;
+  border-color: var(--yellow) !important;
+  font-weight: 700 !important;
+}
+.hdr-cart:hover { background: #e8c94f !important; border-color: #e8c94f !important; }
+
+/* ─── NAV ─── */
+.nav-bar {
+  border-bottom: 1px solid var(--grey-2);
+  background: var(--white);
+}
+.nav-row {
+  display: flex; gap: 0;
+  overflow-x: auto; scrollbar-width: none;
+}
+.nav-row::-webkit-scrollbar { display: none; }
+.nav-item {
+  font-size: 13px; font-weight: 500;
+  color: var(--grey-4); padding: 12px 15px;
+  white-space: nowrap;
+  border-bottom: 2px solid transparent;
+  transition: all .15s;
+}
+.nav-item:hover { color: var(--black); }
+.nav-item.active { color: var(--black); border-bottom-color: var(--yellow); font-weight: 600; }
+.nav-item.deals { color: #c0392b; font-weight: 600; }
+
+/* ─── HERO ─── */
+.hero {
+  background: var(--black);
+  overflow: hidden;
+  position: relative;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 50% 100% at 75% 50%, rgba(245,168,0,.07) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 420px;
+  position: relative;
+  z-index: 1;
+}
+.hero-left {
+  padding: 64px 0 64px;
+  display: flex; flex-direction: column;
+  justify-content: center;
+}
+.hero-kicker {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: var(--yellow); margin-bottom: 18px;
+}
+.hero-kicker::before {
+  content: '';
+  width: 18px; height: 2px;
+  background: var(--yellow);
+  display: block;
+}
+.hero h1 {
+  font-family: var(--display);
+  font-size: clamp(48px, 5.5vw, 76px);
+  font-weight: 900;
+  line-height: .92;
+  color: var(--white);
+  text-transform: uppercase;
+  letter-spacing: -.01em;
+  margin-bottom: 22px;
+}
+.hero h1 mark {
+  background: none;
+  color: var(--yellow);
+  display: block;
+}
+.hero-sub {
+  font-size: 15px; line-height: 1.65;
+  color: #777; max-width: 360px;
+  margin-bottom: 36px;
+}
+.hero-actions { display: flex; gap: 12px; align-items: center; }
+.btn-cta {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--yellow); color: var(--black);
+  font-family: var(--display);
+  font-weight: 800; font-size: 15px;
+  letter-spacing: .05em; text-transform: uppercase;
+  padding: 13px 28px; border-radius: var(--radius);
+  transition: background .18s, transform .12s;
+  border: none; cursor: pointer;
+}
+.btn-cta:hover { background: #e8c94f; transform: translateY(-1px); }
+.btn-ghost-hero {
+  font-size: 13px; font-weight: 500;
+  color: #666; display: flex; align-items: center; gap: 5px;
+  transition: color .15s;
+}
+.btn-ghost-hero:hover { color: var(--white); }
+
+.hero-numbers {
+  display: flex; gap: 36px;
+  margin-top: 44px; padding-top: 36px;
+  border-top: 1px solid #222;
+}
+.hero-num-val {
+  font-family: var(--display);
+  font-size: 34px; font-weight: 900;
+  color: var(--white); line-height: 1;
+}
+.hero-num-val span { color: var(--yellow); }
+.hero-num-label {
+  font-size: 11px; color: #555;
+  text-transform: uppercase; letter-spacing: .08em;
+  margin-top: 3px;
+}
+
+/* Hero right — product spotlight */
+.hero-right {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 2px;
+  background: #1a1a1a;
+}
+.hero-spot {
+  background: #161616;
+  position: relative;
+  overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  transition: background .18s;
+}
+.hero-spot:hover { background: #1e1e1e; }
+.hero-spot img {
+  width: 100%; height: 100%;
+  object-fit: contain;
+  padding: 20px;
+  filter: brightness(.95);
+  transition: transform .3s;
+}
+.hero-spot:hover img { transform: scale(1.04); }
+.hero-spot-badge {
+  position: absolute; bottom: 10px; left: 10px;
+  background: var(--yellow); color: var(--black);
+  font-family: var(--display);
+  font-size: 11px; font-weight: 800;
+  padding: 3px 8px; border-radius: 3px;
+  text-transform: uppercase; letter-spacing: .05em;
+}
+.hero-spot-brand {
+  position: absolute; top: 10px; left: 10px;
+  background: rgba(0,0,0,.6);
+  color: #ccc;
+  font-size: 10px; font-weight: 600;
+  padding: 2px 7px; border-radius: 2px;
+  text-transform: uppercase; letter-spacing: .06em;
+}
+
+/* ─── USP STRIP ─── */
+.usp-strip {
+  border-top: 1px solid var(--grey-2);
+  border-bottom: 1px solid var(--grey-2);
+  padding: 18px 0;
+}
+.usp-row {
+  display: flex; justify-content: space-between;
+  flex-wrap: wrap; gap: 12px;
+}
+.usp-item {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 13px; font-weight: 500; color: var(--grey-4);
+}
+.usp-item svg { color: var(--yellow); flex-shrink: 0; }
+
+/* ─── SECTION BASE ─── */
+.section { padding: 52px 0; }
+.section-head {
+  display: flex; justify-content: space-between; align-items: baseline;
+  margin-bottom: 24px;
+}
+.section-h {
+  font-family: var(--display);
+  font-size: 26px; font-weight: 900;
+  text-transform: uppercase; letter-spacing: -.01em;
+}
+.link-more {
+  font-size: 13px; font-weight: 600;
+  color: var(--yellow);
+  display: flex; align-items: center; gap: 3px;
+  transition: gap .15s;
+}
+.link-more:hover { gap: 6px; }
+
+/* ─── CATEGORIES ─── */
+.cats-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+.cat-tile {
+  background: var(--grey-1);
+  border: 1.5px solid var(--grey-2);
+  border-radius: var(--radius);
+  padding: 20px;
+  display: flex; align-items: center; gap: 14px;
+  cursor: pointer; transition: all .18s;
+}
+.cat-tile:hover {
+  border-color: var(--yellow);
+  background: #fffbf0;
+}
+.cat-tile-icon {
+  width: 44px; height: 44px;
+  background: var(--white);
+  border: 1px solid var(--grey-2);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px; flex-shrink: 0;
+}
+.cat-tile-name {
+  font-size: 14px; font-weight: 600; color: var(--black);
+  line-height: 1.2;
+}
+.cat-tile-count { font-size: 11px; color: var(--grey-3); margin-top: 2px; }
+
+/* ─── PRODUCTS ─── */
+.prods-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+.prod {
+  border: 1.5px solid var(--grey-2);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--white);
+  transition: all .18s;
+  display: flex; flex-direction: column;
+}
+.prod:hover {
+  border-color: #ccc;
+  box-shadow: 0 4px 20px rgba(0,0,0,.06);
+  transform: translateY(-2px);
+}
+.prod-img-wrap {
+  height: 180px;
+  background: var(--grey-1);
+  position: relative;
+  overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+}
+.prod-img-wrap img {
+  width: 100%; height: 100%;
+  object-fit: contain; padding: 16px;
+  transition: transform .3s;
+}
+.prod:hover .prod-img-wrap img { transform: scale(1.04); }
+.prod-disc {
+  position: absolute; top: 10px; left: 10px;
+  background: var(--yellow); color: var(--black);
+  font-family: var(--display);
+  font-size: 11px; font-weight: 800;
+  padding: 2px 7px; border-radius: 3px;
+}
+.prod-body { padding: 14px; flex: 1; display: flex; flex-direction: column; }
+.prod-brand {
+  font-size: 10.5px; font-weight: 700;
+  color: var(--yellow); text-transform: uppercase;
+  letter-spacing: .1em; margin-bottom: 4px;
+}
+.prod-name {
+  font-size: 13.5px; font-weight: 500;
+  color: var(--black); line-height: 1.35;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+  overflow: hidden; margin-bottom: auto;
+}
+.prod-price-row {
+  display: flex; align-items: baseline;
+  gap: 7px; margin-top: 14px;
+}
+.prod-sale {
+  font-family: var(--display);
+  font-size: 22px; font-weight: 900; color: var(--black);
+}
+.prod-was {
+  font-size: 12.5px; color: var(--grey-3);
+  text-decoration: line-through;
+}
+.prod-foot {
+  padding: 10px 14px;
+  border-top: 1px solid var(--grey-2);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.prod-stock-ok {
+  font-size: 11.5px; font-weight: 600;
+  color: var(--green);
+  display: flex; align-items: center; gap: 5px;
+}
+.prod-stock-ok::before {
+  content: ''; width: 6px; height: 6px;
+  background: var(--green); border-radius: 50%;
+}
+.btn-add {
+  font-family: var(--display);
+  font-size: 12px; font-weight: 800;
+  letter-spacing: .06em; text-transform: uppercase;
+  background: var(--black); color: var(--white);
+  border: none; padding: 7px 14px; border-radius: 3px;
+  cursor: pointer; transition: background .15s;
+}
+.btn-add:hover { background: var(--yellow); color: var(--black); }
+
+/* ─── BRANDS ─── */
+.brands-section { background: var(--grey-1); padding: 40px 0; }
+.brands-row {
+  display: flex; gap: 8px; flex-wrap: wrap;
+}
+.brand-chip {
+  background: var(--white);
+  border: 1.5px solid var(--grey-2);
+  border-radius: 4px;
+  padding: 9px 18px;
+  font-size: 13px; font-weight: 700;
+  color: var(--black); letter-spacing: .02em;
+  cursor: pointer; transition: all .15s;
+  display: flex; align-items: center; gap: 6px;
+}
+.brand-chip:hover { border-color: var(--yellow); color: var(--yellow); }
+.brand-chip span { font-size: 11px; color: var(--grey-3); font-weight: 400; }
+
+/* ─── FOOTER ─── */
+footer {
+  background: var(--black);
+  border-top: 3px solid var(--yellow);
+  padding: 48px 0 24px;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 40px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid #1e1e1e;
+  margin-bottom: 24px;
+}
+.footer-brand p {
+  font-size: 13px; color: #555; line-height: 1.7;
+  margin-top: 14px; max-width: 240px;
+}
+.footer-col h5 {
+  font-size: 11px; font-weight: 700;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: #444; margin-bottom: 14px;
+}
+.footer-col ul { list-style: none; }
+.footer-col li { margin-bottom: 8px; }
+.footer-col a {
+  font-size: 13px; color: #555;
+  transition: color .15s;
+}
+.footer-col a:hover { color: var(--yellow); }
+.footer-bottom {
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 11.5px; color: #333; flex-wrap: wrap; gap: 8px;
+}
+.footer-bottom a { color: #333; }
+.footer-bottom a:hover { color: var(--yellow); }
+.footer-links { display: flex; gap: 20px; }
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .hero-right { display: none; }
+  .hero-row { grid-template-columns: 1fr; }
+  .cats-row { grid-template-columns: repeat(2, 1fr); }
+  .prods-row { grid-template-columns: repeat(3, 1fr); }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 640px) {
+  .prods-row { grid-template-columns: repeat(2, 1fr); }
+  .header-row { grid-template-columns: auto 1fr; }
+  .hdr-actions { display: none; }
+  .hero h1 { font-size: 44px; }
+}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes pulse-ring {
+  0%   { box-shadow: 0 0 0 0 rgba(255,222,89,.35); }
+  70%  { box-shadow: 0 0 0 8px rgba(255,222,89,0); }
+  100% { box-shadow: 0 0 0 0 rgba(255,222,89,0); }
+}
+
+.topbar { animation: fadeIn .3s ease; }
+header  { animation: fadeIn .4s ease; }
+.hero-left { animation: fadeUp .6s ease .1s both; }
+.hero-right { animation: fadeIn .8s ease .2s both; }
+.usp-strip { animation: fadeUp .5s ease .2s both; }
+
+.hdr-cart { animation: pulse-ring 2.5s ease infinite; }
+
+.reveal {
+  opacity: 0; transform: translateY(18px);
+  transition: opacity .5s ease, transform .5s ease;
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+.cat-tile { transition: all .2s cubic-bezier(.34,1.56,.64,1); }
+.cat-tile:hover { transform: translateY(-3px) scale(1.01); }
+
+.prod { transition: all .2s cubic-bezier(.34,1.56,.64,1); }
+.prod:hover { transform: translateY(-4px); }
+
+.btn-cta { transition: background .18s, transform .15s, box-shadow .15s; }
+.btn-cta:hover { box-shadow: 0 4px 16px rgba(255,222,89,.4); }
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <span>14 dagen bedenktijd</span>
+    <span>Werkdagen voor 16:00 verzonden</span>
+    <span>Gratis verzending v.a. $500</span>
+    <span>Ophalen = $50 extra korting</span>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header>
+  <div class="w">
+    <div class="header-row">
+
+      <!-- Logo: recreatie van het echte logo in SVG -->
+      <a href="/">
+        <svg class="logo-svg" viewBox="0 0 220 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <text x="0" y="28" font-family="'Barlow Condensed', sans-serif" font-weight="900" font-size="26" letter-spacing="2" fill="#111" text-anchor="start">OUTLET</text>
+          <rect x="110" y="14" width="56" height="6" fill="#111"/>
+          <rect x="44" y="44" width="40" height="6" fill="#111"/>
+          <text x="92" y="62" font-family="'Barlow Condensed', sans-serif" font-weight="900" font-size="26" letter-spacing="2" fill="#111" text-anchor="start">LOKET</text>
+        </svg>
+      </a>
+
+      <div class="searchbox">
+        <input type="text" placeholder="Zoek op product, merk of categorie...">
+        <button>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        </button>
+      </div>
+
+      <div class="hdr-actions">
+        <a href="#" class="hdr-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          Verlanglijst
+        </a>
+        <a href="#" class="hdr-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          Account
+        </a>
+        <a href="#" class="hdr-btn hdr-cart">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          Winkelwagen
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- NAV -->
+<div class="nav-bar">
+  <div class="w">
+    <div class="nav-row">
+      <a href="#" class="nav-item active">Alle producten</a>
+      <a href="#" class="nav-item">Elektrisch gereedschap</a>
+      <a href="#" class="nav-item">Handgereedschap</a>
+      <a href="#" class="nav-item">Bouwmaterialen</a>
+      <a href="#" class="nav-item">Schroeven</a>
+      <a href="#" class="nav-item">Tuinartikelen</a>
+      <a href="#" class="nav-item">Huishoudelijk</a>
+      <a href="#" class="nav-item">Elektronica</a>
+      <a href="#" class="nav-item deals">🔥 Deals</a>
+    </div>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="w">
+    <div class="hero-row">
+      <div class="hero-left">
+        <div class="hero-kicker">Direct uit voorraad leverbaar</div>
+        <h1>
+          A-merken.
+          <mark>Scherp geprijsd.</mark>
+        </h1>
+        <p class="hero-sub">DeWalt, Makita, Bosch, Festool en meer. Altijd op voorraad in onze loods in Baak — snel geleverd, met 14 dagen bedenktijd.</p>
+        <div class="hero-actions">
+          <a href="#" class="btn-cta">Bekijk alle deals →</a>
+          <a href="#" class="btn-ghost-hero">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Winkel bezoeken
+          </a>
+        </div>
+        <div class="hero-numbers">
+          <div>
+            <div class="hero-num-val">400<span>+</span></div>
+            <div class="hero-num-label">Producten</div>
+          </div>
+          <div>
+            <div class="hero-num-val">Tot <span>-55%</span></div>
+            <div class="hero-num-label">Korting</div>
+          </div>
+          <div>
+            <div class="hero-num-val"><span>8.4</span></div>
+            <div class="hero-num-label">Beoordeling</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product grid in hero — echte foto's -->
+      <div class="hero-right">
+        <div class="hero-spot">
+          <img src="https://media.s-bol.com/qL3L9v6qvGvr/9AAZ8/550x658.jpg" alt="Festool DOMINO XL" loading="lazy">
+          <div class="hero-spot-brand">Festool</div>
+          <div class="hero-spot-badge">-23%</div>
+        </div>
+        <div class="hero-spot">
+          <img src="https://media.s-bol.com/4Z3081QoJY0n/2RJjMP1/250x200.jpg" alt="Festool stofzuiger" loading="lazy">
+          <div class="hero-spot-brand">Festool</div>
+          <div class="hero-spot-badge">-15%</div>
+        </div>
+        <div class="hero-spot">
+          <img src="https://media.s-bol.com/Bpk8oXgrvD7Q/g3vKoZ/250x200.jpg" alt="Grill Guru" loading="lazy">
+          <div class="hero-spot-brand">Grill Guru</div>
+          <div class="hero-spot-badge">-21%</div>
+        </div>
+        <div class="hero-spot">
+          <img src="https://media.s-bol.com/49ov9RqRY8kJ/550x297.jpg" alt="Panasonic multitool" loading="lazy">
+          <div class="hero-spot-brand">Panasonic</div>
+          <div class="hero-spot-badge">-18%</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- USP STRIP -->
+<div class="usp-strip">
+  <div class="w">
+    <div class="usp-row">
+      <div class="usp-item">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        14 dagen bedenktijd
+      </div>
+      <div class="usp-item">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+        Zelfde dag verzonden
+      </div>
+      <div class="usp-item">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        Fysieke winkel in Baak
+      </div>
+      <div class="usp-item">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        8.4 klantbeoordeling
+      </div>
+      <div class="usp-item">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        $50 korting bij afhalen
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CATEGORIES -->
+<section class="section">
+  <div class="w">
+    <div class="section-head">
+      <h2 class="section-h">Categorieën</h2>
+      <a href="#" class="link-more">Alles bekijken →</a>
+    </div>
+    <div class="cats-row">
+      <a href="#" class="cat-tile reveal">
+        <div class="cat-tile-icon">⚡</div>
+        <div>
+          <div class="cat-tile-name">Elektrisch gereedschap</div>
+          <div class="cat-tile-count">72 producten</div>
+        </div>
+      </a>
+      <a href="#" class="cat-tile reveal">
+        <div class="cat-tile-icon">🔨</div>
+        <div>
+          <div class="cat-tile-name">Handgereedschap</div>
+          <div class="cat-tile-count">54 producten</div>
+        </div>
+      </a>
+      <a href="#" class="cat-tile reveal">
+        <div class="cat-tile-icon">🧱</div>
+        <div>
+          <div class="cat-tile-name">Bouwmaterialen</div>
+          <div class="cat-tile-count">80 producten</div>
+        </div>
+      </a>
+      <a href="#" class="cat-tile reveal">
+        <div class="cat-tile-icon">🔩</div>
+        <div>
+          <div class="cat-tile-name">Schroeven & bevestiging</div>
+          <div class="cat-tile-count">52 producten</div>
+        </div>
+      </a>
+      <a href="#" class="cat-tile reveal">
+        <div class="cat-tile-icon">🌿</div>
+        <div>
+          <div class="cat-tile-name">Tuinartikelen</div>
+          <div class="cat-tile-count">30 producten</div>
+        </div>
+      </a>
+      <a href="#" class="cat-tile reveal">
+        <div class="cat-tile-icon">🏠</div>
+        <div>
+          <div class="cat-tile-name">Huishoudelijk</div>
+          <div class="cat-tile-count">31 producten</div>
+        </div>
+      </a>
+      <a href="#" class="cat-tile reveal">
+        <div class="cat-tile-icon">📡</div>
+        <div>
+          <div class="cat-tile-name">Elektronica</div>
+          <div class="cat-tile-count">41 producten</div>
+        </div>
+      </a>
+      <a href="#" class="cat-tile reveal" style="border-color: var(--yellow); background: #fffbf0;">
+        <div class="cat-tile-icon" style="border-color: var(--yellow);">🔥</div>
+        <div>
+          <div class="cat-tile-name" style="color: #c0392b;">Alle deals</div>
+          <div class="cat-tile-count">366 producten</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="section" style="background: var(--grey-1); padding-top: 52px;">
+  <div class="w">
+    <div class="section-head">
+      <h2 class="section-h">Populaire producten</h2>
+      <a href="#" class="link-more">Bekijk alle deals →</a>
+    </div>
+    <div class="prods-row">
+
+      <a href="product.html" class="prod reveal" style="display:flex;flex-direction:column;">
+        <div class="prod-img-wrap">
+          <div class="prod-disc">-23%</div>
+          <img src="https://media.s-bol.com/qL3L9v6qvGvr/9AAZ8/550x658.jpg" alt="Festool DOMINO XL" loading="lazy">
+        </div>
+        <div class="prod-body">
+          <div class="prod-brand">Festool</div>
+          <div class="prod-name">Festool DOMINO XL Stenen Assortiment Beukenhout DS/XL D8/D10</div>
+          <div class="prod-price-row">
+            <div class="prod-sale">$229,95</div>
+            <div class="prod-was">$299,95</div>
+          </div>
+        </div>
+        <div class="prod-foot">
+          <span class="prod-stock-ok">Op voorraad</span>
+          <button class="btn-add">+ Toevoegen</button>
+        </div>
+      </div>
+
+      <a href="product.html" class="prod reveal" style="display:flex;flex-direction:column;">
+        <div class="prod-img-wrap">
+          <div class="prod-disc">-21%</div>
+          <img src="https://media.s-bol.com/Bpk8oXgrvD7Q/g3vKoZ/250x200.jpg" alt="Grill Guru Plancha" loading="lazy">
+        </div>
+        <div class="prod-body">
+          <div class="prod-brand">Grill Guru</div>
+          <div class="prod-name">Grill Guru Large Plancha Ring BBQ accessoire</div>
+          <div class="prod-price-row">
+            <div class="prod-sale">$54,95</div>
+            <div class="prod-was">$69,95</div>
+          </div>
+        </div>
+        <div class="prod-foot">
+          <span class="prod-stock-ok">Op voorraad</span>
+          <button class="btn-add">+ Toevoegen</button>
+        </div>
+      </div>
+
+      <a href="product.html" class="prod reveal" style="display:flex;flex-direction:column;">
+        <div class="prod-img-wrap">
+          <div class="prod-disc">-18%</div>
+          <img src="https://media.s-bol.com/49ov9RqRY8kJ/550x297.jpg" alt="Panasonic multitool" loading="lazy">
+        </div>
+        <div class="prod-body">
+          <div class="prod-brand">Panasonic</div>
+          <div class="prod-name">Panasonic EY46A5X Accu multitool 14,4/18V Basic Body</div>
+          <div class="prod-price-row">
+            <div class="prod-sale">$209,95</div>
+            <div class="prod-was">$254,95</div>
+          </div>
+        </div>
+        <div class="prod-foot">
+          <span class="prod-stock-ok">Op voorraad</span>
+          <button class="btn-add">+ Toevoegen</button>
+        </div>
+      </div>
+
+      <a href="product.html" class="prod reveal" style="display:flex;flex-direction:column;">
+        <div class="prod-img-wrap">
+          <div class="prod-disc">-15%</div>
+          <img src="https://media.s-bol.com/j6AxJDK5Lm5Y/A682lp1/250x200.jpg" alt="Bosch werktafel" loading="lazy">
+        </div>
+        <div class="prod-body">
+          <div class="prod-brand">Bosch</div>
+          <div class="prod-name">Bosch Werktafel GTA 600 voor GTS 10 J tafelzaag</div>
+          <div class="prod-price-row">
+            <div class="prod-sale">$84,95</div>
+            <div class="prod-was">$99,95</div>
+          </div>
+        </div>
+        <div class="prod-foot">
+          <span class="prod-stock-ok">Op voorraad</span>
+          <button class="btn-add">+ Toevoegen</button>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- BRANDS -->
+<div class="brands-section">
+  <div class="w">
+    <div class="section-head">
+      <h2 class="section-h">Merken</h2>
+    </div>
+    <div class="brands-row">
+      <div class="brand-chip">Festool <span>33</span></div>
+      <div class="brand-chip">Bosch <span>18</span></div>
+      <div class="brand-chip">DeWalt <span>15</span></div>
+      <div class="brand-chip">Makita <span>12</span></div>
+      <div class="brand-chip">Spax <span>31</span></div>
+      <div class="brand-chip">Napoleon <span>11</span></div>
+      <div class="brand-chip">Milwaukee <span>9</span></div>
+      <div class="brand-chip">Fibaro <span>9</span></div>
+      <div class="brand-chip">Panasonic <span>9</span></div>
+      <div class="brand-chip">Siemens <span>8</span></div>
+      <div class="brand-chip">AXA <span>7</span></div>
+      <div class="brand-chip">Altrex <span>4</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="w">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <svg viewBox="0 0 220 70" width="130" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <text x="0" y="28" font-family="'Barlow Condensed', sans-serif" font-weight="900" font-size="26" letter-spacing="2" fill="white">OUTLET</text>
+          <rect x="110" y="14" width="56" height="6" fill="white"/>
+          <rect x="44" y="44" width="40" height="6" fill="white"/>
+          <text x="92" y="62" font-family="'Barlow Condensed', sans-serif" font-weight="900" font-size="26" letter-spacing="2" fill="white">LOKET</text>
+        </svg>
+        <p>A-merken gereedschap, tuinartikelen en meer — direct uit voorraad, scherp geprijsd. Fysieke winkel in Baak.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Categorieën</h5>
+        <ul>
+          <li><a href="#">Elektrisch gereedschap</a></li>
+          <li><a href="#">Handgereedschap</a></li>
+          <li><a href="#">Bouwmaterialen</a></li>
+          <li><a href="#">Schroeven</a></li>
+          <li><a href="#">Tuinartikelen</a></li>
+          <li><a href="#">Elektronica</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Klantenservice</h5>
+        <ul>
+          <li><a href="#">Retourneren</a></li>
+          <li><a href="#">Verzending</a></li>
+          <li><a href="#">Veelgestelde vragen</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#">Winkel bezoeken</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Over ons</h5>
+        <ul>
+          <li><a href="#">Over Outlet Loket</a></li>
+          <li><a href="#">Restpartij verkopen</a></li>
+          <li><a href="#">Partner worden</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Privacybeleid</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Outlet Loket — Luno Trading B.V. — KvK 42057628 — Baak</span>
+      <div class="footer-links">
+        <a href="#">Privacybeleid</a>
+        <a href="#">Algemene voorwaarden</a>
+        <a href="#">Cookies</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('visible'), i * 60);
+    }
+  });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
