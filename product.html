@@ -500,8 +500,8 @@ footer {
 @media (max-width: 900px) {
   .product-grid { grid-template-columns: 1fr; gap: 32px; }
   .related-grid { grid-template-columns: repeat(2, 1fr); }
-  .header-row { grid-template-columns: auto 1fr; }
-  .hdr-actions { display: none; }
+  .header-row { grid-template-columns: auto 1fr auto; }
+  .hdr-actions .hdr-btn:not(.hdr-cart) { display: none; }
   .footer-grid { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 500px) {

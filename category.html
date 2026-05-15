@@ -227,8 +227,8 @@ button { font-family: var(--ol-font); cursor: pointer; border: none; }
   .site-footer__grid { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 640px) {
-  .site-header__inner { grid-template-columns: auto 1fr; }
-  .site-header__actions { display: none; }
+  .site-header__inner { grid-template-columns: auto 1fr auto; }
+  .site-header__actions .hdr-btn:not(.hdr-btn--cart) { display: none; }
   .woo-product-grid { grid-template-columns: repeat(2, 1fr); }
 }
 </style>
@@ -893,72 +893,6 @@ document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
 // Init
 renderProducts();
-</script>
-const obs = new IntersectionObserver((entries) => {
-  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
-}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
-document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
-
-// Filter toggle
-function toggleFilter(head) {
-  const body = head.nextElementSibling;
-  const toggle = head.querySelector('.filter-group__toggle');
-  const isOpen = body.style.display !== 'none';
-  body.style.display = isOpen ? 'none' : 'block';
-  toggle.classList.toggle('open', !isOpen);
-}
-
-// Remove active filter
-function removeFilter(el) {
-  el.remove();
-}
-
-// View toggle
-function setView(mode) {
-  const grid = document.getElementById('productGrid');
-  const gridBtn = document.getElementById('gridBtn');
-  const listBtn = document.getElementById('listBtn');
-  if (mode === 'list') {
-    grid.classList.add('list-view');
-    listBtn.classList.add('active');
-    gridBtn.classList.remove('active');
-  } else {
-    grid.classList.remove('list-view');
-    gridBtn.classList.add('active');
-    listBtn.classList.remove('active');
-  }
-}
-
-// Subcat filter
-document.querySelectorAll('.subcat-pill').forEach(pill => {
-  pill.addEventListener('click', function() {
-    document.querySelectorAll('.subcat-pill').forEach(p => p.classList.remove('active'));
-    this.classList.add('active');
-  });
-});
-
-// Add to cart
-document.querySelectorAll('.woo-add-to-cart').forEach(btn => {
-  btn.addEventListener('click', function(e) {
-    e.preventDefault(); e.stopPropagation();
-    const orig = this.textContent;
-    this.textContent = '✓ Toegevoegd';
-    this.style.background = 'var(--ol-green)';
-    this.style.color = 'white';
-    const badge = document.querySelector('.cart-count');
-    if (badge) badge.textContent = parseInt(badge.textContent || 0) + 1;
-    setTimeout(() => { this.textContent = orig; this.style.background = ''; this.style.color = ''; }, 1800);
-  });
-});
-
-// Wishlist
-document.querySelectorAll('.woo-product-card__wishlist').forEach(btn => {
-  btn.addEventListener('click', function(e) {
-    e.preventDefault(); e.stopPropagation();
-    this.textContent = this.textContent === '♡' ? '♥' : '♡';
-    this.style.color = this.textContent === '♥' ? '#e53935' : '';
-  });
-});
 </script>
 </body>
 </html>

@@ -772,8 +772,8 @@ button { font-family: var(--ol-font); cursor: pointer; border: none; }
   .promo-banner__right { display: none; }
 }
 @media (max-width: 640px) {
-  .site-header__inner { grid-template-columns: auto 1fr; }
-  .site-header__actions { display: none; }
+  .site-header__inner { grid-template-columns: auto 1fr auto; }
+  .site-header__actions .hdr-btn:not(.hdr-btn--cart) { display: none; }
   .woo-product-grid { grid-template-columns: repeat(2, 1fr); }
   .brand-grid { grid-template-columns: repeat(3, 1fr); }
   .reviews-grid { grid-template-columns: 1fr; }

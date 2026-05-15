@@ -416,19 +416,19 @@ input, select, textarea { font-family: var(--ol-font); }
             <div class="form-row">
               <div class="form-group">
                 <label>Voornaam <span class="req">*</span></label>
-                <input type="text" class="form-input" placeholder="Jan" id="firstName">
+                <input type="text" class="form-input" placeholder="Jan" id="firstName" autocomplete="given-name">
                 <span class="form-error">Voornaam is verplicht</span>
               </div>
               <div class="form-group">
                 <label>Achternaam <span class="req">*</span></label>
-                <input type="text" class="form-input" placeholder="de Vries" id="lastName">
+                <input type="text" class="form-input" placeholder="de Vries" id="lastName" autocomplete="family-name">
                 <span class="form-error">Achternaam is verplicht</span>
               </div>
             </div>
             <div class="form-row form-row--full">
               <div class="form-group">
                 <label>E-mailadres <span class="req">*</span></label>
-                <input type="email" class="form-input" placeholder="jan@voorbeeld.nl" id="email">
+                <input type="email" class="form-input" placeholder="jan@voorbeeld.nl" id="email" autocomplete="email">
                 <span class="form-hint">Je ontvangt de orderbevestiging op dit adres</span>
                 <span class="form-error">Vul een geldig e-mailadres in</span>
               </div>
@@ -436,7 +436,7 @@ input, select, textarea { font-family: var(--ol-font); }
             <div class="form-row form-row--full">
               <div class="form-group">
                 <label>Telefoonnummer</label>
-                <input type="tel" class="form-input" placeholder="+31 6 12345678">
+                <input type="tel" class="form-input" placeholder="+31 6 12345678" autocomplete="tel">
                 <span class="form-hint">Optioneel — voor vragen over je bestelling</span>
               </div>
             </div>
@@ -455,7 +455,7 @@ input, select, textarea { font-family: var(--ol-font); }
             <div class="form-row form-row--full">
               <div class="form-group">
                 <label>Land <span class="req">*</span></label>
-                <select class="form-input form-select">
+                <select class="form-input form-select" autocomplete="country">
                   <option value="NL" selected>Nederland</option>
                   <option value="BE">België</option>
                   <option value="DE">Duitsland</option>
@@ -466,7 +466,7 @@ input, select, textarea { font-family: var(--ol-font); }
             <div class="form-row">
               <div class="form-group">
                 <label>Postcode <span class="req">*</span></label>
-                <input type="text" class="form-input" placeholder="1234 AB" id="postcode" maxlength="7">
+                <input type="text" class="form-input" placeholder="1234 AB" id="postcode" maxlength="7" autocomplete="postal-code">
               </div>
               <div class="form-group">
                 <label>Huisnummer <span class="req">*</span></label>
@@ -476,13 +476,13 @@ input, select, textarea { font-family: var(--ol-font); }
             <div class="form-row form-row--full">
               <div class="form-group">
                 <label>Straat <span class="req">*</span></label>
-                <input type="text" class="form-input" placeholder="Wordt automatisch ingevuld" id="street">
+                <input type="text" class="form-input" placeholder="Wordt automatisch ingevuld" id="street" autocomplete="address-line1">
               </div>
             </div>
             <div class="form-row form-row--full">
               <div class="form-group">
                 <label>Plaats <span class="req">*</span></label>
-                <input type="text" class="form-input" placeholder="Amsterdam" id="city">
+                <input type="text" class="form-input" placeholder="Amsterdam" id="city" autocomplete="address-level2">
               </div>
             </div>
           </div>
