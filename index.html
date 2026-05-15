@@ -297,42 +297,91 @@ button { font-family: var(--ol-font); cursor: pointer; border: none; }
   text-transform: uppercase; letter-spacing: .08em; margin-top: 3px;
 }
 
-/* Hero right grid */
+/* Hero right — outlet visual */
 .hero__right {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
-  gap: 2px; background: #1a1a1a;
+  display: flex; align-items: stretch;
+  background: #0c0c0c;
+  position: relative; overflow: hidden;
   animation: fadeIn .8s ease .2s both;
 }
-.hero__spot {
-  background: #ffffff; position: relative;
-  overflow: hidden;
-  display: flex; align-items: center; justify-content: center;
-  cursor: pointer; transition: background .18s;
+.hero__right::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(255,222,89,.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,222,89,.035) 1px, transparent 1px);
+  background-size: 36px 36px;
+  pointer-events: none;
 }
-.hero__spot:hover { background: #f5f5f5; }
-.hero__spot img {
-  width: 100%; height: 100%;
-  object-fit: contain; padding: 20px;
-  transition: transform .35s ease;
+.hero__right::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 70% 60% at 50% 40%, rgba(255,222,89,.07) 0%, transparent 70%);
+  pointer-events: none;
 }
-.hero__spot:hover img { transform: scale(1.06); }
-.hero__spot-disc {
-  position: absolute; bottom: 10px; left: 10px;
-  background: var(--ol-yellow); color: var(--ol-black);
+.hero__visual {
+  position: relative; z-index: 1;
+  width: 100%; padding: 40px 44px;
+  display: flex; flex-direction: column; justify-content: center;
+}
+
+/* Type badges */
+.hero__v-tags { display: flex; gap: 7px; flex-wrap: wrap; margin-bottom: 28px; }
+.hero__v-tag {
+  font-size: 9.5px; font-weight: 800; letter-spacing: .15em; text-transform: uppercase;
+  padding: 4px 11px; border-radius: 3px;
+}
+.hero__v-tag--fill { background: var(--ol-yellow); color: var(--ol-black); }
+.hero__v-tag--outline { border: 1px solid #2a2a2a; color: #4a4a4a; }
+
+/* Big discount number */
+.hero__v-disc { margin-bottom: 16px; }
+.hero__v-disc-until { font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: #444; margin-bottom: 2px; }
+.hero__v-disc-num {
   font-family: var(--ol-display);
-  font-size: 11px; font-weight: 800;
-  padding: 3px 8px; border-radius: 3px;
-  text-transform: uppercase; letter-spacing: .05em;
+  font-size: clamp(80px, 9vw, 120px);
+  font-weight: 900; line-height: .85;
+  color: var(--ol-yellow); letter-spacing: -.02em;
 }
-.hero__spot-brand {
-  position: absolute; top: 10px; left: 10px;
-  background: rgba(0,0,0,.65); color: #ccc;
-  font-size: 10px; font-weight: 600;
-  padding: 2px 7px; border-radius: 2px;
-  text-transform: uppercase; letter-spacing: .06em;
+.hero__v-disc-num span { font-size: 55%; color: var(--ol-white); letter-spacing: 0; }
+.hero__v-disc-sub { font-size: 12px; color: #444; margin-top: 6px; font-weight: 500; letter-spacing: .05em; text-transform: uppercase; }
+
+/* Price comparison */
+.hero__v-price {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: #161616; border: 1px solid #222; border-radius: 6px;
+  padding: 10px 16px; margin-bottom: 28px; align-self: flex-start;
 }
+.hero__v-price-old {
+  font-family: var(--ol-display); font-size: 20px; font-weight: 700;
+  color: #383838; text-decoration: line-through; text-decoration-color: #e53935;
+}
+.hero__v-price-arrow { color: #333; }
+.hero__v-price-new {
+  font-family: var(--ol-display); font-size: 26px; font-weight: 900; color: var(--ol-white);
+}
+.hero__v-price-badge {
+  font-size: 9px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase;
+  background: var(--ol-yellow); color: var(--ol-black); padding: 3px 7px; border-radius: 3px;
+}
+
+/* Brand pills */
+.hero__v-brands { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 20px; }
+.hero__v-brand {
+  font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+  color: #363636; padding: 4px 10px; border: 1px solid #1e1e1e; border-radius: 4px;
+  transition: border-color .15s, color .15s;
+}
+.hero__v-brand:hover { color: var(--ol-yellow); border-color: #3a3a2a; }
+
+/* Category quick-links */
+.hero__v-cats { display: flex; flex-wrap: wrap; gap: 6px; }
+.hero__v-cat {
+  font-size: 11.5px; font-weight: 500; color: #555;
+  padding: 5px 13px; border: 1px solid #1e1e1e; border-radius: 20px;
+  transition: background .15s, color .15s, border-color .15s;
+}
+.hero__v-cat:hover { background: var(--ol-yellow); color: var(--ol-black); border-color: var(--ol-yellow); }
 
 /* ── USP STRIP ── */
 .usp-strip {
@@ -432,6 +481,8 @@ button { font-family: var(--ol-font); cursor: pointer; border: none; }
 .woo-product-card__badge--new {
   background: var(--ol-black); color: var(--ol-yellow);
 }
+.woo-product-card__cond { position: absolute; top: 32px; left: 10px; font-size: 9.5px; font-weight: 700; padding: 2px 6px; border-radius: 3px; letter-spacing: .06em; text-transform: uppercase; background: #e65100; color: #fff; pointer-events: none; }
+.woo-product-card__cond--new { background: var(--ol-green); }
 .woo-product-card__wishlist {
   position: absolute; top: 10px; right: 10px;
   width: 28px; height: 28px;
@@ -777,6 +828,10 @@ button { font-family: var(--ol-font); cursor: pointer; border: none; }
   .why-grid { grid-template-columns: 1fr; }
   .hero__title { font-size: 44px; }
 }
+
+.footer-social { display: flex; gap: 8px; margin-top: 16px; }
+.footer-social__btn { width: 34px; height: 34px; border-radius: 6px; background: #1a1a1a; border: 1px solid #2a2a2a; display: flex; align-items: center; justify-content: center; color: #666; transition: background .15s, color .15s, border-color .15s; }
+.footer-social__btn:hover { background: var(--ol-yellow); color: var(--ol-black); border-color: var(--ol-yellow); }
 </style>
 </head>
 <body>
@@ -790,7 +845,7 @@ button { font-family: var(--ol-font); cursor: pointer; border: none; }
     <span class="site-topbar__item">14 dagen bedenktijd</span>
     <span class="site-topbar__item">Werkdagen voor 16:00 verzonden</span>
     <span class="site-topbar__item">Gratis verzending v.a. €500</span>
-    <span class="site-topbar__item">Ophalen = €50 extra korting</span>
+    <span class="site-topbar__item">Witgoed afhalen: €50 extra korting</span>
   </div>
 </div>
 
@@ -824,6 +879,7 @@ button { font-family: var(--ol-font); cursor: pointer; border: none; }
         <a href="/wenslijst/" class="hdr-btn">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
           Verlanglijst
+        <span class="wishlist-count" style="background:#e53935;color:#fff;font-size:10px;font-weight:700;min-width:17px;height:17px;border-radius:50%;display:none;align-items:center;justify-content:center;margin-left:2px;">0</span>
         </a>
         <a href="/mijn-account/" class="hdr-btn">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
@@ -850,7 +906,7 @@ button { font-family: var(--ol-font); cursor: pointer; border: none; }
       <a href="/product-categorie/gereedschap/" class="site-nav__item">Gereedschap</a>
       <a href="/product-categorie/tuin-bbq/" class="site-nav__item">Tuin &amp; BBQ</a>
       <a href="/product-categorie/elektronica/" class="site-nav__item">Elektronica</a>
-      <a href="/product-categorie/badkamer/" class="site-nav__item">Badkamer</a>
+      <a href="/product-categorie/bouwmaterialen/" class="site-nav__item">Bouwmaterialen</a>
       <a href="/product-categorie/koelen-vriezen/" class="site-nav__item">Koelen &amp; vriezen</a>
       <a href="/winkel/?orderby=date" class="site-nav__item site-nav__item--deals">Deals</a>
     </div>
@@ -894,25 +950,48 @@ button { font-family: var(--ol-font); cursor: pointer; border: none; }
         </div>
       </div>
       <div class="hero__right">
-        <div class="hero__spot">
-          <img src="https://media.s-bol.com/qL3L9v6qvGvr/9AAZ8/550x658.jpg" alt="Festool DOMINO XL" loading="lazy">
-          <div class="hero__spot-brand">Festool</div>
-          <div class="hero__spot-disc">-23%</div>
-        </div>
-        <div class="hero__spot">
-          <img src="https://media.s-bol.com/4Z3081QoJY0n/2RJjMP1/250x200.jpg" alt="Festool stofzuiger" loading="lazy">
-          <div class="hero__spot-brand">Festool</div>
-          <div class="hero__spot-disc">-15%</div>
-        </div>
-        <div class="hero__spot">
-          <img src="https://media.s-bol.com/Bpk8oXgrvD7Q/g3vKoZ/250x200.jpg" alt="Grill Guru" loading="lazy">
-          <div class="hero__spot-brand">Grill Guru</div>
-          <div class="hero__spot-disc">-21%</div>
-        </div>
-        <div class="hero__spot">
-          <img src="https://media.s-bol.com/49ov9RqRY8kJ/550x297.jpg" alt="Panasonic" loading="lazy">
-          <div class="hero__spot-brand">Panasonic</div>
-          <div class="hero__spot-disc">-18%</div>
+        <div class="hero__visual">
+
+          <div class="hero__v-tags">
+            <span class="hero__v-tag hero__v-tag--fill">Restpartij</span>
+            <span class="hero__v-tag hero__v-tag--outline">Overstock</span>
+            <span class="hero__v-tag hero__v-tag--outline">Showroom</span>
+            <span class="hero__v-tag hero__v-tag--outline">B-ware</span>
+          </div>
+
+          <div class="hero__v-disc">
+            <div class="hero__v-disc-until">Tot</div>
+            <div class="hero__v-disc-num">70<span>%</span></div>
+            <div class="hero__v-disc-sub">Korting op A-merken</div>
+          </div>
+
+          <div class="hero__v-price">
+            <span class="hero__v-price-old">€ 299,95</span>
+            <svg class="hero__v-price-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            <span class="hero__v-price-new">€ 184,95</span>
+            <span class="hero__v-price-badge">-38%</span>
+          </div>
+
+          <div class="hero__v-brands">
+            <span class="hero__v-brand">Bosch</span>
+            <span class="hero__v-brand">Makita</span>
+            <span class="hero__v-brand">Festool</span>
+            <span class="hero__v-brand">DeWalt</span>
+            <span class="hero__v-brand">Weber</span>
+            <span class="hero__v-brand">Dynaplus</span>
+            <span class="hero__v-brand">SPAX</span>
+            <span class="hero__v-brand">Panasonic</span>
+            <span class="hero__v-brand">Grill Guru</span>
+          </div>
+
+          <div class="hero__v-cats">
+            <a href="/product-categorie/gereedschap/" class="hero__v-cat">Gereedschap</a>
+            <a href="/product-categorie/witgoed/" class="hero__v-cat">Witgoed</a>
+            <a href="/product-categorie/tuin-bbq/" class="hero__v-cat">Tuin &amp; BBQ</a>
+            <a href="/product-categorie/elektronica/" class="hero__v-cat">Elektronica</a>
+            <a href="/product-categorie/bouwmaterialen/" class="hero__v-cat">Bouwmaterialen</a>
+          </div>
+
         </div>
       </div>
     </div>
@@ -941,7 +1020,7 @@ button { font-family: var(--ol-font); cursor: pointer; border: none; }
       </div>
       <div class="usp-strip__item">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><text x="5" y="18" font-size="16" font-weight="bold" stroke="none" fill="currentColor">€</text></svg>
-        €50 korting bij afhalen
+        Witgoed afhalen: €50 extra korting
       </div>
     </div>
   </div>
@@ -1054,10 +1133,11 @@ button { font-family: var(--ol-font); cursor: pointer; border: none; }
     <div class="woo-product-grid">
 
       <!-- WP: <?php while (have_posts()) : the_post(); wc_get_template_part('content', 'product'); endwhile; ?> -->
-      <a href="/winkel/" class="woo-product-card reveal">
+      <a href="/product.html" class="woo-product-card reveal">
         <div class="woo-product-card__img-wrap">
           <span class="woo-product-card__badge">-23%</span>
-          <button class="woo-product-card__wishlist" onclick="event.preventDefault()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+          <span class="woo-product-card__cond">Outlet</span>
+          <button class="woo-product-card__wishlist" onclick="toggleWishlist(event,this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
           <img src="https://media.s-bol.com/qL3L9v6qvGvr/9AAZ8/550x658.jpg" alt="Festool DOMINO XL" loading="lazy">
         </div>
         <div class="woo-product-card__body">
@@ -1070,14 +1150,15 @@ button { font-family: var(--ol-font); cursor: pointer; border: none; }
         </div>
         <div class="woo-product-card__foot">
           <span class="woo-stock">Op voorraad</span>
-          <button class="woo-add-to-cart" onclick="event.preventDefault()">+ Toevoegen</button>
+          <button class="woo-add-to-cart" onclick="event.preventDefault();event.stopPropagation();this.textContent='Toegevoegd';this.style.background='var(--ol-green)';this.style.color='white';setTimeout(()=>window.location.href='/checkout.html',500)">+ Toevoegen</button>
         </div>
       </a>
 
-      <a href="/winkel/" class="woo-product-card reveal reveal-delay-1">
+      <a href="/product.html" class="woo-product-card reveal reveal-delay-1">
         <div class="woo-product-card__img-wrap">
           <span class="woo-product-card__badge">-21%</span>
-          <button class="woo-product-card__wishlist" onclick="event.preventDefault()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+          <span class="woo-product-card__cond">Outlet</span>
+          <button class="woo-product-card__wishlist" onclick="toggleWishlist(event,this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
           <img src="https://media.s-bol.com/Bpk8oXgrvD7Q/g3vKoZ/250x200.jpg" alt="Grill Guru" loading="lazy">
         </div>
         <div class="woo-product-card__body">
@@ -1090,14 +1171,15 @@ button { font-family: var(--ol-font); cursor: pointer; border: none; }
         </div>
         <div class="woo-product-card__foot">
           <span class="woo-stock">Op voorraad</span>
-          <button class="woo-add-to-cart" onclick="event.preventDefault()">+ Toevoegen</button>
+          <button class="woo-add-to-cart" onclick="event.preventDefault();event.stopPropagation();this.textContent='Toegevoegd';this.style.background='var(--ol-green)';this.style.color='white';setTimeout(()=>window.location.href='/checkout.html',500)">+ Toevoegen</button>
         </div>
       </a>
 
-      <a href="/winkel/" class="woo-product-card reveal reveal-delay-2">
+      <a href="/product.html" class="woo-product-card reveal reveal-delay-2">
         <div class="woo-product-card__img-wrap">
           <span class="woo-product-card__badge">-32%</span>
-          <button class="woo-product-card__wishlist" onclick="event.preventDefault()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+          <span class="woo-product-card__cond">Outlet</span>
+          <button class="woo-product-card__wishlist" onclick="toggleWishlist(event,this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
           <img src="https://media.s-bol.com/49ov9RqRY8kJ/550x297.jpg" alt="Makita Pin tacker" loading="lazy">
         </div>
         <div class="woo-product-card__body">
@@ -1110,14 +1192,15 @@ button { font-family: var(--ol-font); cursor: pointer; border: none; }
         </div>
         <div class="woo-product-card__foot">
           <span class="woo-stock">Op voorraad</span>
-          <button class="woo-add-to-cart" onclick="event.preventDefault()">+ Toevoegen</button>
+          <button class="woo-add-to-cart" onclick="event.preventDefault();event.stopPropagation();this.textContent='Toegevoegd';this.style.background='var(--ol-green)';this.style.color='white';setTimeout(()=>window.location.href='/checkout.html',500)">+ Toevoegen</button>
         </div>
       </a>
 
-      <a href="/winkel/" class="woo-product-card reveal reveal-delay-3">
+      <a href="/product.html" class="woo-product-card reveal reveal-delay-3">
         <div class="woo-product-card__img-wrap">
           <span class="woo-product-card__badge">-15%</span>
-          <button class="woo-product-card__wishlist" onclick="event.preventDefault()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+          <span class="woo-product-card__cond">Outlet</span>
+          <button class="woo-product-card__wishlist" onclick="toggleWishlist(event,this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
           <img src="https://media.s-bol.com/j6AxJDK5Lm5Y/A682lp1/250x200.jpg" alt="Bosch werktafel" loading="lazy">
         </div>
         <div class="woo-product-card__body">
@@ -1130,14 +1213,15 @@ button { font-family: var(--ol-font); cursor: pointer; border: none; }
         </div>
         <div class="woo-product-card__foot">
           <span class="woo-stock">Op voorraad</span>
-          <button class="woo-add-to-cart" onclick="event.preventDefault()">+ Toevoegen</button>
+          <button class="woo-add-to-cart" onclick="event.preventDefault();event.stopPropagation();this.textContent='Toegevoegd';this.style.background='var(--ol-green)';this.style.color='white';setTimeout(()=>window.location.href='/checkout.html',500)">+ Toevoegen</button>
         </div>
       </a>
 
-      <a href="/winkel/" class="woo-product-card reveal">
+      <a href="/product.html" class="woo-product-card reveal">
         <div class="woo-product-card__img-wrap">
           <span class="woo-product-card__badge">-30%</span>
-          <button class="woo-product-card__wishlist" onclick="event.preventDefault()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+          <span class="woo-product-card__cond">Outlet</span>
+          <button class="woo-product-card__wishlist" onclick="toggleWishlist(event,this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
           <img src="https://media.s-bol.com/qL3L9v6qvGvr/9AAZ8/550x658.jpg" alt="Spax schroeven" loading="lazy">
         </div>
         <div class="woo-product-card__body">
@@ -1150,14 +1234,15 @@ button { font-family: var(--ol-font); cursor: pointer; border: none; }
         </div>
         <div class="woo-product-card__foot">
           <span class="woo-stock">Op voorraad</span>
-          <button class="woo-add-to-cart" onclick="event.preventDefault()">+ Toevoegen</button>
+          <button class="woo-add-to-cart" onclick="event.preventDefault();event.stopPropagation();this.textContent='Toegevoegd';this.style.background='var(--ol-green)';this.style.color='white';setTimeout(()=>window.location.href='/checkout.html',500)">+ Toevoegen</button>
         </div>
       </a>
 
-      <a href="/winkel/" class="woo-product-card reveal reveal-delay-1">
+      <a href="/product.html" class="woo-product-card reveal reveal-delay-1">
         <div class="woo-product-card__img-wrap">
           <span class="woo-product-card__badge woo-product-card__badge--new">Nieuw</span>
-          <button class="woo-product-card__wishlist" onclick="event.preventDefault()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+          <span class="woo-product-card__cond woo-product-card__cond--new">Nieuw</span>
+          <button class="woo-product-card__wishlist" onclick="toggleWishlist(event,this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
           <img src="https://media.s-bol.com/4Z3081QoJY0n/2RJjMP1/250x200.jpg" alt="Napoleon grillrooster" loading="lazy">
         </div>
         <div class="woo-product-card__body">
@@ -1170,14 +1255,15 @@ button { font-family: var(--ol-font); cursor: pointer; border: none; }
         </div>
         <div class="woo-product-card__foot">
           <span class="woo-stock">Op voorraad</span>
-          <button class="woo-add-to-cart" onclick="event.preventDefault()">+ Toevoegen</button>
+          <button class="woo-add-to-cart" onclick="event.preventDefault();event.stopPropagation();this.textContent='Toegevoegd';this.style.background='var(--ol-green)';this.style.color='white';setTimeout(()=>window.location.href='/checkout.html',500)">+ Toevoegen</button>
         </div>
       </a>
 
-      <a href="/winkel/" class="woo-product-card reveal reveal-delay-2">
+      <a href="/product.html" class="woo-product-card reveal reveal-delay-2">
         <div class="woo-product-card__img-wrap">
           <span class="woo-product-card__badge">-20%</span>
-          <button class="woo-product-card__wishlist" onclick="event.preventDefault()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+          <span class="woo-product-card__cond">Outlet</span>
+          <button class="woo-product-card__wishlist" onclick="toggleWishlist(event,this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
           <img src="https://media.s-bol.com/Bpk8oXgrvD7Q/g3vKoZ/250x200.jpg" alt="Fibaro sensor" loading="lazy">
         </div>
         <div class="woo-product-card__body">
@@ -1190,14 +1276,15 @@ button { font-family: var(--ol-font); cursor: pointer; border: none; }
         </div>
         <div class="woo-product-card__foot">
           <span class="woo-stock">Op voorraad</span>
-          <button class="woo-add-to-cart" onclick="event.preventDefault()">+ Toevoegen</button>
+          <button class="woo-add-to-cart" onclick="event.preventDefault();event.stopPropagation();this.textContent='Toegevoegd';this.style.background='var(--ol-green)';this.style.color='white';setTimeout(()=>window.location.href='/checkout.html',500)">+ Toevoegen</button>
         </div>
       </a>
 
-      <a href="/winkel/" class="woo-product-card reveal reveal-delay-3">
+      <a href="/product.html" class="woo-product-card reveal reveal-delay-3">
         <div class="woo-product-card__img-wrap">
           <span class="woo-product-card__badge">-21%</span>
-          <button class="woo-product-card__wishlist" onclick="event.preventDefault()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+          <span class="woo-product-card__cond">Outlet</span>
+          <button class="woo-product-card__wishlist" onclick="toggleWishlist(event,this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
           <img src="https://media.s-bol.com/49ov9RqRY8kJ/550x297.jpg" alt="Moodpaints verf" loading="lazy">
         </div>
         <div class="woo-product-card__body">
@@ -1210,7 +1297,7 @@ button { font-family: var(--ol-font); cursor: pointer; border: none; }
         </div>
         <div class="woo-product-card__foot">
           <span class="woo-stock">Op voorraad</span>
-          <button class="woo-add-to-cart" onclick="event.preventDefault()">+ Toevoegen</button>
+          <button class="woo-add-to-cart" onclick="event.preventDefault();event.stopPropagation();this.textContent='Toegevoegd';this.style.background='var(--ol-green)';this.style.color='white';setTimeout(()=>window.location.href='/checkout.html',500)">+ Toevoegen</button>
         </div>
       </a>
 
@@ -1458,7 +1545,7 @@ button { font-family: var(--ol-font); cursor: pointer; border: none; }
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
         </div>
         <div class="why-card__title">Fysieke winkel</div>
-        <p class="why-card__text">Kom gerust langs in Baak. Producten bekijken, vragen stellen en direct meenemen. Ophalen = €50 extra korting.</p>
+        <p class="why-card__text">Kom gerust langs in Baak. Producten bekijken, vragen stellen en direct meenemen. Witgoed afhalen: €50 extra korting.</p>
       </div>
       <div class="why-card reveal reveal-delay-3">
         <div class="why-card__icon">
@@ -1605,18 +1692,64 @@ document.querySelectorAll('.woo-add-to-cart').forEach(btn => {
   });
 })();
 
-// Wishlist toggle
-document.querySelectorAll('.woo-product-card__wishlist').forEach(btn => {
-  btn.addEventListener('click', function(e) {
-    e.preventDefault();
-    e.stopPropagation();
-    const svg = this.querySelector('svg');
-    const active = this.dataset.active === '1';
-    this.dataset.active = active ? '0' : '1';
-    svg.style.fill = active ? 'none' : '#e53935';
-    svg.style.stroke = active ? 'currentColor' : '#e53935';
+// Wishlist — localStorage
+function _wlGet() { return JSON.parse(localStorage.getItem('ol_wl') || '[]'); }
+function _wlSet(l) { localStorage.setItem('ol_wl', JSON.stringify(l)); }
+function _wlBadge() { var n = _wlGet().length; document.querySelectorAll('.wishlist-count').forEach(function(el) { el.textContent = n; el.style.display = n ? 'flex' : 'none'; }); }
+function toggleWishlist(e, btn) {
+  e.preventDefault(); e.stopPropagation();
+  var card = btn.closest ? btn.closest('a.woo-product-card') : null;
+  var svg = btn.querySelector('svg');
+  var active = btn.dataset.active === '1';
+  var list = _wlGet();
+  if (active) {
+    var id = card && card.querySelector('.woo-product-card__title') ? card.querySelector('.woo-product-card__title').textContent.trim() : '';
+    list = list.filter(function(p) { return p.id !== id; });
+    btn.dataset.active = '0';
+    if (svg) { svg.style.fill = 'none'; svg.style.stroke = 'currentColor'; }
+  } else {
+    if (card) {
+      var titleEl = card.querySelector('.woo-product-card__title');
+      var id = titleEl ? titleEl.textContent.trim() : '';
+      if (id && !list.find(function(p) { return p.id === id; })) {
+        list.push({ id: id, title: id,
+          brand: (card.querySelector('.woo-product-card__brand') || {textContent:''}).textContent.trim(),
+          price: (card.querySelector('.woo-price__current') || {textContent:''}).textContent.trim(),
+          original: (card.querySelector('.woo-price__original') || {textContent:''}).textContent.trim(),
+          discount: (card.querySelector('.woo-product-card__badge') || {textContent:''}).textContent.trim(),
+          img: card.querySelector('img') ? card.querySelector('img').src : '',
+          url: card.href || '/product.html' });
+      }
+    }
+    btn.dataset.active = '1';
+    if (svg) { svg.style.fill = '#e53935'; svg.style.stroke = '#e53935'; }
+  }
+  _wlSet(list); _wlBadge();
+}
+(function initWishlist() {
+  var ids = _wlGet().map(function(p) { return p.id; });
+  document.querySelectorAll('.woo-product-card').forEach(function(card) {
+    var t = card.querySelector('.woo-product-card__title');
+    if (!t) return;
+    var btn = card.querySelector('.woo-product-card__wishlist');
+    if (btn && ids.indexOf(t.textContent.trim()) > -1) {
+      btn.dataset.active = '1';
+      var svg = btn.querySelector('svg');
+      if (svg) { svg.style.fill = '#e53935'; svg.style.stroke = '#e53935'; }
+    }
   });
-});
+  _wlBadge();
+})();
+
+// Header search → /winkel/?s=query
+(function() {
+  var inp = document.querySelector('.site-search__input');
+  var btn = document.querySelector('.site-search__btn');
+  if (!inp) return;
+  function go() { var q = inp.value.trim(); if (q) window.location.href = '/winkel/?s=' + encodeURIComponent(q); }
+  inp.addEventListener('keydown', function(e) { if (e.key === 'Enter') go(); });
+  if (btn) btn.addEventListener('click', go);
+})();
 </script>
 </body>
 </html>

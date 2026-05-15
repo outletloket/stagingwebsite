@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Over Outlet Loket | A-Merken Outlet in de Achterhoek</title>
+<meta name="description" content="Ontdek het verhaal achter Outlet Loket. Wij helpen bedrijven bij overstock en bieden klanten A-merken met kortingen tot 70%. Fysieke winkel in Baak.">
+<meta property="og:title" content="Over Outlet Loket | A-Merken Outlet in de Achterhoek">
+<meta property="og:description" content="Wij helpen bedrijven bij overstock en bieden klanten A-merken met kortingen tot 70%. Fysieke winkel in Baak, Achterhoek.">
+<link rel="canonical" href="https://outletloket.nl/over-outlet-loket/">
+<link rel="icon" type="image/jpeg" href="/favicon.jpg">
+<link rel="apple-touch-icon" href="/favicon.jpg">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Barlow+Condensed:wght@700;800;900&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --ol-yellow:    #ffde59;
+  --ol-yellow-dk: #e8c94f;
+  --ol-black:     #111111;
+  --ol-white:     #ffffff;
+  --ol-grey-1:    #F4F4F4;
+  --ol-grey-2:    #E8E8E8;
+  --ol-grey-3:    #999999;
+  --ol-grey-4:    #555555;
+  --ol-green:     #1a9e5c;
+  --ol-red:       #e53935;
+  --ol-radius:    6px;
+  --ol-font:      'Inter', sans-serif;
+  --ol-display:   'Barlow Condensed', sans-serif;
+  --ol-max:       1200px;
+  --ol-shadow:    0 2px 12px rgba(0,0,0,.07);
+}
+body { font-family: var(--ol-font); color: var(--ol-black); background: var(--ol-white); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+a { text-decoration: none; color: inherit; }
+img { display: block; max-width: 100%; }
+button { font-family: var(--ol-font); cursor: pointer; border: none; }
+.w { max-width: var(--ol-max); margin: 0 auto; padding: 0 20px; }
+
+@keyframes fadeIn  { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fadeUp  { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes pulse-ring {
+  0%   { box-shadow: 0 0 0 0 rgba(255,222,89,.4); }
+  70%  { box-shadow: 0 0 0 9px rgba(255,222,89,0); }
+  100% { box-shadow: 0 0 0 0 rgba(255,222,89,0); }
+}
+.reveal { opacity: 0; transform: translateY(18px); transition: opacity .45s ease, transform .45s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-delay-1 { transition-delay: .08s; }
+.reveal-delay-2 { transition-delay: .16s; }
+.reveal-delay-3 { transition-delay: .24s; }
+
+/* TOPBAR */
+.site-topbar { background: var(--ol-black); color: #999; font-size: 11.5px; letter-spacing: .04em; padding: 8px 0; }
+.site-topbar__inner { display: flex; justify-content: center; gap: 28px; flex-wrap: wrap; }
+.site-topbar__item { display: flex; align-items: center; gap: 5px; }
+.site-topbar__item::before { content: '✓'; color: var(--ol-yellow); font-weight: 700; }
+
+/* HEADER */
+.site-header { background: var(--ol-white); border-bottom: 1px solid var(--ol-grey-2); position: sticky; top: 0; z-index: 200; animation: fadeIn .4s ease; }
+.site-header__inner { height: 62px; display: grid; grid-template-columns: 180px 1fr auto; align-items: center; gap: 20px; }
+.site-search { display: flex; border: 1.5px solid var(--ol-grey-2); border-radius: var(--ol-radius); overflow: hidden; transition: border-color .18s; height: 40px; }
+.site-search:focus-within { border-color: var(--ol-yellow); }
+.site-search__input { flex: 1; border: none; outline: none; font-family: var(--ol-font); font-size: 13.5px; padding: 0 14px; color: var(--ol-black); }
+.site-search__input::placeholder { color: var(--ol-grey-3); }
+.site-search__btn { background: var(--ol-yellow); border: none; width: 44px; cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--ol-black); transition: background .18s; }
+.site-search__btn:hover { background: var(--ol-yellow-dk); }
+.site-header__actions { display: flex; align-items: center; gap: 6px; }
+.hdr-btn { display: flex; align-items: center; gap: 5px; font-size: 13px; font-weight: 500; color: var(--ol-grey-4); padding: 7px 12px; border-radius: var(--ol-radius); border: 1.5px solid transparent; transition: all .15s; white-space: nowrap; }
+.hdr-btn:hover { color: var(--ol-black); border-color: var(--ol-grey-2); }
+.hdr-btn svg { width: 16px; height: 16px; flex-shrink: 0; }
+.hdr-btn--cart { background: var(--ol-yellow); color: var(--ol-black) !important; border-color: var(--ol-yellow) !important; font-weight: 700 !important; animation: pulse-ring 2.5s ease infinite; }
+.cart-count { background: var(--ol-black); color: var(--ol-white); font-size: 10px; font-weight: 700; width: 17px; height: 17px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+
+/* NAV */
+.site-nav { border-bottom: 1px solid var(--ol-grey-2); background: var(--ol-white); }
+.site-nav__inner { display: flex; overflow-x: auto; scrollbar-width: none; }
+.site-nav__inner::-webkit-scrollbar { display: none; }
+.site-nav__item { font-size: 13px; font-weight: 500; color: var(--ol-grey-4); padding: 12px 15px; white-space: nowrap; border-bottom: 2px solid transparent; transition: all .15s; }
+.site-nav__item:hover { color: var(--ol-black); }
+.site-nav__item--active { color: var(--ol-black); border-bottom-color: var(--ol-yellow); font-weight: 600; }
+.site-nav__item--deals { color: var(--ol-red); font-weight: 600; }
+
+/* BREADCRUMB */
+.breadcrumb { padding: 14px 0; font-size: 12.5px; color: var(--ol-grey-3); display: flex; align-items: center; gap: 6px; }
+.breadcrumb a { color: var(--ol-grey-3); transition: color .15s; }
+.breadcrumb a:hover { color: var(--ol-black); }
+.breadcrumb strong { color: var(--ol-black); font-weight: 500; }
+
+/* PAGE HERO */
+.page-hero { background: var(--ol-black); padding: 56px 0 48px; }
+.page-hero__eyebrow { font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--ol-yellow); margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+.page-hero__eyebrow::before { content: ''; width: 16px; height: 2px; background: var(--ol-yellow); }
+.page-hero__title { font-family: var(--ol-display); font-size: clamp(40px, 6vw, 72px); font-weight: 900; color: var(--ol-white); text-transform: uppercase; line-height: .92; margin-bottom: 20px; }
+.page-hero__lead { font-size: 16px; line-height: 1.7; color: #aaa; max-width: 560px; }
+
+/* CONTENT */
+.content-section { padding: 56px 0; }
+.content-section--grey { background: var(--ol-grey-1); }
+.content-section--dark { background: var(--ol-black); color: var(--ol-white); }
+
+.content-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
+.content-grid--wide { grid-template-columns: 3fr 2fr; }
+
+.content-label { font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--ol-yellow); margin-bottom: 12px; }
+.content-title { font-family: var(--ol-display); font-size: clamp(28px, 3.5vw, 44px); font-weight: 900; text-transform: uppercase; line-height: .95; margin-bottom: 20px; }
+.content-title--white { color: var(--ol-white); }
+.content-body { font-size: 15px; line-height: 1.75; color: var(--ol-grey-4); }
+.content-body--dark { color: #bbb; }
+.content-body p + p { margin-top: 16px; }
+.content-body ul { margin-top: 12px; padding-left: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.content-body ul li { display: flex; align-items: flex-start; gap: 10px; }
+.content-body ul li::before { content: ''; width: 6px; height: 6px; background: var(--ol-yellow); border-radius: 50%; margin-top: 8px; flex-shrink: 0; }
+
+/* STATS */
+.stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; background: #222; }
+.stat-block { background: #1a1a1a; padding: 32px 24px; text-align: center; }
+.stat-val { font-family: var(--ol-display); font-size: 44px; font-weight: 900; color: var(--ol-white); line-height: 1; }
+.stat-val em { color: var(--ol-yellow); font-style: normal; }
+.stat-label { font-size: 12px; color: #666; text-transform: uppercase; letter-spacing: .08em; margin-top: 6px; }
+
+/* WHY CARDS */
+.why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 8px; }
+.why-card { background: var(--ol-white); border: 1.5px solid var(--ol-grey-2); border-radius: 10px; padding: 28px 24px; transition: border-color .2s, transform .2s; }
+.why-card:hover { border-color: var(--ol-yellow); transform: translateY(-3px); }
+.why-card__icon { width: 42px; height: 42px; background: var(--ol-yellow); border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; }
+.why-card__title { font-family: var(--ol-display); font-size: 20px; font-weight: 900; text-transform: uppercase; margin-bottom: 10px; }
+.why-card__body { font-size: 13.5px; line-height: 1.65; color: var(--ol-grey-4); }
+.why-card__body ul { margin-top: 8px; padding-left: 0; list-style: none; display: flex; flex-direction: column; gap: 6px; }
+.why-card__body ul li::before { content: ''; width: 5px; height: 5px; background: var(--ol-yellow); border-radius: 50%; margin-top: 7px; flex-shrink: 0; }
+.why-card__body ul li { display: flex; align-items: flex-start; gap: 8px; }
+
+/* OPENINGSTIJDEN */
+.hours-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.hours-table tr { border-bottom: 1px solid #333; }
+.hours-table td { padding: 10px 0; color: #ccc; }
+.hours-table td:last-child { text-align: right; color: var(--ol-white); font-weight: 500; }
+.hours-table tr:last-child { border-bottom: none; }
+
+/* CONTACT BLOCK */
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+.contact-item { display: flex; flex-direction: column; gap: 4px; }
+.contact-item__label { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #666; }
+.contact-item__val { font-size: 15px; color: var(--ol-white); font-weight: 500; }
+.contact-item__val a { color: var(--ol-yellow); }
+
+/* MEDIA LOGOS */
+.media-row { display: flex; align-items: center; gap: 32px; flex-wrap: wrap; margin-top: 24px; }
+.media-badge { background: #222; border: 1px solid #333; border-radius: 6px; padding: 12px 24px; font-family: var(--ol-display); font-size: 18px; font-weight: 900; color: #aaa; letter-spacing: .04em; }
+
+/* FOOTER */
+.site-footer { background: var(--ol-black); color: #aaa; padding: 48px 0 24px; font-size: 13px; }
+.site-footer__grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+.site-footer__brand p { margin-top: 12px; font-size: 13px; line-height: 1.65; max-width: 240px; color: #666; }
+.site-footer__col h5 { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--ol-white); margin-bottom: 14px; }
+.site-footer__col ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.site-footer__col a { color: #666; transition: color .15s; }
+.site-footer__col a:hover { color: var(--ol-white); }
+.site-footer__bottom { border-top: 1px solid #222; padding-top: 20px; display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: #444; flex-wrap: wrap; gap: 10px; }
+.footer-legal { display: flex; gap: 20px; }
+.footer-legal a { color: #444; }
+.footer-legal a:hover { color: #aaa; }
+
+/* MOBILE */
+@media (max-width: 900px) {
+  .content-grid, .content-grid--wide { grid-template-columns: 1fr; gap: 32px; }
+  .why-grid { grid-template-columns: 1fr; }
+  .stats-row { grid-template-columns: repeat(2, 1fr); }
+  .contact-grid { grid-template-columns: 1fr; gap: 20px; }
+  .site-footer__grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 640px) {
+  .site-header__inner { grid-template-columns: auto 1fr auto; }
+  .site-header__actions .hdr-btn:not(.hdr-btn--cart) { display: none; }
+  .stats-row { grid-template-columns: repeat(2, 1fr); }
+  .site-footer__grid { grid-template-columns: 1fr; }
+}
+
+.footer-social { display: flex; gap: 8px; margin-top: 16px; }
+.footer-social__btn { width: 34px; height: 34px; border-radius: 6px; background: #1a1a1a; border: 1px solid #2a2a2a; display: flex; align-items: center; justify-content: center; color: #666; transition: background .15s, color .15s, border-color .15s; }
+.footer-social__btn:hover { background: var(--ol-yellow); color: var(--ol-black); border-color: var(--ol-yellow); }
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="site-topbar">
+  <div class="w">
+    <div class="site-topbar__inner">
+      <span class="site-topbar__item">14 dagen bedenktijd</span>
+      <span class="site-topbar__item">Voor 16:00 besteld, zelfde dag verzonden</span>
+      <span class="site-topbar__item">Fysieke winkel in Baak</span>
+      <span class="site-topbar__item">8.4 klantbeoordeling</span>
+    </div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="w">
+    <div class="site-header__inner">
+      <a href="/">
+        <svg viewBox="0 0 220 70" width="130" fill="none">
+          <text x="0" y="28" font-family="'Barlow Condensed'" font-weight="900" font-size="26" letter-spacing="2" fill="#111">OUTLET</text>
+          <rect x="110" y="14" width="56" height="6" fill="#111"/>
+          <rect x="44" y="44" width="40" height="6" fill="#111"/>
+          <text x="92" y="62" font-family="'Barlow Condensed'" font-weight="900" font-size="26" letter-spacing="2" fill="#111">LOKET</text>
+        </svg>
+      </a>
+      <div class="site-search">
+        <input class="site-search__input" type="text" placeholder="Zoek op product, merk of categorie...">
+        <button class="site-search__btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        </button>
+      </div>
+      <div class="site-header__actions">
+        <a href="/wenslijst/" class="hdr-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          Verlanglijst
+        <span class="wishlist-count" style="background:#e53935;color:#fff;font-size:10px;font-weight:700;min-width:17px;height:17px;border-radius:50%;display:none;align-items:center;justify-content:center;margin-left:2px;">0</span>
+        </a>
+        <a href="/winkelmand/" class="hdr-btn hdr-btn--cart">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          Winkelwagen
+          <span class="cart-count">0</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- NAV -->
+<nav class="site-nav">
+  <div class="w">
+    <div class="site-nav__inner">
+      <a href="/" class="site-nav__item">Alle producten</a>
+      <a href="/product-categorie/witgoed/" class="site-nav__item">Witgoed</a>
+      <a href="/product-categorie/huishoudelijk/" class="site-nav__item">Huishoudelijk</a>
+      <a href="/product-categorie/gereedschap/" class="site-nav__item">Gereedschap</a>
+      <a href="/product-categorie/tuin-bbq/" class="site-nav__item">Tuin &amp; BBQ</a>
+      <a href="/product-categorie/elektronica/" class="site-nav__item">Elektronica</a>
+      <a href="/product-categorie/bouwmaterialen/" class="site-nav__item">Bouwmaterialen</a>
+      <a href="/product-categorie/koelen-vriezen/" class="site-nav__item">Koelen &amp; vriezen</a>
+      <a href="/winkel/?orderby=date" class="site-nav__item site-nav__item--deals">Deals</a>
+    </div>
+  </div>
+</nav>
+
+<!-- BREADCRUMB -->
+<div class="w">
+  <div class="breadcrumb">
+    <a href="/">Home</a>
+    <span>›</span>
+    <strong>Over Outlet Loket</strong>
+  </div>
+</div>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="w">
+    <div class="page-hero__eyebrow">Ons verhaal</div>
+    <h1 class="page-hero__title">Over<br>Outlet Loket</h1>
+    <p class="page-hero__lead">Handelen zit er bij ons al vroeg in. Die mentaliteit hebben we meegenomen in het ondernemen — eerlijk, nuchter en met een hekel aan verspilling.</p>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-row">
+  <div class="stat-block reveal">
+    <div class="stat-val">Tot <em>70%</em></div>
+    <div class="stat-label">Korting op A-merken</div>
+  </div>
+  <div class="stat-block reveal reveal-delay-1">
+    <div class="stat-val"><em>8.4</em></div>
+    <div class="stat-label">Klantbeoordeling</div>
+  </div>
+  <div class="stat-block reveal reveal-delay-2">
+    <div class="stat-val"><em>Dag</em></div>
+    <div class="stat-label">Zelfde dag verzonden voor 16:00</div>
+  </div>
+  <div class="stat-block reveal reveal-delay-3">
+    <div class="stat-val"><em>Baak</em></div>
+    <div class="stat-label">Fysieke winkel, Achterhoek</div>
+  </div>
+</div>
+
+<!-- HOE HET BEGON -->
+<section class="content-section">
+  <div class="w">
+    <div class="content-grid content-grid--wide">
+      <div class="reveal">
+        <div class="content-label">Achtergrond</div>
+        <h2 class="content-title">Hoe het begon</h2>
+        <div class="content-body">
+          <p>Handelen zit er bij ons al vroeg in. Op het voetbalveld leer je samenwerken, doorzetten en niet opgeven als het tegenzit. Die mentaliteit hebben we meegenomen in het ondernemen.</p>
+          <p>We zagen wat er in de markt gebeurde. Het leven wordt ieder jaar duurder. Energie, boodschappen, vaste lasten — alles stijgt. Mensen kijken scherper naar hun uitgaven.</p>
+          <p>Tegelijkertijd brengen fabrikanten elk jaar nieuwe modellen uit. Een vernieuwde wasmachine. Een nieuwe tv-serie. Een update van een bestaand product. Terwijl het model van vorig jaar technisch vaak nog net zo goed is, blijft die voorraad staan.</p>
+          <p>Dat vinden wij zonde.</p>
+          <p>Goede producten horen gebruikt te worden. Niet opgeslagen of afgeschreven omdat er een nieuw type op de doos staat.</p>
+          <p><strong>Daar ontstond Outlet Loket.</strong></p>
+        </div>
+      </div>
+      <div class="reveal reveal-delay-1">
+        <div class="content-label">Wat wij doen</div>
+        <h2 class="content-title">Overstock oplossen</h2>
+        <div class="content-body">
+          <p>Outlet Loket helpt bedrijven bij het oplossen van overstock. Wij nemen overtollige voorraad over of helpen deze snel en netjes te verkopen. Geen ingewikkelde constructies, maar duidelijke afspraken.</p>
+          <p>Daarnaast kopen we zelf actief partijen in. Daardoor zijn we onafhankelijk en kunnen we een breed en wisselend assortiment aanbieden.</p>
+          <p>Voor klanten betekent dat:</p>
+          <ul>
+            <li>A-merken voor een lagere prijs</li>
+            <li>Kortingen tot wel 70%</li>
+            <li>Direct uit voorraad leverbaar</li>
+            <li>Gewoon garantie en service</li>
+          </ul>
+          <p style="margin-top:16px;">Wat online staat, leveren we. Zo simpel is het.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MISSIE -->
+<section class="content-section content-section--grey">
+  <div class="w">
+    <div class="content-grid">
+      <div class="reveal">
+        <div class="content-label">Missie</div>
+        <h2 class="content-title">Kwaliteit bereikbaar houden</h2>
+        <div class="content-body">
+          <p>Onze missie is helder: kwaliteit bereikbaar houden.</p>
+          <p>Door slim in te kopen en restpartijen een tweede kans te geven:</p>
+          <ul>
+            <li>Voorkomen we verspilling</li>
+            <li>Helpen we leveranciers</li>
+            <li>Bieden we klanten eerlijke prijzen</li>
+            <li>Dragen we bij aan duurzamer ondernemen</li>
+          </ul>
+          <p style="margin-top:16px;">Wij geloven dat ondernemen niet alleen draait om marge, maar ook om gezond verstand.</p>
+        </div>
+      </div>
+      <div class="reveal reveal-delay-1">
+        <div class="content-label">Assortiment</div>
+        <h2 class="content-title">Wisselend aanbod</h2>
+        <div class="content-body">
+          <p>Ons assortiment wisselt continu. Dat hoort bij handel in partijen.</p>
+          <p>Je vindt bij ons onder andere:</p>
+          <ul>
+            <li>Witgoed en elektronica</li>
+            <li>Gereedschap en tuinartikelen</li>
+            <li>Kleine huishoudelijke apparaten</li>
+            <li>Bouwmaterialen en bevestiging</li>
+          </ul>
+          <p style="margin-top:16px;">Wat we inkopen, bieden we scherp aan. Daarvoor geldt altijd: op = op.</p>
+          <p style="margin-top:12px;"><a href="/winkel/" style="color:var(--ol-black);font-weight:600;text-decoration:underline;text-underline-offset:3px;">Bekijk het huidige aanbod →</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WAAROM OUTLET LOKET -->
+<section class="content-section">
+  <div class="w">
+    <div class="content-label">Waarom kiezen voor ons</div>
+    <h2 class="content-title" style="margin-bottom:32px;">Waar wij voor staan</h2>
+    <div class="why-grid">
+      <div class="why-card reveal">
+        <div class="why-card__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        </div>
+        <div class="why-card__title">Scherpe prijzen</div>
+        <div class="why-card__body">Dankzij directe inkoop en korte lijnen kunnen we structureel concurrerende prijzen bieden. Kortingen tot wel 70% op de adviesprijs.</div>
+      </div>
+      <div class="why-card reveal reveal-delay-1">
+        <div class="why-card__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <div class="why-card__title">Persoonlijk contact</div>
+        <div class="why-card__body">Geen callcenter. Je hebt direct contact met ons of met iemand uit ons vaste team. Bereikbaar via telefoon en mail.</div>
+      </div>
+      <div class="why-card reveal reveal-delay-2">
+        <div class="why-card__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <div class="why-card__title">Betrouwbaarheid</div>
+        <div class="why-card__body">
+          <ul>
+            <li>14 dagen bedenktijd</li>
+            <li>Garantie op producten</li>
+            <li>Snelle levering</li>
+            <li>Duidelijke communicatie</li>
+          </ul>
+          <p style="margin-top:10px;">We zeggen wat we doen en we doen wat we zeggen.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACHTERHOEKSE MENTALITEIT + MEDIA -->
+<section class="content-section content-section--dark">
+  <div class="w">
+    <div class="content-grid">
+      <div class="reveal">
+        <div class="content-label" style="color:var(--ol-yellow);">Achterhoek</div>
+        <h2 class="content-title content-title--white">Nuchter en<br>aanpakken</h2>
+        <div class="content-body content-body--dark">
+          <p>Wij geloven niet in grote woorden. We geloven in aanpakken. In eerlijk zakendoen. In afspraken nakomen.</p>
+          <p>De Achterhoek staat bekend om nuchterheid en doorzettingsvermogen. Dat zit ook in Outlet Loket.</p>
+          <p>We willen groeien. Groter assortiment. Meer samenwerkingen. Landelijk sterker aanwezig. Maar wel op onze manier.</p>
+        </div>
+      </div>
+      <div class="reveal reveal-delay-1">
+        <div class="content-label" style="color:var(--ol-yellow);">Media</div>
+        <h2 class="content-title content-title--white">Aandacht in<br>de media</h2>
+        <div class="content-body content-body--dark">
+          <p>Onze aanpak bleef niet onopgemerkt. We zijn onder andere verschenen in:</p>
+          <div class="media-row">
+            <div class="media-badge">De Gelderlander</div>
+            <div class="media-badge">Contact</div>
+          </div>
+          <p style="margin-top:20px;">In De Gelderlander werd geschreven hoe wij met Outlet Loket inspelen op een markt waarin slimme inkoop belangrijker wordt en goede producten niet onnodig verloren hoeven te gaan.</p>
+          <p>Uiteindelijk draait het voor ons niet om publiciteit. Het draait om tevreden klanten en betrouwbare samenwerkingen.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT & OPENINGSTIJDEN -->
+<section class="content-section content-section--dark" style="padding-top:0;">
+  <div class="w">
+    <div style="height:1px;background:#222;margin-bottom:48px;"></div>
+    <div class="content-grid">
+      <div class="reveal">
+        <div class="content-label" style="color:var(--ol-yellow);">Bezoek ons</div>
+        <h2 class="content-title content-title--white" style="margin-bottom:24px;">Openingstijden</h2>
+        <table class="hours-table">
+          <tr><td>Maandag</td><td>Op afspraak</td></tr>
+          <tr><td>Dinsdag</td><td>10:00 – 17:00</td></tr>
+          <tr><td>Woensdag</td><td>Op afspraak</td></tr>
+          <tr><td>Donderdag</td><td>10:00 – 17:00</td></tr>
+          <tr><td>Vrijdag</td><td>10:00 – 17:00</td></tr>
+          <tr><td>Zaterdag</td><td>Op afspraak</td></tr>
+          <tr><td>Zondag</td><td>Gesloten</td></tr>
+        </table>
+      </div>
+      <div class="reveal reveal-delay-1">
+        <div class="content-label" style="color:var(--ol-yellow);">Contact</div>
+        <h2 class="content-title content-title--white" style="margin-bottom:24px;">Neem contact op</h2>
+        <div class="contact-grid">
+          <div class="contact-item">
+            <span class="contact-item__label">Adres</span>
+            <span class="contact-item__val">Emmerikseweg 75b<br>7223 DA Baak</span>
+          </div>
+          <div class="contact-item">
+            <span class="contact-item__label">Telefoon</span>
+            <span class="contact-item__val"><a href="tel:0852129240">085 212 9240</a></span>
+          </div>
+          <div class="contact-item">
+            <span class="contact-item__label">E-mail</span>
+            <span class="contact-item__val"><a href="mailto:info@outletloket.nl">info@outletloket.nl</a></span>
+          </div>
+          <div class="contact-item">
+            <span class="contact-item__label">Partner worden?</span>
+            <span class="contact-item__val"><a href="/restpartij-verkopen/" style="color:var(--ol-yellow);">Klik hier →</a></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="w">
+    <div class="site-footer__grid">
+      <div class="site-footer__brand">
+        <svg viewBox="0 0 220 70" width="120" fill="none">
+          <text x="0" y="28" font-family="'Barlow Condensed'" font-weight="900" font-size="26" letter-spacing="2" fill="white">OUTLET</text>
+          <rect x="110" y="14" width="56" height="6" fill="white"/>
+          <rect x="44" y="44" width="40" height="6" fill="white"/>
+          <text x="92" y="62" font-family="'Barlow Condensed'" font-weight="900" font-size="26" letter-spacing="2" fill="white">LOKET</text>
+        </svg>
+        <p>A-merken gereedschap en meer — direct uit voorraad, scherp geprijsd. Fysieke winkel in Baak.        <div class="footer-social">
+          <a href="https://www.instagram.com/outletloket/" target="_blank" rel="noopener" class="footer-social__btn" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+          </a>
+          <a href="https://www.facebook.com/people/Outlet-Loket/61563412757388/" target="_blank" rel="noopener" class="footer-social__btn" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          </a>
+          <a href="https://www.linkedin.com/company/outletloket/" target="_blank" rel="noopener" class="footer-social__btn" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+        </div>
+</p>
+      </div>
+      <div class="site-footer__col">
+        <h5>Categorieën</h5>
+        <ul>
+          <li><a href="/product-categorie/gereedschap/elektrisch-gereedschap/">Elektrisch gereedschap</a></li>
+          <li><a href="/product-categorie/gereedschap/handgereedschap/">Handgereedschap</a></li>
+          <li><a href="/product-categorie/bouwmaterialen/">Bouwmaterialen</a></li>
+          <li><a href="/product-categorie/tuin-bbq/">Tuinartikelen</a></li>
+          <li><a href="/product-categorie/elektronica/">Elektronica</a></li>
+        </ul>
+      </div>
+      <div class="site-footer__col">
+        <h5>Klantenservice</h5>
+        <ul>
+          <li><a href="/retourneren/">Retourneren</a></li>
+          <li><a href="/verzending/">Verzending</a></li>
+          <li><a href="/contact/">Contact</a></li>
+          <li><a href="/openingstijden/">Openingstijden</a></li>
+        </ul>
+      </div>
+      <div class="site-footer__col">
+        <h5>Over ons</h5>
+        <ul>
+          <li><a href="/over-outlet-loket/">Over Outlet Loket</a></li>
+          <li><a href="/restpartij-verkopen/">Partner worden</a></li>
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/privacybeleid/">Privacybeleid</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="site-footer__bottom">
+      <span>© 2026 Outlet Loket — Luno Trading B.V. — KvK 42057628</span>
+      <div class="footer-legal">
+        <a href="/privacybeleid/">Privacybeleid</a>
+        <a href="/algemene-voorwaarden/">Algemene voorwaarden</a>
+        <a href="/cookies/">Cookies</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+// Header search → /winkel/?s=query
+(function() {
+  var inp = document.querySelector('.site-search__input');
+  var btn = document.querySelector('.site-search__btn');
+  if (!inp) return;
+  function go() { var q = inp.value.trim(); if (q) window.location.href = '/winkel/?s=' + encodeURIComponent(q); }
+  inp.addEventListener('keydown', function(e) { if (e.key === 'Enter') go(); });
+  if (btn) btn.addEventListener('click', go);
+})();
+// Wishlist badge
+function _wlGet() { return JSON.parse(localStorage.getItem('ol_wl') || '[]'); }
+function _wlBadge() { var n = _wlGet().length; document.querySelectorAll('.wishlist-count').forEach(function(el) { el.textContent = n; el.style.display = n ? 'flex' : 'none'; }); }
+_wlBadge();
+</script>
+</body>
+</html>

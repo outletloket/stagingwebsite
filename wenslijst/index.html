@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mijn verlanglijst | Outlet Loket</title>
+<meta name="description" content="Bekijk en beheer uw opgeslagen producten op Outlet Loket.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="canonical" href="https://outletloket.nl/wenslijst/">
+<link rel="icon" type="image/jpeg" href="/favicon.jpg">
+<link rel="apple-touch-icon" href="/favicon.jpg">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Barlow+Condensed:wght@700;800;900&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --ol-yellow: #ffde59; --ol-yellow-dk: #e8c94f; --ol-black: #111111; --ol-white: #ffffff;
+  --ol-grey-1: #F4F4F4; --ol-grey-2: #E8E8E8; --ol-grey-3: #999999; --ol-grey-4: #555555;
+  --ol-green: #1a9e5c; --ol-red: #e53935; --ol-radius: 6px;
+  --ol-font: 'Inter', sans-serif; --ol-display: 'Barlow Condensed', sans-serif;
+  --ol-max: 1200px; --ol-shadow: 0 2px 12px rgba(0,0,0,.07); --ol-shadow-lg: 0 8px 32px rgba(0,0,0,.12);
+}
+body { font-family: var(--ol-font); color: var(--ol-black); background: var(--ol-white); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+a { text-decoration: none; color: inherit; }
+img { display: block; max-width: 100%; }
+button { font-family: var(--ol-font); cursor: pointer; border: none; }
+.w { max-width: var(--ol-max); margin: 0 auto; padding: 0 20px; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes pulse-ring { 0% { box-shadow: 0 0 0 0 rgba(255,222,89,.4); } 70% { box-shadow: 0 0 0 9px rgba(255,222,89,0); } 100% { box-shadow: 0 0 0 0 rgba(255,222,89,0); } }
+/* Topbar */
+.site-topbar { background: var(--ol-black); color: #999; font-size: 11.5px; letter-spacing: .04em; padding: 8px 0; }
+.site-topbar__inner { display: flex; justify-content: center; gap: 28px; flex-wrap: wrap; }
+.site-topbar__item { display: flex; align-items: center; gap: 5px; }
+.site-topbar__item::before { content: '✓'; color: var(--ol-yellow); font-weight: 700; }
+/* Header */
+.site-header { background: var(--ol-white); border-bottom: 1px solid var(--ol-grey-2); position: sticky; top: 0; z-index: 200; }
+.site-header__inner { height: 62px; display: grid; grid-template-columns: 180px 1fr auto; align-items: center; gap: 20px; }
+.site-search { display: flex; border: 1.5px solid var(--ol-grey-2); border-radius: var(--ol-radius); overflow: hidden; transition: border-color .18s; height: 40px; }
+.site-search:focus-within { border-color: var(--ol-yellow); }
+.site-search__input { flex: 1; border: none; outline: none; font-family: var(--ol-font); font-size: 13.5px; padding: 0 14px; color: var(--ol-black); }
+.site-search__input::placeholder { color: var(--ol-grey-3); }
+.site-search__btn { background: var(--ol-yellow); border: none; width: 44px; cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--ol-black); transition: background .18s; }
+.site-search__btn:hover { background: var(--ol-yellow-dk); }
+.site-header__actions { display: flex; align-items: center; gap: 6px; }
+.hdr-btn { display: flex; align-items: center; gap: 5px; font-size: 13px; font-weight: 500; color: var(--ol-grey-4); padding: 7px 12px; border-radius: var(--ol-radius); border: 1.5px solid transparent; transition: all .15s; white-space: nowrap; }
+.hdr-btn:hover { color: var(--ol-black); border-color: var(--ol-grey-2); }
+.hdr-btn svg { width: 16px; height: 16px; flex-shrink: 0; }
+.hdr-btn--cart { background: var(--ol-yellow); color: var(--ol-black) !important; border-color: var(--ol-yellow) !important; font-weight: 700 !important; animation: pulse-ring 2.5s ease infinite; }
+.cart-count { background: var(--ol-black); color: var(--ol-white); font-size: 10px; font-weight: 700; width: 17px; height: 17px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+/* Nav */
+.site-nav { border-bottom: 1px solid var(--ol-grey-2); background: var(--ol-white); }
+.site-nav__inner { display: flex; overflow-x: auto; scrollbar-width: none; }
+.site-nav__inner::-webkit-scrollbar { display: none; }
+.site-nav__item { font-size: 13px; font-weight: 500; color: var(--ol-grey-4); padding: 12px 15px; white-space: nowrap; border-bottom: 2px solid transparent; transition: all .15s; }
+.site-nav__item:hover { color: var(--ol-black); }
+.site-nav__item--active { color: var(--ol-black); border-bottom-color: var(--ol-yellow); font-weight: 600; }
+.site-nav__item--deals { color: var(--ol-red); font-weight: 600; }
+/* Breadcrumb */
+.breadcrumb { padding: 14px 0; font-size: 12.5px; color: var(--ol-grey-3); display: flex; align-items: center; gap: 6px; }
+.breadcrumb a { color: var(--ol-grey-3); transition: color .15s; }
+.breadcrumb a:hover { color: var(--ol-black); }
+.breadcrumb span { color: var(--ol-grey-2); }
+.breadcrumb strong { color: var(--ol-black); font-weight: 500; }
+/* Page header */
+.page-header { background: var(--ol-black); padding: 36px 0; }
+.page-header__eyebrow { font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--ol-yellow); margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+.page-header__eyebrow::before { content: ''; width: 16px; height: 2px; background: var(--ol-yellow); }
+.page-header__title { font-family: var(--ol-display); font-size: clamp(30px, 4vw, 48px); font-weight: 900; color: var(--ol-white); text-transform: uppercase; line-height: .95; }
+.page-header__sub { font-size: 14px; color: #666; margin-top: 10px; }
+/* Wishlist layout */
+.wl-layout { padding: 36px 0 72px; animation: fadeUp .4s ease both; }
+.wl-toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; flex-wrap: wrap; gap: 12px; }
+.wl-count { font-size: 14px; color: var(--ol-grey-4); }
+.wl-count strong { color: var(--ol-black); }
+.btn-clear { background: none; border: 1.5px solid var(--ol-grey-2); border-radius: var(--ol-radius); font-size: 12.5px; color: var(--ol-grey-3); padding: 7px 14px; transition: all .15s; }
+.btn-clear:hover { border-color: var(--ol-red); color: var(--ol-red); }
+/* Product grid */
+.wl-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.woo-product-card { display: block; background: var(--ol-white); border: 1.5px solid var(--ol-grey-2); border-radius: 8px; overflow: hidden; transition: box-shadow .2s, border-color .2s, transform .2s; position: relative; }
+.woo-product-card:hover { box-shadow: var(--ol-shadow-lg); border-color: #ccc; transform: translateY(-2px); }
+.woo-product-card__img-wrap { position: relative; aspect-ratio: 1; background: var(--ol-grey-1); overflow: hidden; }
+.woo-product-card__img-wrap img { width: 100%; height: 100%; object-fit: contain; padding: 12px; transition: transform .3s; }
+.woo-product-card:hover .woo-product-card__img-wrap img { transform: scale(1.04); }
+.woo-product-card__badge { position: absolute; top: 8px; left: 8px; background: var(--ol-red); color: #fff; font-size: 11px; font-weight: 700; padding: 2px 7px; border-radius: 4px; z-index: 1; }
+.woo-product-card__remove { position: absolute; top: 8px; right: 8px; background: rgba(255,255,255,.95); border: 1.5px solid var(--ol-grey-2); border-radius: 50%; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--ol-grey-3); transition: all .15s; z-index: 2; }
+.woo-product-card__remove:hover { background: var(--ol-red); color: #fff; border-color: var(--ol-red); }
+.woo-product-card__body { padding: 12px 14px 8px; }
+.woo-product-card__brand { font-size: 10.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--ol-grey-3); margin-bottom: 4px; }
+.woo-product-card__title { font-size: 13px; font-weight: 600; line-height: 1.35; color: var(--ol-black); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.woo-price { margin-top: 8px; display: flex; align-items: baseline; gap: 7px; }
+.woo-price__current { font-size: 16px; font-weight: 700; color: var(--ol-black); }
+.woo-price__original { font-size: 12px; color: var(--ol-grey-3); text-decoration: line-through; }
+.woo-product-card__foot { padding: 0 14px 14px; display: flex; align-items: center; justify-content: space-between; margin-top: 4px; }
+.woo-add-to-cart { background: var(--ol-yellow); color: var(--ol-black); border: none; border-radius: var(--ol-radius); font-size: 12px; font-weight: 700; padding: 8px 14px; cursor: pointer; transition: background .15s; }
+.woo-add-to-cart:hover { background: var(--ol-yellow-dk); }
+/* Empty state */
+.wl-empty { text-align: center; padding: 80px 20px; animation: fadeUp .4s ease both; }
+.wl-empty__icon { width: 72px; height: 72px; border: 2.5px solid var(--ol-grey-2); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; color: var(--ol-grey-3); }
+.wl-empty__title { font-family: var(--ol-display); font-size: 28px; font-weight: 900; text-transform: uppercase; margin-bottom: 10px; }
+.wl-empty__sub { font-size: 14px; color: var(--ol-grey-4); line-height: 1.6; max-width: 340px; margin: 0 auto 28px; }
+.btn-shop { display: inline-flex; align-items: center; gap: 8px; background: var(--ol-yellow); color: var(--ol-black); font-weight: 700; font-size: 14px; padding: 13px 26px; border-radius: var(--ol-radius); transition: background .15s; }
+.btn-shop:hover { background: var(--ol-yellow-dk); }
+/* Footer */
+.site-footer { background: var(--ol-black); border-top: 3px solid var(--ol-yellow); padding: 52px 0 24px; }
+.site-footer__grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; padding-bottom: 40px; border-bottom: 1px solid #1e1e1e; margin-bottom: 24px; }
+.site-footer__brand p { font-size: 13px; color: #555; line-height: 1.7; margin-top: 16px; max-width: 250px; }
+.site-footer__col h5 { font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #444; margin-bottom: 14px; }
+.site-footer__col ul { list-style: none; }
+.site-footer__col li { margin-bottom: 8px; }
+.site-footer__col a { font-size: 13px; color: #555; transition: color .15s; }
+.site-footer__col a:hover { color: var(--ol-yellow); }
+.site-footer__bottom { display: flex; justify-content: space-between; font-size: 11.5px; color: #333; flex-wrap: wrap; gap: 8px; }
+.site-footer__bottom a { color: #333; }
+.site-footer__bottom a:hover { color: var(--ol-yellow); }
+.footer-social { display: flex; gap: 8px; margin-top: 16px; }
+.footer-social__btn { width: 34px; height: 34px; border-radius: 6px; background: #1a1a1a; border: 1px solid #2a2a2a; display: flex; align-items: center; justify-content: center; color: #666; transition: background .15s, color .15s, border-color .15s; }
+.footer-social__btn:hover { background: var(--ol-yellow); color: var(--ol-black); border-color: var(--ol-yellow); }
+/* Responsive */
+@media (max-width: 900px) { .wl-grid { grid-template-columns: repeat(2, 1fr); } .site-footer__grid { grid-template-columns: 1fr 1fr; } .site-header__inner { grid-template-columns: 130px 1fr auto; } }
+@media (max-width: 560px) { .wl-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; } .site-search { display: none; } .site-header__inner { grid-template-columns: 130px 1fr; } }
+</style>
+</head>
+<body>
+
+<div class="site-topbar"><div class="site-topbar__inner"><span class="site-topbar__item">14 dagen bedenktijd</span><span class="site-topbar__item">Werkdagen voor 16:00 verzonden</span><span class="site-topbar__item">Gratis verzending v.a. €500</span><span class="site-topbar__item">Witgoed afhalen: €50 extra korting</span></div></div>
+
+<header class="site-header"><div class="w"><div class="site-header__inner">
+  <a href="/"><svg viewBox="0 0 220 70" width="130" fill="none"><text x="0" y="28" font-family="'Barlow Condensed'" font-weight="900" font-size="26" letter-spacing="2" fill="#111">OUTLET</text><rect x="110" y="14" width="56" height="6" fill="#111"/><rect x="44" y="44" width="40" height="6" fill="#111"/><text x="92" y="62" font-family="'Barlow Condensed'" font-weight="900" font-size="26" letter-spacing="2" fill="#111">LOKET</text></svg></a>
+  <div class="site-search"><input class="site-search__input" type="text" placeholder="Zoek op product, merk of categorie..."><button class="site-search__btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></button></div>
+  <div class="site-header__actions">
+    <a href="/wenslijst/" class="hdr-btn" style="color:var(--ol-black);border-color:var(--ol-grey-2);">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>Verlanglijst
+      <span class="wishlist-count" style="background:#e53935;color:#fff;font-size:10px;font-weight:700;min-width:17px;height:17px;border-radius:50%;display:none;align-items:center;justify-content:center;margin-left:2px;">0</span>
+    </a>
+    <a href="/winkelmand/" class="hdr-btn hdr-btn--cart"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>Winkelwagen<span class="cart-count">0</span></a>
+  </div>
+</div></div></header>
+
+<nav class="site-nav"><div class="w"><div class="site-nav__inner">
+  <a href="/" class="site-nav__item">Alle producten</a>
+  <a href="/product-categorie/witgoed/" class="site-nav__item">Witgoed</a>
+  <a href="/product-categorie/huishoudelijk/" class="site-nav__item">Huishoudelijk</a>
+  <a href="/product-categorie/gereedschap/" class="site-nav__item">Gereedschap</a>
+  <a href="/product-categorie/tuin-bbq/" class="site-nav__item">Tuin &amp; BBQ</a>
+  <a href="/product-categorie/elektronica/" class="site-nav__item">Elektronica</a>
+  <a href="/product-categorie/bouwmaterialen/" class="site-nav__item">Bouwmaterialen</a>
+  <a href="/product-categorie/koelen-vriezen/" class="site-nav__item">Koelen &amp; vriezen</a>
+  <a href="/winkel/?orderby=date" class="site-nav__item site-nav__item--deals">Deals</a>
+</div></div></nav>
+
+<div class="w"><div class="breadcrumb"><a href="/">Home</a><span>›</span><strong>Verlanglijst</strong></div></div>
+
+<section class="page-header"><div class="w">
+  <div class="page-header__eyebrow">Mijn account</div>
+  <h1 class="page-header__title">Verlanglijst</h1>
+  <p class="page-header__sub" id="headerSub">Uw opgeslagen producten</p>
+</div></section>
+
+<section class="wl-layout"><div class="w">
+
+  <!-- Empty state (shown when no items) -->
+  <div class="wl-empty" id="wlEmpty" style="display:none;">
+    <div class="wl-empty__icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="32" height="32"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+    </div>
+    <p class="wl-empty__title">Nog niets bewaard</p>
+    <p class="wl-empty__sub">Klik op het hartje bij een product om het op te slaan. Uw verlanglijst blijft bewaard in uw browser.</p>
+    <a href="/winkel/" class="btn-shop">Bekijk alle deals →</a>
+  </div>
+
+  <!-- Filled state -->
+  <div id="wlFilled" style="display:none;">
+    <div class="wl-toolbar">
+      <p class="wl-count" id="wlCount"></p>
+      <button class="btn-clear" onclick="clearAll()">Alles verwijderen</button>
+    </div>
+    <div class="wl-grid" id="wlGrid"></div>
+  </div>
+
+</div></section>
+
+<footer class="site-footer"><div class="w">
+  <div class="site-footer__grid">
+    <div class="site-footer__brand">
+      <svg viewBox="0 0 220 70" width="120" fill="none"><text x="0" y="28" font-family="'Barlow Condensed'" font-weight="900" font-size="26" letter-spacing="2" fill="white">OUTLET</text><rect x="110" y="14" width="56" height="6" fill="white"/><rect x="44" y="44" width="40" height="6" fill="white"/><text x="92" y="62" font-family="'Barlow Condensed'" font-weight="900" font-size="26" letter-spacing="2" fill="white">LOKET</text></svg>
+      <p>A-merken gereedschap en meer — direct uit voorraad, scherp geprijsd. Fysieke winkel in Baak.</p>
+      <div class="footer-social">
+        <a href="https://www.instagram.com/outletloket/" target="_blank" rel="noopener" class="footer-social__btn" aria-label="Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+        <a href="https://www.facebook.com/people/Outlet-Loket/61563412757388/" target="_blank" rel="noopener" class="footer-social__btn" aria-label="Facebook"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+        <a href="https://www.linkedin.com/company/outletloket/" target="_blank" rel="noopener" class="footer-social__btn" aria-label="LinkedIn"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+      </div>
+    </div>
+    <div class="site-footer__col"><h5>Categorieën</h5><ul><li><a href="/product-categorie/gereedschap/elektrisch-gereedschap/">Elektrisch gereedschap</a></li><li><a href="/product-categorie/gereedschap/handgereedschap/">Handgereedschap</a></li><li><a href="/product-categorie/bouwmaterialen/">Bouwmaterialen</a></li><li><a href="/product-categorie/gereedschap/">Schroeven</a></li><li><a href="/product-categorie/tuin-bbq/">Tuinartikelen</a></li><li><a href="/product-categorie/elektronica/">Elektronica</a></li></ul></div>
+    <div class="site-footer__col"><h5>Klantenservice</h5><ul><li><a href="#">Retourneren</a></li><li><a href="#">Verzending</a></li><li><a href="#">Contact</a></li><li><a href="#">Openingstijden</a></li></ul></div>
+    <div class="site-footer__col"><h5>Over ons</h5><ul><li><a href="/over-outlet-loket/">Over Outlet Loket</a></li><li><a href="/restpartij-verkopen/">Partner worden</a></li><li><a href="/blog/">Blog</a></li><li><a href="#">Privacybeleid</a></li></ul></div>
+  </div>
+  <div class="site-footer__bottom"><span>© 2026 Outlet Loket — Luno Trading B.V. — KvK 42057628</span><div class="footer-legal" style="display:flex;gap:16px;"><a href="#">Privacybeleid</a><a href="#">Algemene voorwaarden</a><a href="#">Cookies</a></div></div>
+</div></footer>
+
+<script>
+// Wishlist helpers
+function _wlGet() { return JSON.parse(localStorage.getItem('ol_wl') || '[]'); }
+function _wlSet(l) { localStorage.setItem('ol_wl', JSON.stringify(l)); }
+function _wlBadge() {
+  var n = _wlGet().length;
+  document.querySelectorAll('.wishlist-count').forEach(function(el) {
+    el.textContent = n;
+    el.style.display = n ? 'flex' : 'none';
+  });
+}
+
+function removeItem(id) {
+  var list = _wlGet().filter(function(p) { return p.id !== id; });
+  _wlSet(list);
+  _wlBadge();
+  renderList();
+}
+
+function clearAll() {
+  if (!confirm('Weet u zeker dat u alle producten wilt verwijderen?')) return;
+  _wlSet([]);
+  _wlBadge();
+  renderList();
+}
+
+function addToCart(btn) {
+  btn.textContent = 'Toegevoegd!';
+  btn.style.background = '#1a9e5c';
+  btn.style.color = '#fff';
+  setTimeout(function() { window.location.href = '/checkout.html'; }, 500);
+}
+
+function escHtml(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function renderList() {
+  var list = _wlGet();
+  var empty = document.getElementById('wlEmpty');
+  var filled = document.getElementById('wlFilled');
+  var grid = document.getElementById('wlGrid');
+  var count = document.getElementById('wlCount');
+  var sub = document.getElementById('headerSub');
+
+  if (!list.length) {
+    empty.style.display = 'block';
+    filled.style.display = 'none';
+    if (sub) sub.textContent = 'Nog geen producten bewaard';
+    return;
+  }
+
+  empty.style.display = 'none';
+  filled.style.display = 'block';
+  count.innerHTML = '<strong>' + list.length + '</strong> ' + (list.length === 1 ? 'product bewaard' : 'producten bewaard');
+  if (sub) sub.textContent = list.length + (list.length === 1 ? ' product bewaard' : ' producten bewaard');
+
+  grid.innerHTML = list.map(function(p) {
+    var img = p.img
+      ? '<img src="' + escHtml(p.img) + '" alt="' + escHtml(p.title) + '" loading="lazy">'
+      : '<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:var(--ol-grey-3);font-size:12px;">Geen foto</div>';
+    var badge = p.discount ? '<span class="woo-product-card__badge">' + escHtml(p.discount) + '</span>' : '';
+    var brand = p.brand ? '<div class="woo-product-card__brand">' + escHtml(p.brand) + '</div>' : '';
+    var orig = p.original ? '<span class="woo-price__original">' + escHtml(p.original) + '</span>' : '';
+    return '<div class="woo-product-card">'
+      + '<div class="woo-product-card__img-wrap">'
+      + badge
+      + '<button class="woo-product-card__remove" onclick="removeItem(' + JSON.stringify(escHtml(p.id)) + ')" title="Verwijderen">'
+      + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="13" height="13"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>'
+      + '</button>'
+      + img
+      + '</div>'
+      + '<div class="woo-product-card__body">'
+      + brand
+      + '<div class="woo-product-card__title">' + escHtml(p.title) + '</div>'
+      + '<div class="woo-price"><span class="woo-price__current">' + escHtml(p.price) + '</span>' + orig + '</div>'
+      + '</div>'
+      + '<div class="woo-product-card__foot">'
+      + '<a href="' + escHtml(p.url || '/product.html') + '" style="font-size:12px;color:var(--ol-grey-4);text-decoration:underline;">Bekijken</a>'
+      + '<button class="woo-add-to-cart" onclick="addToCart(this)">+ Bestellen</button>'
+      + '</div>'
+      + '</div>';
+  }).join('');
+}
+
+// Search
+(function() {
+  var inp = document.querySelector('.site-search__input');
+  var btn = document.querySelector('.site-search__btn');
+  function doSearch() {
+    var q = inp.value.trim();
+    if (q) window.location.href = '/winkel/?s=' + encodeURIComponent(q);
+  }
+  if (inp) inp.addEventListener('keydown', function(e) { if (e.key === 'Enter') doSearch(); });
+  if (btn) btn.addEventListener('click', doSearch);
+})();
+
+// Init
+_wlBadge();
+renderList();
+</script>
+</body>
+</html>

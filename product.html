@@ -202,6 +202,17 @@ header {
   padding: 4px 10px; border-radius: 4px;
   letter-spacing: .04em;
 }
+.gallery-badge-cond {
+  position: absolute; top: 48px; left: 16px;
+  background: #e65100; color: #fff;
+  font-family: var(--display);
+  font-size: 11px; font-weight: 800;
+  padding: 3px 9px; border-radius: 4px;
+  letter-spacing: .08em; text-transform: uppercase;
+}
+.gallery-badge-cond--new { background: var(--green); }
+.prod-cond-chip { display: inline-flex; align-items: center; gap: 6px; background: #fff4ed; color: #c84f00; font-size: 12px; font-weight: 700; padding: 5px 11px; border-radius: 20px; border: 1.5px solid #f5c4a0; margin-top: 10px; }
+.prod-cond-chip--new { background: #edfaf3; color: #1a9e5c; border-color: #a0e0c0; }
 .gallery-thumbs {
   display: flex; gap: 8px; margin-top: 10px;
 }
@@ -304,6 +315,26 @@ header {
 }
 .delivery-row svg { color: var(--yellow); flex-shrink: 0; width: 16px; height: 16px; }
 .delivery-row strong { color: var(--black); }
+
+/* Afhaalkorting block — WP: shown when product has tag :50ak */
+.pickup-deal {
+  background: #f0faf5;
+  border: 1.5px solid var(--green);
+  border-radius: 8px;
+  padding: 14px 16px;
+  display: flex; gap: 14px; align-items: flex-start;
+  margin-bottom: 20px;
+}
+.pickup-deal__badge {
+  background: var(--green); color: var(--white);
+  font-family: var(--display); font-size: 14px; font-weight: 900;
+  padding: 6px 12px; border-radius: 5px;
+  white-space: nowrap; text-transform: uppercase; flex-shrink: 0;
+  letter-spacing: .04em;
+}
+.pickup-deal__body { font-size: 13px; line-height: 1.6; color: #222; }
+.pickup-deal__body strong { color: #111; }
+.pickup-deal__note { font-size: 12px; color: #777; margin-top: 3px; }
 
 /* CTA buttons */
 .cta-group { display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
@@ -508,6 +539,10 @@ footer {
   .related-grid { grid-template-columns: repeat(2, 1fr); }
   .gallery-thumbs { flex-wrap: wrap; }
 }
+
+.footer-social { display: flex; gap: 8px; margin-top: 16px; }
+.footer-social__btn { width: 34px; height: 34px; border-radius: 6px; background: #1a1a1a; border: 1px solid #2a2a2a; display: flex; align-items: center; justify-content: center; color: #666; transition: background .15s, color .15s, border-color .15s; }
+.footer-social__btn:hover { background: var(--ol-yellow); color: var(--ol-black); border-color: var(--ol-yellow); }
 </style>
 </head>
 <body>
@@ -518,7 +553,7 @@ footer {
     <span>14 dagen bedenktijd</span>
     <span>Werkdagen voor 16:00 verzonden</span>
     <span>Gratis verzending v.a. €500</span>
-    <span>Ophalen = €50 extra korting</span>
+    <span>Witgoed afhalen: €50 extra korting</span>
   </div>
 </div>
 
@@ -544,6 +579,7 @@ footer {
         <a href="#" class="hdr-btn">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
           Verlanglijst
+        <span class="wishlist-count" style="background:#e53935;color:#fff;font-size:10px;font-weight:700;min-width:17px;height:17px;border-radius:50%;display:none;align-items:center;justify-content:center;margin-left:2px;">0</span>
         </a>
         <a href="/winkelmand/" class="hdr-btn hdr-cart">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
@@ -592,6 +628,7 @@ footer {
       <div class="gallery">
         <div class="gallery-main" id="mainImg">
           <div class="gallery-badge">-23%</div>
+          <div class="gallery-badge-cond">Outlet</div>
           <img id="mainImgEl" src="https://media.s-bol.com/qL3L9v6qvGvr/9AAZ8/550x658.jpg" alt="Festool DOMINO XL">
         </div>
         <div class="gallery-thumbs">
@@ -637,6 +674,12 @@ footer {
           Op voorraad — direct leverbaar
         </div>
 
+        <!-- Condition -->
+        <div>
+          <span class="prod-cond-chip">Outlet — technisch nieuw, volledig functioneel</span>
+          <a href="/productcondities/" style="display:block;font-size:11.5px;color:#999;margin-top:5px;text-decoration:underline;">Wat betekent dit?</a>
+        </div>
+
         <!-- Delivery -->
         <div class="delivery-info">
           <div class="delivery-row">
@@ -645,13 +688,24 @@ footer {
           </div>
           <div class="delivery-row">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
-            <span>Of <strong>gratis afhalen</strong> in Baak + €50 extra korting</span>
+            <span>Of <strong>gratis afhalen</strong> in Baak — Emmerikseweg 75b, Baak</span>
           </div>
           <div class="delivery-row">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-.08-8.49"/></svg>
             <span><strong>14 dagen</strong> bedenktijd</span>
           </div>
         </div>
+
+        <!-- WP: if has_term(':50ak', 'product_tag', get_the_ID()) -->
+        <div class="pickup-deal">
+          <div class="pickup-deal__badge">€50 korting</div>
+          <div class="pickup-deal__body">
+            <strong>Afhalen in Baak bespaart u €50 extra.</strong><br>
+            Dit product heeft hoge verzendkosten vanwege het formaat of gewicht. Afhalen is gratis en levert direct €50 korting op de prijs.
+            <div class="pickup-deal__note">Emmerikseweg 75b, 7223 DA Baak &mdash; di, do &amp; vr 10:00&ndash;17:00</div>
+          </div>
+        </div>
+        <!-- /WP: end if :50ak -->
 
         <!-- CTA -->
         <div class="cta-group">
@@ -887,13 +941,7 @@ function addToCart() {
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
     Toegevoegd aan winkelwagen!
   `;
-  setTimeout(() => {
-    btn.classList.remove('added');
-    btn.innerHTML = `
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-      Toevoegen aan winkelwagen
-    `;
-  }, 2500);
+  setTimeout(() => { window.location.href = '/checkout.html'; }, 600);
 }
 
 // Scroll reveal
@@ -906,6 +954,20 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.1 });
 
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Header search → /winkel/?s=query
+(function() {
+  var inp = document.querySelector('.site-search__input');
+  var btn = document.querySelector('.site-search__btn');
+  if (!inp) return;
+  function go() { var q = inp.value.trim(); if (q) window.location.href = '/winkel/?s=' + encodeURIComponent(q); }
+  inp.addEventListener('keydown', function(e) { if (e.key === 'Enter') go(); });
+  if (btn) btn.addEventListener('click', go);
+})();
+// Wishlist badge
+function _wlGet() { return JSON.parse(localStorage.getItem('ol_wl') || '[]'); }
+function _wlBadge() { var n = _wlGet().length; document.querySelectorAll('.wishlist-count').forEach(function(el) { el.textContent = n; el.style.display = n ? 'flex' : 'none'; }); }
+_wlBadge();
 </script>
 </body>
 </html>

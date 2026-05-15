@@ -340,6 +340,10 @@ input, select, textarea { font-family: var(--ol-font); }
   .stripe-row { grid-template-columns: 1fr; }
   .ideal-banks { grid-template-columns: repeat(2, 1fr); }
 }
+
+.footer-social { display: flex; gap: 8px; margin-top: 16px; }
+.footer-social__btn { width: 34px; height: 34px; border-radius: 6px; background: #1a1a1a; border: 1px solid #2a2a2a; display: flex; align-items: center; justify-content: center; color: #666; transition: background .15s, color .15s, border-color .15s; }
+.footer-social__btn:hover { background: var(--ol-yellow); color: var(--ol-black); border-color: var(--ol-yellow); }
 </style>
 </head>
 <body>
@@ -518,7 +522,7 @@ input, select, textarea { font-family: var(--ol-font); }
                 <input type="radio" name="shipping">
                 <div class="shipping-option__info">
                   <div class="shipping-option__name">Afhalen in Baak</div>
-                  <div class="shipping-option__desc">Zutphen-Emmerikseweg 75B, 7223DA Baak — <strong style="color:var(--ol-green)">€50 extra korting!</strong></div>
+                  <div class="shipping-option__desc">Emmerikseweg 75b, 7223 DA Baak — <strong style="color:var(--ol-green)">€50 extra korting</strong> bij witgoed &amp; grote apparaten</div>
                 </div>
                 <div class="shipping-option__price shipping-option__free">Gratis</div>
               </label>
@@ -877,6 +881,10 @@ function placeOrder() {
 document.querySelectorAll('.form-input').forEach(input => {
   input.addEventListener('input', function() { this.classList.remove('error'); });
 });
+// Wishlist badge
+function _wlGet() { return JSON.parse(localStorage.getItem('ol_wl') || '[]'); }
+function _wlBadge() { var n = _wlGet().length; document.querySelectorAll('.wishlist-count').forEach(function(el) { el.textContent = n; el.style.display = n ? 'flex' : 'none'; }); }
+_wlBadge();
 </script>
 </body>
 </html>
