@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="200" height="200">
+  <!-- Background -->
+  <rect width="100" height="100" rx="12" fill="#1a1a1a"/>
+  <!-- Machine body -->
+  <rect x="14" y="10" width="72" height="82" rx="5" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <!-- Control panel divider -->
+  <line x1="14" y1="30" x2="86" y2="30" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Power button (yellow) -->
+  <circle cx="24" cy="20" r="5" fill="#F5C842"/>
+  <!-- Display rect -->
+  <rect x="44" y="15" width="28" height="10" rx="2" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.5"/>
+  <!-- Large door circle -->
+  <circle cx="50" cy="62" r="24" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <!-- Inner ring (yellow) -->
+  <circle cx="50" cy="62" r="14" stroke="#F5C842" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <!-- Door handle center dot (yellow) -->
+  <circle cx="50" cy="62" r="3" fill="#F5C842"/>
+</svg>

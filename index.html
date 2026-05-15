@@ -371,15 +371,12 @@ button { font-family: var(--ol-font); cursor: pointer; border: none; }
   transform: translateY(-3px);
 }
 .woo-category-list__icon {
-  width: 44px; height: 44px;
-  background: var(--ol-white);
-  border: 1px solid var(--ol-grey-2);
+  width: 52px; height: 52px;
   border-radius: 8px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 22px; flex-shrink: 0;
-  transition: border-color .2s;
+  overflow: hidden;
+  flex-shrink: 0;
 }
-.woo-category-list__item:hover .woo-category-list__icon { border-color: var(--ol-yellow); }
+.woo-category-list__icon img { width: 52px; height: 52px; display: block; }
 .woo-category-list__name {
   font-size: 14px; font-weight: 600; color: var(--ol-black); line-height: 1.2;
 }
@@ -966,56 +963,56 @@ button { font-family: var(--ol-font); cursor: pointer; border: none; }
     <!-- WP: ul.products.columns-4 → .woo-category-list -->
     <div class="woo-category-list">
       <a href="/product-categorie/witgoed/wasmachines/" class="woo-category-list__item reveal">
-        <div class="woo-category-list__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg></div>
+        <div class="woo-category-list__icon"><img src="img/categories/wasmachines.svg" alt="Wasmachines"></div>
         <div>
           <div class="woo-category-list__name">Wasmachines</div>
           <div class="woo-category-list__count">Witgoed outlet</div>
         </div>
       </a>
       <a href="/product-categorie/witgoed/koelkasten/" class="woo-category-list__item reveal reveal-delay-1">
-        <div class="woo-category-list__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><line x1="12" y1="2" x2="12" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+        <div class="woo-category-list__icon"><img src="img/categories/koelkasten.svg" alt="Koelkasten & vriezers"></div>
         <div>
           <div class="woo-category-list__name">Koelkasten & vriezers</div>
           <div class="woo-category-list__count">Witgoed outlet</div>
         </div>
       </a>
       <a href="/product-categorie/witgoed/vaatwassers/" class="woo-category-list__item reveal reveal-delay-2">
-        <div class="woo-category-list__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><line x1="18" y1="6" x2="18" y2="20"/><path d="M6 2v8a4 4 0 0 0 8 0V2"/><line x1="6" y1="2" x2="6" y2="6"/><line x1="10" y1="2" x2="10" y2="6"/></svg></div>
+        <div class="woo-category-list__icon"><img src="img/categories/vaatwassers.svg" alt="Vaatwassers"></div>
         <div>
           <div class="woo-category-list__name">Vaatwassers</div>
           <div class="woo-category-list__count">Witgoed outlet</div>
         </div>
       </a>
       <a href="/product-categorie/huishoudelijk/koffiemachines/" class="woo-category-list__item reveal reveal-delay-3">
-        <div class="woo-category-list__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></div>
+        <div class="woo-category-list__icon"><img src="img/categories/koffiemachines.svg" alt="Koffiemachines"></div>
         <div>
           <div class="woo-category-list__name">Koffiemachines</div>
           <div class="woo-category-list__count">Huishoudelijk</div>
         </div>
       </a>
       <a href="/product-categorie/witgoed/ovens-kookplaten/" class="woo-category-list__item reveal">
-        <div class="woo-category-list__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 3h-8l-1 4h10z"/></svg></div>
+        <div class="woo-category-list__icon"><img src="img/categories/ovens-kookplaten.svg" alt="Ovens & kookplaten"></div>
         <div>
           <div class="woo-category-list__name">Ovens & kookplaten</div>
           <div class="woo-category-list__count">Witgoed outlet</div>
         </div>
       </a>
       <a href="/product-categorie/gereedschap/elektrisch-gereedschap/" class="woo-category-list__item reveal reveal-delay-1">
-        <div class="woo-category-list__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+        <div class="woo-category-list__icon"><img src="img/categories/elektrisch-gereedschap.svg" alt="Elektrisch gereedschap"></div>
         <div>
           <div class="woo-category-list__name">Elektrisch gereedschap</div>
           <div class="woo-category-list__count">Gereedschap outlet</div>
         </div>
       </a>
       <a href="/product-categorie/tuin-bbq/" class="woo-category-list__item reveal reveal-delay-2">
-        <div class="woo-category-list__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><path d="M17 8C8 10 5.9 16.17 3.82 22h3.17c.8-2 1.56-3.83 2.01-5 4.16-1.17 8.79-.91 12-5 0 0 .5-4 1-7z"/><line x1="3.82" y1="22" x2="7.66" y2="16.83"/></svg></div>
+        <div class="woo-category-list__icon"><img src="img/categories/tuin-bbq.svg" alt="Tuin & BBQ"></div>
         <div>
           <div class="woo-category-list__name">Tuin & BBQ</div>
           <div class="woo-category-list__count">Tuinartikelen</div>
         </div>
       </a>
       <a href="/winkel/" class="woo-category-list__item reveal reveal-delay-3" style="border-color:var(--ol-yellow);background:#fffbf0;">
-        <div class="woo-category-list__icon" style="border-color:var(--ol-yellow);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg></div>
+        <div class="woo-category-list__icon"><img src="img/categories/deals.svg" alt="Alle deals"></div>
         <div>
           <div class="woo-category-list__name" style="color:#c0392b;">Alle deals</div>
           <div class="woo-category-list__count">366 producten</div>

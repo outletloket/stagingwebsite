@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="200" height="200">
+  <!-- Background -->
+  <rect width="100" height="100" rx="12" fill="#1a1a1a"/>
+  <!-- Price tag shape -->
+  <path d="M80,50 L68,20 Q66,16 62,16 L28,16 Q22,16 22,22 L22,62 Q22,68 28,68 L62,68 Q66,68 68,64 Z" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <!-- Hole in tag -->
+  <circle cx="32" cy="26" r="4" stroke="white" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+  <!-- Percent line -->
+  <line x1="36" y1="54" x2="58" y2="32" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Percent top circle (yellow) -->
+  <circle cx="38" cy="34" r="4" stroke="#F5C842" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+  <!-- Percent bottom circle (yellow) -->
+  <circle cx="56" cy="52" r="4" stroke="#F5C842" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+</svg>
