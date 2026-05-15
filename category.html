@@ -3,7 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Elektrisch gereedschap — Outlet Loket</title>
+<title>Elektrisch Gereedschap Outlet | A-Merken | Outlet Loket</title>
+<meta name="description" content="Elektrisch gereedschap outlet van A-merken zoals Festool, Bosch, DeWalt en Makita. Restpartijen en showroommodellen direct uit voorraad. Op = op.">
+<meta property="og:title" content="Elektrisch Gereedschap Outlet | Outlet Loket">
+<meta property="og:description" content="Elektrisch gereedschap outlet van A-merken zoals Festool, Bosch, DeWalt en Makita. Restpartijen en showroommodellen direct uit voorraad.">
+<link rel="canonical" href="https://outletloket.nl/product-categorie/gereedschap-outlet/elektrisch-gereedschap-outlet/">
 <!--
   WooCommerce koppeling:
   - Dit is archive-product.php in het child theme
@@ -164,7 +168,7 @@ button { font-family: var(--ol-font); cursor: pointer; border: none; }
 /* WP: li.product */
 .woo-product-card { border: 1.5px solid var(--ol-grey-2); border-radius: var(--ol-radius); overflow: hidden; background: var(--ol-white); transition: all .2s cubic-bezier(.34,1.56,.64,1); display: flex; flex-direction: column; }
 .woo-product-card:hover { border-color: #ccc; box-shadow: var(--ol-shadow-lg); transform: translateY(-4px); }
-.woo-product-card__img-wrap { height: 180px; background: var(--ol-grey-1); position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+.woo-product-card__img-wrap { height: 200px; background: #FFFFFF; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; }
 .woo-product-card__img-wrap img { width: 100%; height: 100%; object-fit: contain; padding: 16px; transition: transform .35s ease; }
 .woo-product-card:hover .woo-product-card__img-wrap img { transform: scale(1.05); }
 .woo-product-card__badge { position: absolute; top: 10px; left: 10px; background: var(--ol-yellow); color: var(--ol-black); font-family: var(--ol-display); font-size: 11px; font-weight: 800; padding: 2px 8px; border-radius: 3px; letter-spacing: .04em; }
@@ -320,6 +324,15 @@ button { font-family: var(--ol-font); cursor: pointer; border: none; }
   </div>
 </section>
 
+<!-- SEO TEKST -->
+<section style="padding: 20px 0 0;">
+  <div class="w">
+    <div style="background: var(--ol-grey-1); border-radius: 8px; padding: 20px 24px; font-size:13.5px; line-height:1.75; color:var(--ol-grey-4);">
+      <p>In onze <strong>elektrisch gereedschap outlet</strong> vind je professioneel gereedschap van A-merken zoals Festool, Bosch, DeWalt, Makita en Milwaukee — tegen extra scherpe outletprijzen. Het assortiment bestaat uit restpartijen, showroommodellen en tijdelijke aanbiedingen. Alle producten zijn nieuw of technisch gecontroleerd en direct leverbaar. Omdat het om outletartikelen gaat, geldt vaak: op = op.</p>
+    </div>
+  </div>
+</section>
+
 <!-- MAIN CONTENT -->
 <div class="cat-layout">
   <div class="w">
@@ -343,11 +356,11 @@ button { font-family: var(--ol-font); cursor: pointer; border: none; }
           </div>
           <div class="filter-group__body">
             <div class="filter-price">
-              <input type="number" placeholder="€ Min" min="0">
+              <input type="number" id="priceMin" class="filter-price-input" placeholder="€ Min" min="0">
               <span>—</span>
-              <input type="number" placeholder="€ Max" max="5000">
+              <input type="number" id="priceMax" class="filter-price-input" placeholder="€ Max" max="5000">
             </div>
-            <button class="btn-filter-apply">Toepassen</button>
+            <button class="btn-filter-apply" onclick="applyPrice()">Toepassen</button>
             <button class="btn-filter-reset">Reset filters</button>
           </div>
         </div>
@@ -359,12 +372,12 @@ button { font-family: var(--ol-font); cursor: pointer; border: none; }
             <span class="filter-group__toggle open">▾</span>
           </div>
           <div class="filter-group__body">
-            <label class="filter-option"><input type="checkbox"> <span class="filter-option__label">Festool</span> <span class="filter-option__count">18</span></label>
-            <label class="filter-option"><input type="checkbox"> <span class="filter-option__label">Bosch</span> <span class="filter-option__count">14</span></label>
-            <label class="filter-option"><input type="checkbox"> <span class="filter-option__label">Makita</span> <span class="filter-option__count">12</span></label>
-            <label class="filter-option"><input type="checkbox"> <span class="filter-option__label">DeWalt</span> <span class="filter-option__count">10</span></label>
-            <label class="filter-option"><input type="checkbox"> <span class="filter-option__label">Milwaukee</span> <span class="filter-option__count">9</span></label>
-            <label class="filter-option"><input type="checkbox"> <span class="filter-option__label">Panasonic</span> <span class="filter-option__count">9</span></label>
+            <label class="filter-option"><input type="checkbox" data-brand="Festool" onchange="toggleBrand(this,'Festool')"> <span class="filter-option__label">Festool</span> <span class="filter-option__count">18</span></label>
+            <label class="filter-option"><input type="checkbox" data-brand="Bosch" onchange="toggleBrand(this,'Bosch')"> <span class="filter-option__label">Bosch</span> <span class="filter-option__count">14</span></label>
+            <label class="filter-option"><input type="checkbox" data-brand="Makita" onchange="toggleBrand(this,'Makita')"> <span class="filter-option__label">Makita</span> <span class="filter-option__count">12</span></label>
+            <label class="filter-option"><input type="checkbox" data-brand="DeWalt" onchange="toggleBrand(this,'DeWalt')"> <span class="filter-option__label">DeWalt</span> <span class="filter-option__count">10</span></label>
+            <label class="filter-option"><input type="checkbox" data-brand="Milwaukee" onchange="toggleBrand(this,'Milwaukee')"> <span class="filter-option__label">Milwaukee</span> <span class="filter-option__count">9</span></label>
+            <label class="filter-option"><input type="checkbox" data-brand="Panasonic" onchange="toggleBrand(this,'Panasonic')"> <span class="filter-option__label">Panasonic</span> <span class="filter-option__count">9</span></label>
           </div>
         </div>
 
@@ -375,10 +388,10 @@ button { font-family: var(--ol-font); cursor: pointer; border: none; }
             <span class="filter-group__toggle open">▾</span>
           </div>
           <div class="filter-group__body">
-            <label class="filter-option"><input type="checkbox"> <span class="filter-option__label">Meer dan 10%</span> <span class="filter-option__count">68</span></label>
-            <label class="filter-option"><input type="checkbox"> <span class="filter-option__label">Meer dan 20%</span> <span class="filter-option__count">44</span></label>
-            <label class="filter-option"><input type="checkbox"> <span class="filter-option__label">Meer dan 30%</span> <span class="filter-option__count">21</span></label>
-            <label class="filter-option"><input type="checkbox"> <span class="filter-option__label">Meer dan 40%</span> <span class="filter-option__count">8</span></label>
+            <label class="filter-option"><input type="checkbox" onchange="toggleDiscount(this,10)"> <span class="filter-option__label">Meer dan 10%</span> <span class="filter-option__count">68</span></label>
+            <label class="filter-option"><input type="checkbox" onchange="toggleDiscount(this,20)"> <span class="filter-option__label">Meer dan 20%</span> <span class="filter-option__count">44</span></label>
+            <label class="filter-option"><input type="checkbox" onchange="toggleDiscount(this,30)"> <span class="filter-option__label">Meer dan 30%</span> <span class="filter-option__count">21</span></label>
+            <label class="filter-option"><input type="checkbox" onchange="toggleDiscount(this,40)"> <span class="filter-option__label">Meer dan 40%</span> <span class="filter-option__count">8</span></label>
           </div>
         </div>
 
@@ -389,8 +402,8 @@ button { font-family: var(--ol-font); cursor: pointer; border: none; }
             <span class="filter-group__toggle open">▾</span>
           </div>
           <div class="filter-group__body">
-            <label class="filter-option"><input type="checkbox" checked> <span class="filter-option__label">Op voorraad</span> <span class="filter-option__count">65</span></label>
-            <label class="filter-option"><input type="checkbox"> <span class="filter-option__label">Inclusief uitverkocht</span> <span class="filter-option__count">72</span></label>
+            <label class="filter-option"><input type="checkbox" checked onchange="toggleStock(this,'instock')"> <span class="filter-option__label">Op voorraad</span> <span class="filter-option__count">65</span></label>
+            <label class="filter-option"><input type="checkbox" onchange="toggleStock(this,'outofstock')"> <span class="filter-option__label">Inclusief uitverkocht</span> <span class="filter-option__count">72</span></label>
           </div>
         </div>
 
@@ -400,14 +413,15 @@ button { font-family: var(--ol-font); cursor: pointer; border: none; }
       <div>
         <!-- Toolbar -->
         <div class="cat-toolbar">
-          <p class="cat-toolbar__result"><strong>72</strong> producten gevonden</p>
+          <p class="cat-toolbar__result" id="resultCount"><strong>72</strong> producten gevonden</p>
+          <div style="flex:1;max-width:260px;"><input type="text" placeholder="Zoek in categorie..." oninput="handleSearch(this.value)" style="width:100%;border:1.5px solid var(--ol-grey-2);border-radius:6px;padding:8px 14px;font-size:13px;outline:none;" onfocus="this.style.borderColor='var(--ol-yellow)'" onblur="this.style.borderColor='var(--ol-grey-2)'"></div>
           <div class="cat-toolbar__right">
-            <select class="sort-select">
-              <option>Meest verkocht</option>
-              <option>Prijs laag-hoog</option>
-              <option>Prijs hoog-laag</option>
-              <option>Meeste korting</option>
-              <option>Nieuwste eerst</option>
+            <select class="sort-select" onchange="setSort(this.value)">
+              <option value="popular">Meest verkocht</option>
+              <option value="price-asc">Prijs laag-hoog</option>
+              <option value="price-desc">Prijs hoog-laag</option>
+              <option value="discount">Meeste korting</option>
+              <option value="newest">Nieuwste eerst</option>
             </select>
             <div class="view-toggle">
               <button class="view-btn active" id="gridBtn" onclick="setView('grid')" title="Rasterweergave">
@@ -528,7 +542,7 @@ button { font-family: var(--ol-font); cursor: pointer; border: none; }
         </div>
 
         <!-- Pagination -->
-        <div class="woo-pagination">
+        <div class="woo-pagination" id="pagination">
           <button class="page-btn page-btn--prev">← Vorige</button>
           <button class="page-btn active">1</button>
           <button class="page-btn">2</button>
@@ -598,7 +612,286 @@ button { font-family: var(--ol-font); cursor: pointer; border: none; }
 </footer>
 
 <script>
+// ============================================================
+// PRODUCTDATA — WP: dit wordt vervangen door wp_localize_script()
+// met echte WooCommerce productdata via AJAX
+// ============================================================
+const PRODUCTS = [
+  { id:1, title:'Festool DOMINO XL Stenen Assortiment Beukenhout DS/XL', brand:'Festool', price:229.95, original:299.95, discount:23, stock:'instock', img:'https://media.s-bol.com/qL3L9v6qvGvr/9AAZ8/550x658.jpg', cat:'accessoires', badge:'deal' },
+  { id:2, title:'Festool CTLC MIDI I-Basic Accu stofzuiger CLEANTEC', brand:'Festool', price:254.95, original:299.95, discount:15, stock:'instock', img:'https://media.s-bol.com/4Z3081QoJY0n/2RJjMP1/250x200.jpg', cat:'stofzuiger', badge:'deal' },
+  { id:3, title:'Makita PT001GZ 40V Max Pin tacker koolborstelloos', brand:'Makita', price:235.00, original:344.95, discount:32, stock:'instock', img:'https://media.s-bol.com/49ov9RqRY8kJ/550x297.jpg', cat:'accu', badge:'deal' },
+  { id:4, title:'Bosch Werktafel GTA 600 voor GTS 10 J tafelzaag', brand:'Bosch', price:84.95, original:99.95, discount:15, stock:'instock', img:'https://media.s-bol.com/j6AxJDK5Lm5Y/A682lp1/250x200.jpg', cat:'machines', badge:'deal' },
+  { id:5, title:'Panasonic EY46A5X Accu multitool 14,4/18V Basic Body', brand:'Panasonic', price:209.95, original:254.95, discount:18, stock:'instock', img:'https://media.s-bol.com/Bpk8oXgrvD7Q/g3vKoZ/250x200.jpg', cat:'accu', badge:'deal' },
+  { id:6, title:'Bosch GBH 2-23 REA Boorhamer met stofafzuiging SDS-plus', brand:'Bosch', price:215.00, original:315.00, discount:32, stock:'low', img:'https://media.s-bol.com/qL3L9v6qvGvr/9AAZ8/550x658.jpg', cat:'boorhamer', badge:'deal' },
+  { id:7, title:'DeWalt DWF4020000 Zelftappende Schroef 200 stuks', brand:'DeWalt', price:17.50, original:25.00, discount:30, stock:'instock', img:'https://media.s-bol.com/Bpk8oXgrvD7Q/g3vKoZ/250x200.jpg', cat:'accessoires', badge:'deal' },
+  { id:8, title:'Festool Schuurstroken STF D150 P80 RU2/50 Rubin', brand:'Festool', price:13.95, original:17.99, discount:22, stock:'instock', img:'https://media.s-bol.com/4Z3081QoJY0n/2RJjMP1/250x200.jpg', cat:'accessoires', badge:'nieuw' },
+  { id:9, title:'Milwaukee M18 BLID2-0 Accu slagschroevendraaier body', brand:'Milwaukee', price:149.00, original:189.00, discount:21, stock:'instock', img:'https://media.s-bol.com/j6AxJDK5Lm5Y/A682lp1/250x200.jpg', cat:'accu', badge:'deal' },
+  { id:10, title:'Metabo BS 18 LTX-3 BL Q I Accuboormachine set', brand:'Metabo', price:189.95, original:249.95, discount:24, stock:'instock', img:'https://media.s-bol.com/49ov9RqRY8kJ/550x297.jpg', cat:'accu', badge:'deal' },
+  { id:11, title:'Bosch PST 900 PEL Decoupeerzaag met laser', brand:'Bosch', price:69.95, original:99.95, discount:30, stock:'outofstock', img:'https://media.s-bol.com/qL3L9v6qvGvr/9AAZ8/550x658.jpg', cat:'machines', badge:'deal' },
+  { id:12, title:'Makita DGA504Z Haakse slijpmachine 125mm 18V body', brand:'Makita', price:119.00, original:159.00, discount:25, stock:'instock', img:'https://media.s-bol.com/Bpk8oXgrvD7Q/g3vKoZ/250x200.jpg', cat:'haakse-slijp', badge:'deal' },
+];
+
+// ============================================================
+// FILTER STATE
+// ============================================================
+let state = {
+  brands: [],
+  minPrice: 0,
+  maxPrice: 9999,
+  discounts: [],
+  stock: ['instock','low'],
+  sort: 'popular',
+  view: 'grid',
+  page: 1,
+  perPage: 6,
+  search: ''
+};
+
+// ============================================================
+// RENDER PRODUCTEN
+// ============================================================
+function renderProducts() {
+  const grid = document.getElementById('productGrid');
+  const countEl = document.getElementById('resultCount');
+  const paginationEl = document.getElementById('pagination');
+
+  // Filter
+  let filtered = PRODUCTS.filter(p => {
+    if (state.brands.length && !state.brands.includes(p.brand)) return false;
+    if (p.price < state.minPrice || p.price > state.maxPrice) return false;
+    if (state.discounts.length && !state.discounts.some(d => p.discount >= d)) return false;
+    if (!state.stock.includes(p.stock)) return false;
+    if (state.search && !p.title.toLowerCase().includes(state.search.toLowerCase()) && !p.brand.toLowerCase().includes(state.search.toLowerCase())) return false;
+    return true;
+  });
+
+  // Sort
+  if (state.sort === 'price-asc')  filtered.sort((a,b) => a.price - b.price);
+  if (state.sort === 'price-desc') filtered.sort((a,b) => b.price - a.price);
+  if (state.sort === 'discount')   filtered.sort((a,b) => b.discount - a.discount);
+  if (state.sort === 'newest')     filtered.sort((a,b) => b.id - a.id);
+
+  // Paginate
+  const total = filtered.length;
+  const pages = Math.ceil(total / state.perPage);
+  const start = (state.page - 1) * state.perPage;
+  const paginated = filtered.slice(start, start + state.perPage);
+
+  // Update count
+  if (countEl) countEl.innerHTML = '<strong>' + total + '</strong> producten gevonden';
+
+  // Render grid met loading animatie
+  grid.style.opacity = '0';
+  grid.style.transform = 'translateY(8px)';
+
+  setTimeout(() => {
+    if (paginated.length === 0) {
+      grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--ol-grey-3);">' +
+        '<div style="font-size:40px;margin-bottom:12px;">🔍</div>' +
+        '<p style="font-size:15px;font-weight:600;color:var(--ol-grey-4);">Geen producten gevonden</p>' +
+        '<p style="font-size:13px;margin-top:6px;">Pas je filters aan om meer resultaten te zien.</p>' +
+        '<button onclick="resetFilters()" style="margin-top:16px;background:var(--ol-yellow);color:var(--ol-black);border:none;padding:10px 20px;border-radius:6px;font-weight:700;cursor:pointer;">Filters wissen</button>' +
+        '</div>';
+    } else {
+      grid.innerHTML = paginated.map((p, i) => `
+        <a href="product.html" class="woo-product-card" style="animation: fadeUp .4s ease ${i * 0.06}s both;">
+          <div class="woo-product-card__img-wrap">
+            <span class="woo-product-card__badge${p.badge === 'nieuw' ? ' woo-product-card__badge--new' : ''}">
+              ${p.badge === 'nieuw' ? 'Nieuw' : '-' + p.discount + '%'}
+            </span>
+            <button class="woo-product-card__wishlist" onclick="toggleWishlist(event, this)">♡</button>
+            <img src="${p.img}" alt="${p.title}" loading="lazy">
+            ${p.stock === 'outofstock' ? '<div style="position:absolute;inset:0;background:rgba(255,255,255,.7);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--ol-grey-4);">UITVERKOCHT</div>' : ''}
+          </div>
+          <div class="woo-product-card__body">
+            <div class="woo-product-card__brand">${p.brand}</div>
+            <div class="woo-product-card__title">${p.title}</div>
+            <div class="woo-price">
+              <span class="woo-price__current">€${p.price.toFixed(2).replace('.', ',')}</span>
+              <span class="woo-price__original">€${p.original.toFixed(2).replace('.', ',')}</span>
+            </div>
+          </div>
+          <div class="woo-product-card__foot">
+            <span class="woo-stock${p.stock === 'low' ? ' woo-stock--low' : ''}">${p.stock === 'instock' ? 'Op voorraad' : p.stock === 'low' ? 'Nog 2 op voorraad' : 'Uitverkocht'}</span>
+            ${p.stock !== 'outofstock' ? '<button class="woo-add-to-cart" onclick="addToCart(event, this)">+ Toevoegen</button>' : ''}
+          </div>
+        </a>
+      `).join('');
+    }
+
+    grid.style.transition = 'opacity .3s ease, transform .3s ease';
+    grid.style.opacity = '1';
+    grid.style.transform = 'translateY(0)';
+
+    // Pagination
+    renderPagination(pages);
+    updateActiveFilters();
+  }, 200);
+}
+
+// ============================================================
+// PAGINATION
+// ============================================================
+function renderPagination(pages) {
+  const el = document.getElementById('pagination');
+  if (!el || pages <= 1) { if (el) el.innerHTML = ''; return; }
+
+  let html = '<button class="page-btn page-btn--prev" onclick="goPage(' + (state.page-1) + ')" ' + (state.page===1?'disabled style="opacity:.4;pointer-events:none;"':'') + '>← Vorige</button>';
+  for (let i = 1; i <= pages; i++) {
+    if (i === 1 || i === pages || Math.abs(i - state.page) <= 1) {
+      html += '<button class="page-btn' + (i===state.page?' active':'') + '" onclick="goPage(' + i + ')">' + i + '</button>';
+    } else if (Math.abs(i - state.page) === 2) {
+      html += '<span style="color:var(--ol-grey-3);padding:0 4px;">...</span>';
+    }
+  }
+  html += '<button class="page-btn page-btn--next" onclick="goPage(' + (state.page+1) + ')" ' + (state.page===pages?'disabled style="opacity:.4;pointer-events:none;"':'') + '>Volgende →</button>';
+  el.innerHTML = html;
+}
+
+function goPage(p) {
+  state.page = p;
+  renderProducts();
+  document.querySelector('.cat-layout').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// ============================================================
+// ACTIEVE FILTERS TONEN
+// ============================================================
+function updateActiveFilters() {
+  const el = document.getElementById('activeFilters');
+  if (!el) return;
+  let tags = [];
+  state.brands.forEach(b => tags.push('<div class="active-filter" onclick="removeBrand('' + b + '')"><span>✕</span> ' + b + '</div>'));
+  if (state.minPrice > 0 || state.maxPrice < 9999) tags.push('<div class="active-filter" onclick="resetPrice()"><span>✕</span> €' + state.minPrice + ' – €' + state.maxPrice + '</div>');
+  state.discounts.forEach(d => tags.push('<div class="active-filter" onclick="removeDiscount(' + d + ')"><span>✕</span> Meer dan ' + d + '% korting</div>'));
+  if (!state.stock.includes('outofstock')) tags.push('<div class="active-filter" onclick="resetStock()"><span>✕</span> Op voorraad</div>');
+  el.innerHTML = tags.length ? tags.join('') + '<button onclick="resetFilters()" style="font-size:11px;color:var(--ol-grey-3);background:none;border:none;cursor:pointer;padding:4px 8px;">Alles wissen</button>' : '';
+}
+
+// ============================================================
+// FILTER ACTIES
+// ============================================================
+function toggleBrand(checkbox, brand) {
+  if (checkbox.checked) { state.brands.push(brand); }
+  else { state.brands = state.brands.filter(b => b !== brand); }
+  state.page = 1;
+  renderProducts();
+}
+
+function removeBrand(brand) {
+  state.brands = state.brands.filter(b => b !== brand);
+  document.querySelectorAll('.filter-option input[type=checkbox]').forEach(cb => {
+    if (cb.dataset.brand === brand) cb.checked = false;
+  });
+  state.page = 1; renderProducts();
+}
+
+function applyPrice() {
+  const min = parseFloat(document.getElementById('priceMin').value) || 0;
+  const max = parseFloat(document.getElementById('priceMax').value) || 9999;
+  state.minPrice = min; state.maxPrice = max;
+  state.page = 1; renderProducts();
+}
+
+function resetPrice() {
+  state.minPrice = 0; state.maxPrice = 9999;
+  document.getElementById('priceMin').value = '';
+  document.getElementById('priceMax').value = '';
+  state.page = 1; renderProducts();
+}
+
+function toggleDiscount(checkbox, val) {
+  const d = parseInt(val);
+  if (checkbox.checked) { state.discounts.push(d); }
+  else { state.discounts = state.discounts.filter(x => x !== d); }
+  state.page = 1; renderProducts();
+}
+
+function removeDiscount(d) {
+  state.discounts = state.discounts.filter(x => x !== d);
+  state.page = 1; renderProducts();
+}
+
+function toggleStock(checkbox, type) {
+  if (checkbox.checked) { if (!state.stock.includes(type)) state.stock.push(type); }
+  else { state.stock = state.stock.filter(s => s !== type); }
+  state.page = 1; renderProducts();
+}
+
+function resetStock() {
+  state.stock = ['instock','low'];
+  state.page = 1; renderProducts();
+}
+
+function resetFilters() {
+  state.brands = []; state.minPrice = 0; state.maxPrice = 9999;
+  state.discounts = []; state.stock = ['instock','low']; state.page = 1;
+  document.querySelectorAll('.filter-option input[type=checkbox]').forEach(cb => cb.checked = false);
+  document.getElementById('priceMin').value = '';
+  document.getElementById('priceMax').value = '';
+  renderProducts();
+}
+
+function setSort(val) { state.sort = val; state.page = 1; renderProducts(); }
+function setView(mode) {
+  state.view = mode;
+  const grid = document.getElementById('productGrid');
+  const gridBtn = document.getElementById('gridBtn');
+  const listBtn = document.getElementById('listBtn');
+  grid.classList.toggle('list-view', mode === 'list');
+  gridBtn.classList.toggle('active', mode === 'grid');
+  listBtn.classList.toggle('active', mode === 'list');
+}
+
+// Search
+function handleSearch(val) { state.search = val; state.page = 1; renderProducts(); }
+
+// Add to cart
+function addToCart(e, btn) {
+  e.preventDefault(); e.stopPropagation();
+  const orig = btn.textContent;
+  btn.textContent = '✓ Toegevoegd';
+  btn.style.background = 'var(--ol-green)';
+  btn.style.color = 'white';
+  const badge = document.querySelector('.cart-count');
+  if (badge) badge.textContent = parseInt(badge.textContent || 0) + 1;
+  setTimeout(() => { btn.textContent = orig; btn.style.background = ''; btn.style.color = ''; }, 1800);
+}
+
+// Wishlist
+function toggleWishlist(e, btn) {
+  e.preventDefault(); e.stopPropagation();
+  btn.textContent = btn.textContent === '♡' ? '♥' : '♡';
+  btn.style.color = btn.textContent === '♥' ? '#e53935' : '';
+}
+
+// Filter toggle
+function toggleFilter(head) {
+  const body = head.nextElementSibling;
+  const toggle = head.querySelector('.filter-group__toggle');
+  const isOpen = body.style.display !== 'none';
+  body.style.display = isOpen ? 'none' : 'block';
+  toggle.classList.toggle('open', !isOpen);
+}
+
+// Subcat pills
+document.querySelectorAll('.subcat-pill').forEach(pill => {
+  pill.addEventListener('click', function() {
+    document.querySelectorAll('.subcat-pill').forEach(p => p.classList.remove('active'));
+    this.classList.add('active');
+    state.page = 1; renderProducts();
+  });
+});
+
 // Scroll reveal
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+// Init
+renderProducts();
+</script>
 const obs = new IntersectionObserver((entries) => {
   entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
 }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
