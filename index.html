@@ -25,6 +25,8 @@
   - .site-header       → get_header()
   - .site-footer       → get_footer()
 -->
+<link rel="icon" type="image/jpeg" href="favicon.jpg">
+  <link rel="apple-touch-icon" href="favicon.jpg">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Barlow+Condensed:wght@700;800;900&display=swap" rel="stylesheet">
 <style>
 /* ============================================================
@@ -846,13 +848,13 @@ button { font-family: var(--ol-font); cursor: pointer; border: none; }
   <div class="w">
     <div class="site-nav__inner">
       <a href="index.html" class="site-nav__item site-nav__item--active">Alle producten</a>
-      <a href="category.html" class="site-nav__item">Elektrisch gereedschap</a>
-      <a href="category.html" class="site-nav__item">Handgereedschap</a>
-      <a href="category.html" class="site-nav__item">Bouwmaterialen</a>
-      <a href="category.html" class="site-nav__item">Schroeven</a>
-      <a href="category.html" class="site-nav__item">Tuinartikelen</a>
-      <a href="category.html" class="site-nav__item">Huishoudelijk</a>
-      <a href="category.html" class="site-nav__item">Elektronica</a>
+      <a href="category.html" class="site-nav__item">🧺 Witgoed</a>
+      <a href="category.html" class="site-nav__item">🏠 Huishoudelijk</a>
+      <a href="category.html" class="site-nav__item">🔨 Gereedschap</a>
+      <a href="category.html" class="site-nav__item">🌿 Tuin & BBQ</a>
+      <a href="category.html" class="site-nav__item">📺 Elektronica</a>
+      <a href="category.html" class="site-nav__item">🛁 Badkamer</a>
+      <a href="category.html" class="site-nav__item">❄️ Koelen & vriezen</a>
       <a href="#" class="site-nav__item site-nav__item--deals">🔥 Deals</a>
     </div>
   </div>
@@ -941,7 +943,7 @@ button { font-family: var(--ol-font); cursor: pointer; border: none; }
         8.4 klantbeoordeling
       </div>
       <div class="usp-strip__item">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><text x="5" y="18" font-size="16" font-weight="bold" stroke="none" fill="currentColor">€</text></svg>
         €50 korting bij afhalen
       </div>
     </div>
@@ -963,56 +965,56 @@ button { font-family: var(--ol-font); cursor: pointer; border: none; }
     </div>
     <!-- WP: ul.products.columns-4 → .woo-category-list -->
     <div class="woo-category-list">
-      <a href="#" class="woo-category-list__item reveal">
+      <a href="category.html" class="woo-category-list__item reveal">
+        <div class="woo-category-list__icon">🧺</div>
+        <div>
+          <div class="woo-category-list__name">Wasmachines</div>
+          <div class="woo-category-list__count">Witgoed outlet</div>
+        </div>
+      </a>
+      <a href="category.html" class="woo-category-list__item reveal reveal-delay-1">
+        <div class="woo-category-list__icon">❄️</div>
+        <div>
+          <div class="woo-category-list__name">Koelkasten & vriezers</div>
+          <div class="woo-category-list__count">Witgoed outlet</div>
+        </div>
+      </a>
+      <a href="category.html" class="woo-category-list__item reveal reveal-delay-2">
+        <div class="woo-category-list__icon">🍽️</div>
+        <div>
+          <div class="woo-category-list__name">Vaatwassers</div>
+          <div class="woo-category-list__count">Witgoed outlet</div>
+        </div>
+      </a>
+      <a href="category.html" class="woo-category-list__item reveal reveal-delay-3">
+        <div class="woo-category-list__icon">☕</div>
+        <div>
+          <div class="woo-category-list__name">Koffiemachines</div>
+          <div class="woo-category-list__count">Huishoudelijk</div>
+        </div>
+      </a>
+      <a href="category.html" class="woo-category-list__item reveal">
+        <div class="woo-category-list__icon">🍳</div>
+        <div>
+          <div class="woo-category-list__name">Ovens & kookplaten</div>
+          <div class="woo-category-list__count">Witgoed outlet</div>
+        </div>
+      </a>
+      <a href="category.html" class="woo-category-list__item reveal reveal-delay-1">
         <div class="woo-category-list__icon">⚡</div>
         <div>
           <div class="woo-category-list__name">Elektrisch gereedschap</div>
-          <div class="woo-category-list__count">72 producten</div>
+          <div class="woo-category-list__count">Gereedschap outlet</div>
         </div>
       </a>
-      <a href="#" class="woo-category-list__item reveal reveal-delay-1">
-        <div class="woo-category-list__icon">🔨</div>
-        <div>
-          <div class="woo-category-list__name">Handgereedschap</div>
-          <div class="woo-category-list__count">54 producten</div>
-        </div>
-      </a>
-      <a href="#" class="woo-category-list__item reveal reveal-delay-2">
-        <div class="woo-category-list__icon">🧱</div>
-        <div>
-          <div class="woo-category-list__name">Bouwmaterialen</div>
-          <div class="woo-category-list__count">80 producten</div>
-        </div>
-      </a>
-      <a href="#" class="woo-category-list__item reveal reveal-delay-3">
-        <div class="woo-category-list__icon">🔩</div>
-        <div>
-          <div class="woo-category-list__name">Schroeven</div>
-          <div class="woo-category-list__count">52 producten</div>
-        </div>
-      </a>
-      <a href="#" class="woo-category-list__item reveal">
+      <a href="category.html" class="woo-category-list__item reveal reveal-delay-2">
         <div class="woo-category-list__icon">🌿</div>
         <div>
-          <div class="woo-category-list__name">Tuinartikelen</div>
-          <div class="woo-category-list__count">30 producten</div>
+          <div class="woo-category-list__name">Tuin & BBQ</div>
+          <div class="woo-category-list__count">Tuinartikelen</div>
         </div>
       </a>
-      <a href="#" class="woo-category-list__item reveal reveal-delay-1">
-        <div class="woo-category-list__icon">🏠</div>
-        <div>
-          <div class="woo-category-list__name">Huishoudelijk</div>
-          <div class="woo-category-list__count">31 producten</div>
-        </div>
-      </a>
-      <a href="#" class="woo-category-list__item reveal reveal-delay-2">
-        <div class="woo-category-list__icon">📡</div>
-        <div>
-          <div class="woo-category-list__name">Elektronica</div>
-          <div class="woo-category-list__count">41 producten</div>
-        </div>
-      </a>
-      <a href="#" class="woo-category-list__item reveal reveal-delay-3" style="border-color:var(--ol-yellow);background:#fffbf0;">
+      <a href="category.html" class="woo-category-list__item reveal reveal-delay-3" style="border-color:var(--ol-yellow);background:#fffbf0;">
         <div class="woo-category-list__icon" style="border-color:var(--ol-yellow);">🔥</div>
         <div>
           <div class="woo-category-list__name" style="color:#c0392b;">Alle deals</div>
@@ -1029,11 +1031,11 @@ button { font-family: var(--ol-font); cursor: pointer; border: none; }
     <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 8px;">
       <div style="background: var(--ol-grey-1); border-radius: 8px; padding: 24px;">
         <h3 style="font-family:var(--ol-display); font-size:18px; font-weight:900; text-transform:uppercase; margin-bottom:10px;">Witgoed Outlet</h3>
-        <p style="font-size:13.5px; line-height:1.7; color:var(--ol-grey-4);">In onze witgoed outlet vind je energiezuinige wasmachines, koelkasten, vaatwassers en meer tegen extra scherpe prijzen. Ideaal voor gezinnen, starters en verhuurprojecten. Restpartijen en showroommodellen van A-merken — op = op.</p>
+        <p style="font-size:13.5px; line-height:1.7; color:var(--ol-grey-4);">Wasmachines, koelkasten, vaatwassers, ovens en afzuigkappen van A-merken als Siemens, Bosch en AEG. Restpartijen en showroommodellen — direct leverbaar, ideaal voor gezinnen en verhuurprojecten.</p>
       </div>
       <div style="background: var(--ol-grey-1); border-radius: 8px; padding: 24px;">
-        <h3 style="font-family:var(--ol-display); font-size:18px; font-weight:900; text-transform:uppercase; margin-bottom:10px;">Gereedschap Outlet</h3>
-        <p style="font-size:13.5px; line-height:1.7; color:var(--ol-grey-4);">Professioneel elektrisch en handgereedschap van Festool, Bosch, DeWalt en Makita. Direct uit voorraad, inclusief 14 dagen bedenktijd. Tijdelijke aanbiedingen en restpartijen — altijd scherp geprijsd.</p>
+        <h3 style="font-family:var(--ol-display); font-size:18px; font-weight:900; text-transform:uppercase; margin-bottom:10px;">Huishoudelijk & Gereedschap</h3>
+        <p style="font-size:13.5px; line-height:1.7; color:var(--ol-grey-4);">Koffiemachines, stofzuigers en kleine apparaten naast professioneel gereedschap van Festool, Bosch en DeWalt. Alles uit voorraad, scherp geprijsd — want bij ons geldt: op = op.</p>
       </div>
     </div>
   </div>
@@ -1442,7 +1444,7 @@ button { font-family: var(--ol-font); cursor: pointer; border: none; }
     <div class="why-grid">
       <div class="why-card reveal">
         <div class="why-card__icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><text x="5" y="18" font-size="16" font-weight="bold" stroke="none" fill="currentColor">€</text></svg>
         </div>
         <div class="why-card__title">Altijd scherp geprijsd</div>
         <p class="why-card__text">Overstock en restpartijen van A-merken. Zelfde kwaliteit, veel lagere prijs. Tot 55% goedkoper dan de adviesprijs.</p>
