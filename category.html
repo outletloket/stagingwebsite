@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Elektrisch gereedschap — Outlet Loket</title>
+<!--
+  WooCommerce koppeling:
+  - Dit is archive-product.php in het child theme
+  - .woo-product-grid     → woocommerce_product_loop
+  - .woo-product-card     → content-product.php
+  - .woo-filters          → woocommerce_output_related_products / layered nav
+  - .woo-pagination       → woocommerce_pagination()
+  - .woo-active-filters   → wc_get_template('loop/active-filters.php')
+-->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Barlow+Condensed:wght@700;800;900&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --ol-yellow:    #ffde59;
+  --ol-yellow-dk: #e8c94f;
+  --ol-black:     #111111;
+  --ol-white:     #ffffff;
+  --ol-grey-1:    #F4F4F4;
+  --ol-grey-2:    #E8E8E8;
+  --ol-grey-3:    #999999;
+  --ol-grey-4:    #555555;
+  --ol-green:     #1a9e5c;
+  --ol-red:       #e53935;
+  --ol-radius:    6px;
+  --ol-font:      'Inter', sans-serif;
+  --ol-display:   'Barlow Condensed', sans-serif;
+  --ol-max:       1200px;
+  --ol-shadow:    0 2px 12px rgba(0,0,0,.07);
+  --ol-shadow-lg: 0 8px 32px rgba(0,0,0,.12);
+}
+body { font-family: var(--ol-font); color: var(--ol-black); background: var(--ol-white); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+a { text-decoration: none; color: inherit; }
+img { display: block; max-width: 100%; }
+button { font-family: var(--ol-font); cursor: pointer; border: none; }
+.w { max-width: var(--ol-max); margin: 0 auto; padding: 0 20px; }
+
+/* ── ANIMATIONS ── */
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes pulse-ring {
+  0%   { box-shadow: 0 0 0 0 rgba(255,222,89,.4); }
+  70%  { box-shadow: 0 0 0 9px rgba(255,222,89,0); }
+  100% { box-shadow: 0 0 0 0 rgba(255,222,89,0); }
+}
+.reveal { opacity: 0; transform: translateY(18px); transition: opacity .45s ease, transform .45s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-delay-1 { transition-delay: .07s; }
+.reveal-delay-2 { transition-delay: .14s; }
+.reveal-delay-3 { transition-delay: .21s; }
+
+/* ── TOPBAR ── */
+.site-topbar { background: var(--ol-black); color: #999; font-size: 11.5px; letter-spacing: .04em; padding: 8px 0; animation: fadeIn .3s ease; }
+.site-topbar__inner { display: flex; justify-content: center; gap: 28px; flex-wrap: wrap; }
+.site-topbar__item { display: flex; align-items: center; gap: 5px; }
+.site-topbar__item::before { content: '✓'; color: var(--ol-yellow); font-weight: 700; }
+
+/* ── HEADER ── */
+.site-header { background: var(--ol-white); border-bottom: 1px solid var(--ol-grey-2); position: sticky; top: 0; z-index: 200; animation: fadeIn .4s ease; }
+.site-header__inner { height: 62px; display: grid; grid-template-columns: 180px 1fr auto; align-items: center; gap: 20px; }
+.site-search { display: flex; border: 1.5px solid var(--ol-grey-2); border-radius: var(--ol-radius); overflow: hidden; transition: border-color .18s; height: 40px; }
+.site-search:focus-within { border-color: var(--ol-yellow); }
+.site-search__input { flex: 1; border: none; outline: none; font-family: var(--ol-font); font-size: 13.5px; padding: 0 14px; color: var(--ol-black); }
+.site-search__input::placeholder { color: var(--ol-grey-3); }
+.site-search__btn { background: var(--ol-yellow); border: none; width: 44px; cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--ol-black); transition: background .18s; }
+.site-search__btn:hover { background: var(--ol-yellow-dk); }
+.site-header__actions { display: flex; align-items: center; gap: 6px; }
+.hdr-btn { display: flex; align-items: center; gap: 5px; font-size: 13px; font-weight: 500; color: var(--ol-grey-4); padding: 7px 12px; border-radius: var(--ol-radius); border: 1.5px solid transparent; transition: all .15s; white-space: nowrap; }
+.hdr-btn:hover { color: var(--ol-black); border-color: var(--ol-grey-2); }
+.hdr-btn svg { width: 16px; height: 16px; flex-shrink: 0; }
+.hdr-btn--cart { background: var(--ol-yellow); color: var(--ol-black) !important; border-color: var(--ol-yellow) !important; font-weight: 700 !important; animation: pulse-ring 2.5s ease infinite; }
+.cart-count { background: var(--ol-black); color: var(--ol-white); font-size: 10px; font-weight: 700; width: 17px; height: 17px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+
+/* ── NAV ── */
+.site-nav { border-bottom: 1px solid var(--ol-grey-2); background: var(--ol-white); }
+.site-nav__inner { display: flex; overflow-x: auto; scrollbar-width: none; }
+.site-nav__inner::-webkit-scrollbar { display: none; }
+.site-nav__item { font-size: 13px; font-weight: 500; color: var(--ol-grey-4); padding: 12px 15px; white-space: nowrap; border-bottom: 2px solid transparent; transition: all .15s; }
+.site-nav__item:hover { color: var(--ol-black); }
+.site-nav__item--active { color: var(--ol-black); border-bottom-color: var(--ol-yellow); font-weight: 600; }
+.site-nav__item--deals { color: var(--ol-red); font-weight: 600; }
+
+/* ── BREADCRUMB ── */
+.breadcrumb { padding: 14px 0; font-size: 12.5px; color: var(--ol-grey-3); display: flex; align-items: center; gap: 6px; animation: fadeUp .4s ease .1s both; }
+.breadcrumb a { color: var(--ol-grey-3); transition: color .15s; }
+.breadcrumb a:hover { color: var(--ol-black); }
+.breadcrumb span { color: var(--ol-grey-2); }
+.breadcrumb strong { color: var(--ol-black); font-weight: 500; }
+
+/* ── CATEGORY HEADER ── */
+.cat-header {
+  background: var(--ol-black);
+  padding: 40px 0;
+  animation: fadeUp .5s ease .1s both;
+}
+.cat-header__inner {
+  display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;
+}
+.cat-header__left {}
+.cat-header__eyebrow { font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--ol-yellow); margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+.cat-header__eyebrow::before { content: ''; width: 16px; height: 2px; background: var(--ol-yellow); }
+.cat-header__title { font-family: var(--ol-display); font-size: clamp(32px, 4vw, 52px); font-weight: 900; color: var(--ol-white); text-transform: uppercase; line-height: .95; }
+.cat-header__count { font-size: 14px; color: #555; margin-top: 8px; }
+.cat-header__subcats { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 20px; }
+.subcat-pill { background: rgba(255,255,255,.08); color: #aaa; font-size: 12px; font-weight: 500; padding: 5px 12px; border-radius: 20px; border: 1px solid rgba(255,255,255,.1); cursor: pointer; transition: all .15s; }
+.subcat-pill:hover, .subcat-pill.active { background: var(--ol-yellow); color: var(--ol-black); border-color: var(--ol-yellow); font-weight: 600; }
+
+/* ── MAIN LAYOUT ── */
+.cat-layout { padding: 32px 0 60px; }
+.cat-layout__inner { display: grid; grid-template-columns: 240px 1fr; gap: 28px; align-items: start; }
+
+/* ── SIDEBAR FILTERS — WP: woocommerce_sidebar() ── */
+.woo-filters { position: sticky; top: 80px; }
+.filter-group { margin-bottom: 24px; border: 1.5px solid var(--ol-grey-2); border-radius: var(--ol-radius); overflow: hidden; }
+.filter-group__head { padding: 13px 16px; background: var(--ol-grey-1); display: flex; justify-content: space-between; align-items: center; cursor: pointer; user-select: none; }
+.filter-group__title { font-size: 13px; font-weight: 700; color: var(--ol-black); text-transform: uppercase; letter-spacing: .06em; }
+.filter-group__toggle { font-size: 12px; color: var(--ol-grey-3); transition: transform .2s; }
+.filter-group__toggle.open { transform: rotate(180deg); }
+.filter-group__body { padding: 14px 16px; background: var(--ol-white); }
+.filter-option { display: flex; align-items: center; gap: 10px; padding: 6px 0; cursor: pointer; border-radius: 3px; transition: background .1s; }
+.filter-option:hover { background: var(--ol-grey-1); padding-left: 4px; }
+.filter-option input[type="checkbox"] { width: 15px; height: 15px; accent-color: var(--ol-yellow); cursor: pointer; flex-shrink: 0; }
+.filter-option__label { font-size: 13px; color: var(--ol-grey-4); flex: 1; }
+.filter-option__count { font-size: 11px; color: var(--ol-grey-3); }
+.filter-price { display: flex; gap: 8px; align-items: center; }
+.filter-price input { flex: 1; border: 1.5px solid var(--ol-grey-2); border-radius: 4px; padding: 7px 10px; font-size: 13px; font-family: var(--ol-font); outline: none; }
+.filter-price input:focus { border-color: var(--ol-yellow); }
+.filter-price span { font-size: 12px; color: var(--ol-grey-3); }
+.btn-filter-apply { width: 100%; background: var(--ol-yellow); color: var(--ol-black); font-family: var(--ol-display); font-size: 13px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; padding: 10px; border-radius: 4px; border: none; cursor: pointer; margin-top: 10px; transition: background .15s; }
+.btn-filter-apply:hover { background: var(--ol-yellow-dk); }
+.btn-filter-reset { width: 100%; background: none; color: var(--ol-grey-3); font-size: 12px; padding: 6px; border: none; cursor: pointer; margin-top: 4px; transition: color .15s; }
+.btn-filter-reset:hover { color: var(--ol-red); }
+
+/* Active filters */
+.active-filters { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
+.active-filter { display: flex; align-items: center; gap: 5px; background: var(--ol-yellow); color: var(--ol-black); font-size: 11.5px; font-weight: 600; padding: 4px 10px; border-radius: 20px; cursor: pointer; transition: background .15s; }
+.active-filter:hover { background: var(--ol-yellow-dk); }
+.active-filter span { font-size: 13px; line-height: 1; }
+
+/* ── PRODUCT AREA ── */
+.cat-toolbar {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 20px; flex-wrap: wrap; gap: 10px;
+}
+.cat-toolbar__result { font-size: 13px; color: var(--ol-grey-4); }
+.cat-toolbar__result strong { color: var(--ol-black); }
+.cat-toolbar__right { display: flex; gap: 8px; align-items: center; }
+.sort-select { border: 1.5px solid var(--ol-grey-2); border-radius: var(--ol-radius); padding: 7px 12px; font-family: var(--ol-font); font-size: 13px; color: var(--ol-black); background: var(--ol-white); cursor: pointer; outline: none; transition: border-color .15s; appearance: none; padding-right: 28px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23999' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 8px center; }
+.sort-select:focus { border-color: var(--ol-yellow); }
+.view-toggle { display: flex; border: 1.5px solid var(--ol-grey-2); border-radius: var(--ol-radius); overflow: hidden; }
+.view-btn { padding: 7px 10px; background: none; border: none; cursor: pointer; color: var(--ol-grey-3); transition: all .15s; }
+.view-btn.active { background: var(--ol-yellow); color: var(--ol-black); }
+.view-btn:hover:not(.active) { background: var(--ol-grey-1); }
+
+/* ── PRODUCT GRID ── */
+.woo-product-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.woo-product-grid.list-view { grid-template-columns: 1fr; }
+
+/* WP: li.product */
+.woo-product-card { border: 1.5px solid var(--ol-grey-2); border-radius: var(--ol-radius); overflow: hidden; background: var(--ol-white); transition: all .2s cubic-bezier(.34,1.56,.64,1); display: flex; flex-direction: column; }
+.woo-product-card:hover { border-color: #ccc; box-shadow: var(--ol-shadow-lg); transform: translateY(-4px); }
+.woo-product-card__img-wrap { height: 180px; background: var(--ol-grey-1); position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+.woo-product-card__img-wrap img { width: 100%; height: 100%; object-fit: contain; padding: 16px; transition: transform .35s ease; }
+.woo-product-card:hover .woo-product-card__img-wrap img { transform: scale(1.05); }
+.woo-product-card__badge { position: absolute; top: 10px; left: 10px; background: var(--ol-yellow); color: var(--ol-black); font-family: var(--ol-display); font-size: 11px; font-weight: 800; padding: 2px 8px; border-radius: 3px; letter-spacing: .04em; }
+.woo-product-card__badge--new { background: var(--ol-black); color: var(--ol-yellow); }
+.woo-product-card__wishlist { position: absolute; top: 10px; right: 10px; width: 28px; height: 28px; background: rgba(255,255,255,.9); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; cursor: pointer; border: none; transition: transform .15s; }
+.woo-product-card__wishlist:hover { transform: scale(1.15); }
+.woo-product-card__body { padding: 14px; flex: 1; display: flex; flex-direction: column; }
+.woo-product-card__brand { font-size: 10.5px; font-weight: 700; color: var(--ol-yellow); text-transform: uppercase; letter-spacing: .1em; margin-bottom: 4px; }
+.woo-product-card__title { font-size: 13.5px; font-weight: 500; color: var(--ol-black); line-height: 1.35; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; margin-bottom: auto; }
+.woo-price { display: flex; align-items: baseline; gap: 7px; margin-top: 14px; }
+.woo-price__current { font-family: var(--ol-display); font-size: 22px; font-weight: 900; color: var(--ol-black); }
+.woo-price__original { font-size: 12.5px; color: var(--ol-grey-3); text-decoration: line-through; }
+.woo-product-card__foot { padding: 10px 14px; border-top: 1px solid var(--ol-grey-2); display: flex; align-items: center; justify-content: space-between; }
+.woo-stock { font-size: 11.5px; font-weight: 600; color: var(--ol-green); display: flex; align-items: center; gap: 5px; }
+.woo-stock::before { content: ''; width: 6px; height: 6px; background: var(--ol-green); border-radius: 50%; }
+.woo-stock--low { color: #b45309; }
+.woo-stock--low::before { background: #b45309; }
+.woo-add-to-cart { font-family: var(--ol-display); font-size: 12px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; background: var(--ol-black); color: var(--ol-white); border: none; padding: 7px 14px; border-radius: 3px; cursor: pointer; transition: background .15s; }
+.woo-add-to-cart:hover { background: var(--ol-yellow); color: var(--ol-black); }
+
+/* List view card */
+.woo-product-grid.list-view .woo-product-card { flex-direction: row; }
+.woo-product-grid.list-view .woo-product-card__img-wrap { width: 160px; height: auto; flex-shrink: 0; }
+.woo-product-grid.list-view .woo-product-card__body { padding: 18px 20px; }
+.woo-product-grid.list-view .woo-product-card__title { -webkit-line-clamp: 3; }
+.woo-product-grid.list-view .woo-product-card__foot { border-top: none; border-left: 1px solid var(--ol-grey-2); padding: 18px; flex-direction: column; align-items: flex-end; justify-content: center; gap: 10px; width: 160px; flex-shrink: 0; }
+
+/* ── PAGINATION — WP: woocommerce_pagination() ── */
+.woo-pagination { display: flex; justify-content: center; align-items: center; gap: 4px; margin-top: 40px; }
+.page-btn { width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; border: 1.5px solid var(--ol-grey-2); border-radius: var(--ol-radius); font-size: 13px; font-weight: 500; color: var(--ol-grey-4); background: var(--ol-white); cursor: pointer; transition: all .15s; }
+.page-btn:hover { border-color: var(--ol-yellow); color: var(--ol-black); }
+.page-btn.active { background: var(--ol-yellow); border-color: var(--ol-yellow); color: var(--ol-black); font-weight: 700; }
+.page-btn--prev, .page-btn--next { width: auto; padding: 0 14px; gap: 6px; }
+
+/* ── FOOTER ── */
+.site-footer { background: var(--ol-black); border-top: 3px solid var(--ol-yellow); padding: 52px 0 24px; }
+.site-footer__grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; padding-bottom: 40px; border-bottom: 1px solid #1e1e1e; margin-bottom: 24px; }
+.site-footer__brand p { font-size: 13px; color: #555; line-height: 1.7; margin-top: 16px; max-width: 250px; }
+.site-footer__col h5 { font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #444; margin-bottom: 14px; }
+.site-footer__col ul { list-style: none; }
+.site-footer__col li { margin-bottom: 8px; }
+.site-footer__col a { font-size: 13px; color: #555; transition: color .15s; }
+.site-footer__col a:hover { color: var(--ol-yellow); }
+.site-footer__bottom { display: flex; justify-content: space-between; font-size: 11.5px; color: #333; flex-wrap: wrap; gap: 8px; }
+.site-footer__bottom a { color: #333; }
+.site-footer__bottom a:hover { color: var(--ol-yellow); }
+.footer-legal { display: flex; gap: 20px; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .cat-layout__inner { grid-template-columns: 1fr; }
+  .woo-filters { display: none; }
+  .woo-product-grid { grid-template-columns: repeat(2, 1fr); }
+  .site-footer__grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 640px) {
+  .site-header__inner { grid-template-columns: auto 1fr; }
+  .site-header__actions { display: none; }
+  .woo-product-grid { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="site-topbar">
+  <div class="site-topbar__inner">
+    <span class="site-topbar__item">14 dagen bedenktijd</span>
+    <span class="site-topbar__item">Werkdagen voor 16:00 verzonden</span>
+    <span class="site-topbar__item">Gratis verzending v.a. €500</span>
+    <span class="site-topbar__item">Ophalen = €50 extra korting</span>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="w">
+    <div class="site-header__inner">
+      <a href="index.html">
+        <svg viewBox="0 0 220 70" width="130" fill="none">
+          <text x="0" y="28" font-family="'Barlow Condensed'" font-weight="900" font-size="26" letter-spacing="2" fill="#111">OUTLET</text>
+          <rect x="110" y="14" width="56" height="6" fill="#111"/>
+          <rect x="44" y="44" width="40" height="6" fill="#111"/>
+          <text x="92" y="62" font-family="'Barlow Condensed'" font-weight="900" font-size="26" letter-spacing="2" fill="#111">LOKET</text>
+        </svg>
+      </a>
+      <div class="site-search">
+        <input class="site-search__input" type="text" placeholder="Zoek op product, merk of categorie...">
+        <button class="site-search__btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        </button>
+      </div>
+      <div class="site-header__actions">
+        <a href="#" class="hdr-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          Verlanglijst
+        </a>
+        <a href="#" class="hdr-btn hdr-btn--cart">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          Winkelwagen
+          <span class="cart-count">0</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- NAV -->
+<nav class="site-nav">
+  <div class="w">
+    <div class="site-nav__inner">
+      <a href="index.html" class="site-nav__item">Alle producten</a>
+      <a href="category.html" class="site-nav__item site-nav__item--active">Elektrisch gereedschap</a>
+      <a href="#" class="site-nav__item">Handgereedschap</a>
+      <a href="#" class="site-nav__item">Bouwmaterialen</a>
+      <a href="#" class="site-nav__item">Schroeven</a>
+      <a href="#" class="site-nav__item">Tuinartikelen</a>
+      <a href="#" class="site-nav__item">Huishoudelijk</a>
+      <a href="#" class="site-nav__item">Elektronica</a>
+      <a href="#" class="site-nav__item site-nav__item--deals">🔥 Deals</a>
+    </div>
+  </div>
+</nav>
+
+<!-- BREADCRUMB -->
+<div class="w">
+  <div class="breadcrumb">
+    <a href="index.html">Home</a>
+    <span>›</span>
+    <strong>Elektrisch gereedschap</strong>
+  </div>
+</div>
+
+<!-- CATEGORY HEADER -->
+<section class="cat-header">
+  <div class="w">
+    <div class="cat-header__inner">
+      <div class="cat-header__left">
+        <div class="cat-header__eyebrow">Assortiment</div>
+        <h1 class="cat-header__title">Elektrisch<br>gereedschap</h1>
+        <p class="cat-header__count">72 producten gevonden</p>
+        <div class="cat-header__subcats">
+          <span class="subcat-pill active">Alle</span>
+          <span class="subcat-pill">Boorhamer</span>
+          <span class="subcat-pill">Stofzuiger</span>
+          <span class="subcat-pill">Cirkelzaag</span>
+          <span class="subcat-pill">Schuurmachine</span>
+          <span class="subcat-pill">Multitool</span>
+          <span class="subcat-pill">Accu set</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MAIN CONTENT -->
+<div class="cat-layout">
+  <div class="w">
+    <div class="cat-layout__inner">
+
+      <!-- SIDEBAR FILTERS -->
+      <aside class="woo-filters">
+
+        <!-- Actieve filters -->
+        <div class="active-filters" id="activeFilters">
+          <div class="active-filter" onclick="removeFilter(this)">
+            Elektrisch gereedschap <span>×</span>
+          </div>
+        </div>
+
+        <!-- Prijs filter -->
+        <div class="filter-group">
+          <div class="filter-group__head" onclick="toggleFilter(this)">
+            <span class="filter-group__title">Prijs</span>
+            <span class="filter-group__toggle open">▾</span>
+          </div>
+          <div class="filter-group__body">
+            <div class="filter-price">
+              <input type="number" placeholder="€ Min" min="0">
+              <span>—</span>
+              <input type="number" placeholder="€ Max" max="5000">
+            </div>
+            <button class="btn-filter-apply">Toepassen</button>
+            <button class="btn-filter-reset">Reset filters</button>
+          </div>
+        </div>
+
+        <!-- Merk filter -->
+        <div class="filter-group">
+          <div class="filter-group__head" onclick="toggleFilter(this)">
+            <span class="filter-group__title">Merk</span>
+            <span class="filter-group__toggle open">▾</span>
+          </div>
+          <div class="filter-group__body">
+            <label class="filter-option"><input type="checkbox"> <span class="filter-option__label">Festool</span> <span class="filter-option__count">18</span></label>
+            <label class="filter-option"><input type="checkbox"> <span class="filter-option__label">Bosch</span> <span class="filter-option__count">14</span></label>
+            <label class="filter-option"><input type="checkbox"> <span class="filter-option__label">Makita</span> <span class="filter-option__count">12</span></label>
+            <label class="filter-option"><input type="checkbox"> <span class="filter-option__label">DeWalt</span> <span class="filter-option__count">10</span></label>
+            <label class="filter-option"><input type="checkbox"> <span class="filter-option__label">Milwaukee</span> <span class="filter-option__count">9</span></label>
+            <label class="filter-option"><input type="checkbox"> <span class="filter-option__label">Panasonic</span> <span class="filter-option__count">9</span></label>
+          </div>
+        </div>
+
+        <!-- Korting filter -->
+        <div class="filter-group">
+          <div class="filter-group__head" onclick="toggleFilter(this)">
+            <span class="filter-group__title">Korting</span>
+            <span class="filter-group__toggle open">▾</span>
+          </div>
+          <div class="filter-group__body">
+            <label class="filter-option"><input type="checkbox"> <span class="filter-option__label">Meer dan 10%</span> <span class="filter-option__count">68</span></label>
+            <label class="filter-option"><input type="checkbox"> <span class="filter-option__label">Meer dan 20%</span> <span class="filter-option__count">44</span></label>
+            <label class="filter-option"><input type="checkbox"> <span class="filter-option__label">Meer dan 30%</span> <span class="filter-option__count">21</span></label>
+            <label class="filter-option"><input type="checkbox"> <span class="filter-option__label">Meer dan 40%</span> <span class="filter-option__count">8</span></label>
+          </div>
+        </div>
+
+        <!-- Voorraad filter -->
+        <div class="filter-group">
+          <div class="filter-group__head" onclick="toggleFilter(this)">
+            <span class="filter-group__title">Beschikbaarheid</span>
+            <span class="filter-group__toggle open">▾</span>
+          </div>
+          <div class="filter-group__body">
+            <label class="filter-option"><input type="checkbox" checked> <span class="filter-option__label">Op voorraad</span> <span class="filter-option__count">65</span></label>
+            <label class="filter-option"><input type="checkbox"> <span class="filter-option__label">Inclusief uitverkocht</span> <span class="filter-option__count">72</span></label>
+          </div>
+        </div>
+
+      </aside>
+
+      <!-- PRODUCT AREA -->
+      <div>
+        <!-- Toolbar -->
+        <div class="cat-toolbar">
+          <p class="cat-toolbar__result"><strong>72</strong> producten gevonden</p>
+          <div class="cat-toolbar__right">
+            <select class="sort-select">
+              <option>Meest verkocht</option>
+              <option>Prijs laag-hoog</option>
+              <option>Prijs hoog-laag</option>
+              <option>Meeste korting</option>
+              <option>Nieuwste eerst</option>
+            </select>
+            <div class="view-toggle">
+              <button class="view-btn active" id="gridBtn" onclick="setView('grid')" title="Rasterweergave">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+              </button>
+              <button class="view-btn" id="listBtn" onclick="setView('list')" title="Lijstweergave">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product grid -->
+        <div class="woo-product-grid" id="productGrid">
+
+          <a href="product.html" class="woo-product-card reveal">
+            <div class="woo-product-card__img-wrap">
+              <span class="woo-product-card__badge">-23%</span>
+              <button class="woo-product-card__wishlist" onclick="event.preventDefault()">♡</button>
+              <img src="https://media.s-bol.com/qL3L9v6qvGvr/9AAZ8/550x658.jpg" alt="Festool DOMINO XL" loading="lazy">
+            </div>
+            <div class="woo-product-card__body">
+              <div class="woo-product-card__brand">Festool</div>
+              <div class="woo-product-card__title">Festool DOMINO XL Stenen Assortiment Beukenhout DS/XL D8</div>
+              <div class="woo-price"><span class="woo-price__current">€229,95</span><span class="woo-price__original">€299,95</span></div>
+            </div>
+            <div class="woo-product-card__foot">
+              <span class="woo-stock">Op voorraad</span>
+              <button class="woo-add-to-cart" onclick="event.preventDefault()">+ Toevoegen</button>
+            </div>
+          </a>
+
+          <a href="product.html" class="woo-product-card reveal reveal-delay-1">
+            <div class="woo-product-card__img-wrap">
+              <span class="woo-product-card__badge">-15%</span>
+              <button class="woo-product-card__wishlist" onclick="event.preventDefault()">♡</button>
+              <img src="https://media.s-bol.com/4Z3081QoJY0n/2RJjMP1/250x200.jpg" alt="Festool stofzuiger" loading="lazy">
+            </div>
+            <div class="woo-product-card__body">
+              <div class="woo-product-card__brand">Festool</div>
+              <div class="woo-product-card__title">Festool CTLC MIDI I-Basic Accu stofzuiger CLEANTEC</div>
+              <div class="woo-price"><span class="woo-price__current">€254,95</span><span class="woo-price__original">€299,95</span></div>
+            </div>
+            <div class="woo-product-card__foot">
+              <span class="woo-stock">Op voorraad</span>
+              <button class="woo-add-to-cart" onclick="event.preventDefault()">+ Toevoegen</button>
+            </div>
+          </a>
+
+          <a href="product.html" class="woo-product-card reveal reveal-delay-2">
+            <div class="woo-product-card__img-wrap">
+              <span class="woo-product-card__badge">-32%</span>
+              <button class="woo-product-card__wishlist" onclick="event.preventDefault()">♡</button>
+              <img src="https://media.s-bol.com/49ov9RqRY8kJ/550x297.jpg" alt="Makita Pin tacker" loading="lazy">
+            </div>
+            <div class="woo-product-card__body">
+              <div class="woo-product-card__brand">Makita</div>
+              <div class="woo-product-card__title">Makita PT001GZ 40V Max Pin tacker koolborstelloos</div>
+              <div class="woo-price"><span class="woo-price__current">€235,00</span><span class="woo-price__original">€344,95</span></div>
+            </div>
+            <div class="woo-product-card__foot">
+              <span class="woo-stock">Op voorraad</span>
+              <button class="woo-add-to-cart" onclick="event.preventDefault()">+ Toevoegen</button>
+            </div>
+          </a>
+
+          <a href="product.html" class="woo-product-card reveal reveal-delay-3">
+            <div class="woo-product-card__img-wrap">
+              <span class="woo-product-card__badge">-15%</span>
+              <button class="woo-product-card__wishlist" onclick="event.preventDefault()">♡</button>
+              <img src="https://media.s-bol.com/j6AxJDK5Lm5Y/A682lp1/250x200.jpg" alt="Bosch werktafel" loading="lazy">
+            </div>
+            <div class="woo-product-card__body">
+              <div class="woo-product-card__brand">Bosch</div>
+              <div class="woo-product-card__title">Bosch Werktafel GTA 600 voor GTS 10 J tafelzaag</div>
+              <div class="woo-price"><span class="woo-price__current">€84,95</span><span class="woo-price__original">€99,95</span></div>
+            </div>
+            <div class="woo-product-card__foot">
+              <span class="woo-stock">Op voorraad</span>
+              <button class="woo-add-to-cart" onclick="event.preventDefault()">+ Toevoegen</button>
+            </div>
+          </a>
+
+          <a href="product.html" class="woo-product-card reveal">
+            <div class="woo-product-card__img-wrap">
+              <span class="woo-product-card__badge">-18%</span>
+              <button class="woo-product-card__wishlist" onclick="event.preventDefault()">♡</button>
+              <img src="https://media.s-bol.com/Bpk8oXgrvD7Q/g3vKoZ/250x200.jpg" alt="Panasonic multitool" loading="lazy">
+            </div>
+            <div class="woo-product-card__body">
+              <div class="woo-product-card__brand">Panasonic</div>
+              <div class="woo-product-card__title">Panasonic EY46A5X Accu multitool 14,4/18V Basic Body</div>
+              <div class="woo-price"><span class="woo-price__current">€209,95</span><span class="woo-price__original">€254,95</span></div>
+            </div>
+            <div class="woo-product-card__foot">
+              <span class="woo-stock">Op voorraad</span>
+              <button class="woo-add-to-cart" onclick="event.preventDefault()">+ Toevoegen</button>
+            </div>
+          </a>
+
+          <a href="product.html" class="woo-product-card reveal reveal-delay-1">
+            <div class="woo-product-card__img-wrap">
+              <span class="woo-product-card__badge">-20%</span>
+              <button class="woo-product-card__wishlist" onclick="event.preventDefault()">♡</button>
+              <img src="https://media.s-bol.com/qL3L9v6qvGvr/9AAZ8/550x658.jpg" alt="Bosch boorhamer" loading="lazy">
+            </div>
+            <div class="woo-product-card__body">
+              <div class="woo-product-card__brand">Bosch</div>
+              <div class="woo-product-card__title">Bosch GBH 2-23 REA Boorhamer met stofafzuiging SDS-plus</div>
+              <div class="woo-price"><span class="woo-price__current">€215,00</span><span class="woo-price__original">€315,00</span></div>
+            </div>
+            <div class="woo-product-card__foot">
+              <span class="woo-stock woo-stock--low">Nog 2 op voorraad</span>
+              <button class="woo-add-to-cart" onclick="event.preventDefault()">+ Toevoegen</button>
+            </div>
+          </a>
+
+        </div>
+
+        <!-- Pagination -->
+        <div class="woo-pagination">
+          <button class="page-btn page-btn--prev">← Vorige</button>
+          <button class="page-btn active">1</button>
+          <button class="page-btn">2</button>
+          <button class="page-btn">3</button>
+          <span style="color:var(--ol-grey-3); padding: 0 4px;">...</span>
+          <button class="page-btn">8</button>
+          <button class="page-btn page-btn--next">Volgende →</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="w">
+    <div class="site-footer__grid">
+      <div class="site-footer__brand">
+        <svg viewBox="0 0 220 70" width="120" fill="none">
+          <text x="0" y="28" font-family="'Barlow Condensed'" font-weight="900" font-size="26" letter-spacing="2" fill="white">OUTLET</text>
+          <rect x="110" y="14" width="56" height="6" fill="white"/>
+          <rect x="44" y="44" width="40" height="6" fill="white"/>
+          <text x="92" y="62" font-family="'Barlow Condensed'" font-weight="900" font-size="26" letter-spacing="2" fill="white">LOKET</text>
+        </svg>
+        <p>A-merken gereedschap en meer — direct uit voorraad, scherp geprijsd. Fysieke winkel in Baak.</p>
+      </div>
+      <div class="site-footer__col">
+        <h5>Categorieën</h5>
+        <ul>
+          <li><a href="category.html">Elektrisch gereedschap</a></li>
+          <li><a href="#">Handgereedschap</a></li>
+          <li><a href="#">Bouwmaterialen</a></li>
+          <li><a href="#">Schroeven</a></li>
+          <li><a href="#">Tuinartikelen</a></li>
+          <li><a href="#">Elektronica</a></li>
+        </ul>
+      </div>
+      <div class="site-footer__col">
+        <h5>Klantenservice</h5>
+        <ul>
+          <li><a href="#">Retourneren</a></li>
+          <li><a href="#">Verzending</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#">Openingstijden</a></li>
+        </ul>
+      </div>
+      <div class="site-footer__col">
+        <h5>Over ons</h5>
+        <ul>
+          <li><a href="#">Over Outlet Loket</a></li>
+          <li><a href="#">Partner worden</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Privacybeleid</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="site-footer__bottom">
+      <span>© 2026 Outlet Loket — Luno Trading B.V. — KvK 42057628</span>
+      <div class="footer-legal">
+        <a href="#">Privacybeleid</a>
+        <a href="#">Algemene voorwaarden</a>
+        <a href="#">Cookies</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Scroll reveal
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+// Filter toggle
+function toggleFilter(head) {
+  const body = head.nextElementSibling;
+  const toggle = head.querySelector('.filter-group__toggle');
+  const isOpen = body.style.display !== 'none';
+  body.style.display = isOpen ? 'none' : 'block';
+  toggle.classList.toggle('open', !isOpen);
+}
+
+// Remove active filter
+function removeFilter(el) {
+  el.remove();
+}
+
+// View toggle
+function setView(mode) {
+  const grid = document.getElementById('productGrid');
+  const gridBtn = document.getElementById('gridBtn');
+  const listBtn = document.getElementById('listBtn');
+  if (mode === 'list') {
+    grid.classList.add('list-view');
+    listBtn.classList.add('active');
+    gridBtn.classList.remove('active');
+  } else {
+    grid.classList.remove('list-view');
+    gridBtn.classList.add('active');
+    listBtn.classList.remove('active');
+  }
+}
+
+// Subcat filter
+document.querySelectorAll('.subcat-pill').forEach(pill => {
+  pill.addEventListener('click', function() {
+    document.querySelectorAll('.subcat-pill').forEach(p => p.classList.remove('active'));
+    this.classList.add('active');
+  });
+});
+
+// Add to cart
+document.querySelectorAll('.woo-add-to-cart').forEach(btn => {
+  btn.addEventListener('click', function(e) {
+    e.preventDefault(); e.stopPropagation();
+    const orig = this.textContent;
+    this.textContent = '✓ Toegevoegd';
+    this.style.background = 'var(--ol-green)';
+    this.style.color = 'white';
+    const badge = document.querySelector('.cart-count');
+    if (badge) badge.textContent = parseInt(badge.textContent || 0) + 1;
+    setTimeout(() => { this.textContent = orig; this.style.background = ''; this.style.color = ''; }, 1800);
+  });
+});
+
+// Wishlist
+document.querySelectorAll('.woo-product-card__wishlist').forEach(btn => {
+  btn.addEventListener('click', function(e) {
+    e.preventDefault(); e.stopPropagation();
+    this.textContent = this.textContent === '♡' ? '♥' : '♡';
+    this.style.color = this.textContent === '♥' ? '#e53935' : '';
+  });
+});
+</script>
+</body>
+</html>
